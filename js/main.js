@@ -362,6 +362,7 @@
   if (!SITE.available) $('#avail').hidden = true;
   if (tg) {
     const a = $('#tg-link'); a.href = 'https://t.me/' + tg; a.lastElementChild.textContent = 'Telegram · @' + tg;
+    $('.nav__tg').href = a.href;
   } else if (!viaApi) {
     console.info('[dorvan] Укажите telegram или endpoint в js/config.js — иначе заявка только копируется.');
   }

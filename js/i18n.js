@@ -9,7 +9,7 @@ window.I18N = {
     'brand.sub': 'Websites for business',
     'nav.about': 'About', 'nav.services': 'Services', 'nav.prices': 'Prices', 'nav.work': 'Work',
     'nav.process': 'Process', 'nav.faq': 'FAQ', 'nav.contact': 'Contact',
-    'nav.cta': "Let's talk", 'nav.menu': 'Menu',
+    'nav.cta': "Let's talk", 'nav.menu': 'Menu', 'nav.tg': 'Message me on Telegram',
 
     'hero.avail': 'Open for new projects',
     'hero.eyebrow': 'Website studio · Dushanbe',
