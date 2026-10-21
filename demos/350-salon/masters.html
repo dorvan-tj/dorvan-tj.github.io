@@ -1,0 +1,173 @@
+<!doctype html>
+<!-- Этот файл собран скриптом build-pages.mjs из src/. Правьте заготовки в src/ и js/data.js, а не его. -->
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<script>document.documentElement.className += " js";</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#FBF5EF">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preload" href="fonts/playfair-display-cyrillic-500-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/manrope-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/style.css">
+
+<title>Мастера — Iris, салон красоты в Душанбе</title>
+<meta name="description" content="Мастера салона Iris: стилисты, барбер, мастер маникюра, косметолог, бровист и визажист. Выберите мастера и запишитесь онлайн. Концепт студии Dorvan.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Iris beauty studio (концепт студии Dorvan)">
+<meta property="og:title" content="Мастера — Iris">
+<meta property="og:description" content="Знакомьтесь с мастерами салона и запишитесь к тому, кто вам подходит. Концепт студии Dorvan.">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:image" content="https://dorvan-tj.github.io/demos/350-salon/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+<a class="skip" href="#main">Перейти к содержимому</a>
+<header class="site-header">
+  <div class="wrap header__row">
+    <a class="logo" href="index.html" aria-label="Iris — на главную">
+      <svg class="logo__mark" viewBox="0 0 32 32" width="30" height="30" aria-hidden="true" focusable="false"><path d="M5 28V15a11 11 0 0 1 22 0v13z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="16" cy="19" r="3.6" fill="currentColor"/><path d="M16 15c-2.4-3-1.4-6.4 0-8.6 1.4 2.2 2.4 5.6 0 8.6z" fill="currentColor" opacity=".55"/></svg>
+      <span>Iris</span>
+    </a>
+    <span class="badge-concept" title="Концепт: вымышленный салон. Названия, цены и адреса придуманы для примера.">Концепт</span>
+    <nav class="nav" aria-label="Основное меню">
+      <a href="services.html">Услуги и цены</a>
+      <a href="masters.html" aria-current="page">Мастера</a>
+      <a href="booking.html">Онлайн-запись</a>
+      <a href="contacts.html">Контакты</a>
+    </nav>
+    <a class="btn btn--primary btn--sm header__cta" href="booking.html">Записаться</a>
+    <button class="burger" type="button" aria-expanded="false" aria-controls="mnav" aria-label="Открыть меню">
+      <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path class="b-open" d="M4 7h16M4 12h16M4 17h16"/><path class="b-close" d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <nav class="mnav" id="mnav" aria-label="Основное меню" hidden>
+    <div class="wrap">
+      <a href="services.html">Услуги и цены</a>
+      <a href="masters.html" aria-current="page">Мастера</a>
+      <a href="booking.html">Онлайн-запись</a>
+      <a href="contacts.html">Контакты</a>
+      <a class="btn btn--primary" href="booking.html">Записаться онлайн</a>
+    </div>
+  </nav>
+</header>
+
+
+<main id="main" tabindex="-1">
+  <section class="wrap pagehead">
+    <p class="eyebrow">Команда</p>
+    <h1 class="h1">Наши <em>мастера</em></h1>
+    <p class="lead">У каждого мастера своя специализация. Выберите мастера по описанию — для стрижек и окрашивания можно довериться салону при записи.</p>
+  </section>
+
+  <section class="section" style="padding-top:40px" aria-label="Мастера салона">
+    <div class="wrap">
+      <ul class="masters masters--all">
+        <li class="reveal"><article class="mcard">
+    <span class="arch mcard__pic"><img src="img/master-dilnoza.webp" alt="Дилноза, стилист-колорист" width="600" height="750" loading="lazy" decoding="async"></span>
+    <h2 class="mcard__name">Дилноза</h2>
+    <p class="mcard__role">Стилист-колорист</p>
+    <p class="mcard__exp">9 лет в профессии</p><p class="mcard__bio">Подбирает цвет и форму под черты лица и образ жизни. Любит мягкие переходы и естественный результат.</p><p class="mcard__tags"><span>Волосы</span></p>
+    <a class="mcard__link" href="booking.html?master=dilnoza">Записаться к мастеру <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="sr-only"> Дилноза</span></a>
+  </article></li>
+<li class="reveal"><article class="mcard">
+    <span class="arch mcard__pic"><img src="img/master-saida.webp" alt="Саида, стилист" width="600" height="750" loading="lazy" decoding="async"></span>
+    <h2 class="mcard__name">Саида</h2>
+    <p class="mcard__role">Стилист</p>
+    <p class="mcard__exp">6 лет в профессии</p><p class="mcard__bio">Делает стрижки, укладки и уходы. Объясняет, как повторить укладку дома за пять минут.</p><p class="mcard__tags"><span>Волосы</span></p>
+    <a class="mcard__link" href="booking.html?master=saida">Записаться к мастеру <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="sr-only"> Саида</span></a>
+  </article></li>
+<li class="reveal"><article class="mcard">
+    <span class="arch mcard__pic"><img src="img/master-firuz.webp" alt="Фируз, барбер" width="600" height="750" loading="lazy" decoding="async"></span>
+    <h2 class="mcard__name">Фируз</h2>
+    <p class="mcard__role">Барбер</p>
+    <p class="mcard__exp">7 лет в профессии</p><p class="mcard__bio">Мужские стрижки и оформление бороды. Чёткие линии, аккуратный результат, без лишних разговоров, если вы торопитесь.</p><p class="mcard__tags"><span>Волосы</span></p>
+    <a class="mcard__link" href="booking.html?master=firuz">Записаться к мастеру <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="sr-only"> Фируз</span></a>
+  </article></li>
+<li class="reveal"><article class="mcard">
+    <span class="arch mcard__pic"><img src="img/master-madina.webp" alt="Мадина, мастер маникюра и педикюра" width="600" height="750" loading="lazy" decoding="async"></span>
+    <h2 class="mcard__name">Мадина</h2>
+    <p class="mcard__role">Мастер маникюра и педикюра</p>
+    <p class="mcard__exp">8 лет в профессии</p><p class="mcard__bio">Ровное покрытие, аккуратная кутикула и дизайн от минимализма до яркого. Каждый инструмент стерилизуется перед визитом.</p><p class="mcard__tags"><span>Ногти</span></p>
+    <a class="mcard__link" href="booking.html?master=madina">Записаться к мастеру <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="sr-only"> Мадина</span></a>
+  </article></li>
+<li class="reveal"><article class="mcard">
+    <span class="arch mcard__pic"><img src="img/master-zarina.webp" alt="Зарина, косметолог" width="600" height="750" loading="lazy" decoding="async"></span>
+    <h2 class="mcard__name">Зарина</h2>
+    <p class="mcard__role">Косметолог</p>
+    <p class="mcard__exp">10 лет в профессии</p><p class="mcard__bio">Подбирает уход по типу кожи, честно говорит, что нужно, а что можно пропустить.</p><p class="mcard__tags"><span>Лицо</span></p>
+    <a class="mcard__link" href="booking.html?master=zarina">Записаться к мастеру <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="sr-only"> Зарина</span></a>
+  </article></li>
+<li class="reveal"><article class="mcard">
+    <span class="arch mcard__pic"><img src="img/master-nigina.webp" alt="Нигина, бровист, лэш-мастер, визажист" width="600" height="750" loading="lazy" decoding="async"></span>
+    <h2 class="mcard__name">Нигина</h2>
+    <p class="mcard__role">Бровист, лэш-мастер, визажист</p>
+    <p class="mcard__exp">7 лет в профессии</p><p class="mcard__bio">Брови, ресницы и макияж для будней, праздников и свадеб. Макияж держится весь день.</p><p class="mcard__tags"><span>Брови и ресницы</span><span>Макияж</span></p>
+    <a class="mcard__link" href="booking.html?master=nigina">Записаться к мастеру <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="sr-only"> Нигина</span></a>
+  </article></li>
+      </ul>
+      <p class="note">Фото и описания мастеров — для примера (концепт). На настоящем сайте здесь будут ваши мастера и их работы.</p>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <section class="cta reveal" aria-labelledby="cta-title">
+      <h2 class="h2" id="cta-title">Готовы <em>записаться?</em></h2>
+      <p>Выберите услугу, мастера и время — это займёт меньше минуты.</p>
+      <a class="btn btn--light" href="booking.html">Записаться онлайн</a>
+    </section>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer__grid">
+    <div>
+      <a class="logo logo--light" href="index.html" aria-label="Iris — на главную">
+        <svg class="logo__mark" viewBox="0 0 32 32" width="30" height="30" aria-hidden="true" focusable="false"><path d="M5 28V15a11 11 0 0 1 22 0v13z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="16" cy="19" r="3.6" fill="currentColor"/><path d="M16 15c-2.4-3-1.4-6.4 0-8.6 1.4 2.2 2.4 5.6 0 8.6z" fill="currentColor" opacity=".55"/></svg>
+        <span>Iris</span>
+      </a>
+      <p class="footer__about">Салон красоты в Душанбе. Запишитесь онлайн за минуту: услуга, мастер, удобное время.</p>
+    </div>
+    <nav aria-label="Разделы сайта">
+      <p class="footer__h">Разделы</p>
+      <ul>
+        <li><a href="services.html">Услуги и цены</a></li>
+        <li><a href="masters.html">Мастера</a></li>
+        <li><a href="booking.html">Онлайн-запись</a></li>
+        <li><a href="contacts.html">Контакты</a></li>
+      </ul>
+    </nav>
+    <div>
+      <p class="footer__h">Связь</p>
+      <ul class="footer__contacts">
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span>Душанбе, ул. Образцовая, 7 <span class="muted-l">(адрес для примера)</span></span></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>Ежедневно с 10:00 до 20:00</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 4h4l1.5 4-2 1.5a11 11 0 0 0 5 5L15 12.5l4 1.5v4a2 2 0 0 1-2 2A14 14 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg><a href="tel:+992370005566">+992 37 000 55 66</a></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 4L3 11l6 2.5L11.5 20z"/><path d="M9 13.5L21 4"/></svg>@iris_demo</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer__bar">
+    <div class="wrap footer__bar-row">
+      <p>Концепт: вымышленный салон. Названия, цены и адреса придуманы для примера.</p>
+      <p><a href="privacy.html">Политика обработки данных</a><span>Сайт-пример студии Dorvan</span></p>
+    </div>
+  </div>
+</footer>
+
+<a class="fab" href="tel:+992370005566" aria-label="Позвонить в салон: +992 37 000 55 66">
+  <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" focusable="false"><path d="M5 4h4l1.5 4-2 1.5a11 11 0 0 0 5 5L15 12.5l4 1.5v4a2 2 0 0 1-2 2A14 14 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>
+</a>
+<aside class="demo-plate" aria-label="Демо-сайт студии Dorvan">
+  <span class="dp-brand">Dorvan</span>
+  <span class="dp-text">Пример за <b>$350</b></span>
+  <span class="dp-dot" aria-hidden="true">·</span>
+  <a class="dp-btn" href="https://t.me/dorvan_tj?text=%D0%A5%D0%BE%D1%87%D1%83%20%D1%81%D0%B0%D0%B9%D1%82%20%D0%B7%D0%B0%20%24350%2C%20%D0%BA%D0%B0%D0%BA%20%C2%ABIris%C2%BB" target="_blank" rel="noopener noreferrer" data-copy="Хочу сайт за $350, как «Iris»">Хочу такой <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+</aside>
+
+<script src="js/data.js"></script>
+<script src="js/app.js" defer></script>
+</body>
+</html>

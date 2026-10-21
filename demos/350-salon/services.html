@@ -1,0 +1,252 @@
+<!doctype html>
+<!-- Этот файл собран скриптом build-pages.mjs из src/. Правьте заготовки в src/ и js/data.js, а не его. -->
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<script>document.documentElement.className += " js";</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#FBF5EF">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preload" href="fonts/playfair-display-cyrillic-500-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/manrope-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/style.css">
+
+<title>Услуги и цены — Iris, салон красоты в Душанбе</title>
+<meta name="description" content="Прайс салона Iris: стрижки и окрашивание, маникюр и педикюр, уход за лицом, брови, ресницы, макияж. Цены и длительность каждой услуги, запись онлайн. Концепт студии Dorvan.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Iris beauty studio (концепт студии Dorvan)">
+<meta property="og:title" content="Услуги и цены — Iris">
+<meta property="og:description" content="Цены и длительность каждой услуги. Запись онлайн за минуту. Концепт студии Dorvan.">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:image" content="https://dorvan-tj.github.io/demos/350-salon/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+<a class="skip" href="#main">Перейти к содержимому</a>
+<header class="site-header">
+  <div class="wrap header__row">
+    <a class="logo" href="index.html" aria-label="Iris — на главную">
+      <svg class="logo__mark" viewBox="0 0 32 32" width="30" height="30" aria-hidden="true" focusable="false"><path d="M5 28V15a11 11 0 0 1 22 0v13z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="16" cy="19" r="3.6" fill="currentColor"/><path d="M16 15c-2.4-3-1.4-6.4 0-8.6 1.4 2.2 2.4 5.6 0 8.6z" fill="currentColor" opacity=".55"/></svg>
+      <span>Iris</span>
+    </a>
+    <span class="badge-concept" title="Концепт: вымышленный салон. Названия, цены и адреса придуманы для примера.">Концепт</span>
+    <nav class="nav" aria-label="Основное меню">
+      <a href="services.html" aria-current="page">Услуги и цены</a>
+      <a href="masters.html">Мастера</a>
+      <a href="booking.html">Онлайн-запись</a>
+      <a href="contacts.html">Контакты</a>
+    </nav>
+    <a class="btn btn--primary btn--sm header__cta" href="booking.html">Записаться</a>
+    <button class="burger" type="button" aria-expanded="false" aria-controls="mnav" aria-label="Открыть меню">
+      <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path class="b-open" d="M4 7h16M4 12h16M4 17h16"/><path class="b-close" d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <nav class="mnav" id="mnav" aria-label="Основное меню" hidden>
+    <div class="wrap">
+      <a href="services.html" aria-current="page">Услуги и цены</a>
+      <a href="masters.html">Мастера</a>
+      <a href="booking.html">Онлайн-запись</a>
+      <a href="contacts.html">Контакты</a>
+      <a class="btn btn--primary" href="booking.html">Записаться онлайн</a>
+    </div>
+  </nav>
+</header>
+
+
+<main id="main" tabindex="-1">
+  <section class="wrap pagehead">
+    <p class="eyebrow">Прайс</p>
+    <h1 class="h1">Услуги и <em>цены</em></h1>
+    <p class="lead">Цена и длительность — у каждой услуги. Нажмите «Записаться», и мы сразу перейдём к выбору мастера.</p>
+  </section>
+
+  <div class="tabs" aria-label="Разделы прайса">
+    <div class="wrap tabs__row" role="navigation" aria-label="Разделы прайса">
+      <a href="#hair" data-tab="hair">Волосы</a>
+<a href="#nails" data-tab="nails">Ногти</a>
+<a href="#face" data-tab="face">Лицо</a>
+<a href="#brows" data-tab="brows">Брови и ресницы</a>
+<a href="#makeup" data-tab="makeup">Макияж</a>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <section class="svcgroup" id="hair" aria-labelledby="h-hair">
+          <div class="svcgroup__head"><h2 id="h-hair">Волосы</h2><p>Стрижки, окрашивание, укладки и уход</p></div>
+          <ul class="svclist"><li class="svc">
+            <div class="svc__main"><h3>Женская стрижка</h3><p>Консультация, мытьё головы, стрижка и укладка</p></div>
+            <div class="svc__meta"><span class="svc__dur">1 ч</span><span class="svc__price">180 сом.</span></div>
+            <a class="btn btn--ghost btn--sm" href="booking.html?service=cut-w">Записаться<span class="sr-only"> на услугу: Женская стрижка</span></a>
+          </li>
+<li class="svc">
+            <div class="svc__main"><h3>Мужская стрижка</h3><p>Стрижка машинкой и ножницами, укладка</p></div>
+            <div class="svc__meta"><span class="svc__dur">45 мин</span><span class="svc__price">120 сом.</span></div>
+            <a class="btn btn--ghost btn--sm" href="booking.html?service=cut-m">Записаться<span class="sr-only"> на услугу: Мужская стрижка</span></a>
+          </li>
+<li class="svc">
+            <div class="svc__main"><h3>Оформление бороды</h3><p>Форма, горячее полотенце, уход</p></div>
+            <div class="svc__meta"><span class="svc__dur">30 мин</span><span class="svc__price">80 сом.</span></div>
+            <a class="btn btn--ghost btn--sm" href="booking.html?service=beard">Записаться<span class="sr-only"> на услугу: Оформление бороды</span></a>
+          </li>
+<li class="svc">
+            <div class="svc__main"><h3>Окрашивание в один тон</h3><p>Корни или вся длина, уход после окрашивания</p></div>
+            <div class="svc__meta"><span class="svc__dur">2 ч 30 мин</span><span class="svc__price">520 сом.</span></div>
+            <a class="btn btn--ghost btn--sm" href="booking.html?service=color">Записаться<span class="sr-only"> на услугу: Окрашивание в один тон</span></a>
+          </li>
+<li class="svc">
+            <div class="svc__main"><h3>Сложное окрашивание</h3><p>Балаяж, airtouch, мелирование</p></div>
+            <div class="svc__meta"><span class="svc__dur">4 ч</span><span class="svc__price">1 150 сом.</span></div>
+            <a class="btn btn--ghost btn--sm" href="booking.html?service=balayage">Записаться<span class="sr-only"> на услугу: Сложное окрашивание</span></a>
+          </li>
+<li class="svc">
+            <div class="svc__main"><h3>Укладка</h3><p>Локоны, объём или гладкая укладка на праздник</p></div>
+            <div class="svc__meta"><span class="svc__dur">45 мин</span><span class="svc__price">150 сом.</span></div>
+            <a class="btn btn--ghost btn--sm" href="booking.html?service=styling">Записаться<span class="sr-only"> на услугу: Укладка</span></a>
+          </li>
+<li class="svc">
+            <div class="svc__main"><h3>Восстановление волос</h3><p>Маска, прогрев и бережный уход</p></div>
+            <div class="svc__meta"><span class="svc__dur">1 ч 30 мин</span><span class="svc__price">380 сом.</span></div>
+            <a class="btn btn--ghost btn--sm" href="booking.html?service=hair-care">Записаться<span class="sr-only"> на услугу: Восстановление волос</span></a>
+          </li></ul>
+        </section>
+<section class="svcgroup" id="nails" aria-labelledby="h-nails">
+          <div class="svcgroup__head"><h2 id="h-nails">Ногти</h2><p>Маникюр, педикюр, дизайн</p></div>
+          <ul class="svclist"><li class="svc">
+            <div class="svc__main"><h3>Маникюр классический</h3><p>Обработка, форма, уход за кутикулой</p></div>
+            <div class="svc__meta"><span class="svc__dur">1 ч</span><span class="svc__price">110 сом.</span></div>
+            <a class="btn btn--ghost btn--sm" href="booking.html?service=mani">Записаться<span class="sr-only"> на услугу: Маникюр классический</span></a>
+          </li>
+<li class="svc">
+            <div class="svc__main"><h3>Маникюр с гель-лаком</h3><p>Обработка и стойкое покрытие на 3–⁠4 недели</p></div>
+            <div class="svc__meta"><span class="svc__dur">1 ч 30 мин</span><span class="svc__price">170 сом.</span></div>
+            <a class="btn btn--ghost btn--sm" href="booking.html?service=mani-gel">Записаться<span class="sr-only"> на услугу: Маникюр с гель-лаком</span></a>
+          </li>
+<li class="svc">
+            <div class="svc__main"><h3>Педикюр с покрытием</h3><p>Аппаратная обработка и покрытие гель-лаком</p></div>
+            <div class="svc__meta"><span class="svc__dur">1 ч 40 мин</span><span class="svc__price">230 сом.</span></div>
+            <a class="btn btn--ghost btn--sm" href="booking.html?service=pedi">Записаться<span class="sr-only"> на услугу: Педикюр с покрытием</span></a>
+          </li>
+<li class="svc">
+            <div class="svc__main"><h3>Наращивание и дизайн</h3><p>Коррекция формы, дизайн на выбор</p></div>
+            <div class="svc__meta"><span class="svc__dur">2 ч 30 мин</span><span class="svc__price">280 сом.</span></div>
+            <a class="btn btn--ghost btn--sm" href="booking.html?service=nail-ext">Записаться<span class="sr-only"> на услугу: Наращивание и дизайн</span></a>
+          </li></ul>
+        </section>
+<section class="svcgroup" id="face" aria-labelledby="h-face">
+          <div class="svcgroup__head"><h2 id="h-face">Лицо</h2><p>Чистка, пилинг и уход</p></div>
+          <ul class="svclist"><li class="svc">
+            <div class="svc__main"><h3>Чистка лица</h3><p>Ультразвуковая или комбинированная, маска, крем</p></div>
+            <div class="svc__meta"><span class="svc__dur">1 ч 15 мин</span><span class="svc__price">320 сом.</span></div>
+            <a class="btn btn--ghost btn--sm" href="booking.html?service=clean">Записаться<span class="sr-only"> на услугу: Чистка лица</span></a>
+          </li>
+<li class="svc">
+            <div class="svc__main"><h3>Пилинг</h3><p>Мягкое обновление кожи, подобранное по типу</p></div>
+            <div class="svc__meta"><span class="svc__dur">45 мин</span><span class="svc__price">240 сом.</span></div>
+            <a class="btn btn--ghost btn--sm" href="booking.html?service=peel">Записаться<span class="sr-only"> на услугу: Пилинг</span></a>
+          </li>
+<li class="svc">
+            <div class="svc__main"><h3>Уход «Сияние»</h3><p>Массаж лица, маска и сыворотка</p></div>
+            <div class="svc__meta"><span class="svc__dur">1 ч</span><span class="svc__price">290 сом.</span></div>
+            <a class="btn btn--ghost btn--sm" href="booking.html?service=glow">Записаться<span class="sr-only"> на услугу: Уход «Сияние»</span></a>
+          </li></ul>
+        </section>
+<section class="svcgroup" id="brows" aria-labelledby="h-brows">
+          <div class="svcgroup__head"><h2 id="h-brows">Брови и ресницы</h2><p>Коррекция, ламинирование, наращивание</p></div>
+          <ul class="svclist"><li class="svc">
+            <div class="svc__main"><h3>Коррекция и окрашивание бровей</h3><p>Форма и цвет, которые подходят вашему лицу</p></div>
+            <div class="svc__meta"><span class="svc__dur">40 мин</span><span class="svc__price">110 сом.</span></div>
+            <a class="btn btn--ghost btn--sm" href="booking.html?service=brow">Записаться<span class="sr-only"> на услугу: Коррекция и окрашивание бровей</span></a>
+          </li>
+<li class="svc">
+            <div class="svc__main"><h3>Ламинирование бровей</h3><p>Ровные уложенные брови на 4–⁠6 недель</p></div>
+            <div class="svc__meta"><span class="svc__dur">50 мин</span><span class="svc__price">160 сом.</span></div>
+            <a class="btn btn--ghost btn--sm" href="booking.html?service=brow-lam">Записаться<span class="sr-only"> на услугу: Ламинирование бровей</span></a>
+          </li>
+<li class="svc">
+            <div class="svc__main"><h3>Наращивание ресниц</h3><p>Классика или 2D, эффект выбираете вы</p></div>
+            <div class="svc__meta"><span class="svc__dur">2 ч</span><span class="svc__price">240 сом.</span></div>
+            <a class="btn btn--ghost btn--sm" href="booking.html?service=lash">Записаться<span class="sr-only"> на услугу: Наращивание ресниц</span></a>
+          </li></ul>
+        </section>
+<section class="svcgroup" id="makeup" aria-labelledby="h-makeup">
+          <div class="svcgroup__head"><h2 id="h-makeup">Макияж</h2><p>Дневной, вечерний и свадебный</p></div>
+          <ul class="svclist"><li class="svc">
+            <div class="svc__main"><h3>Дневной макияж</h3><p>Лёгкий естественный образ</p></div>
+            <div class="svc__meta"><span class="svc__dur">45 мин</span><span class="svc__price">160 сом.</span></div>
+            <a class="btn btn--ghost btn--sm" href="booking.html?service=mk-day">Записаться<span class="sr-only"> на услугу: Дневной макияж</span></a>
+          </li>
+<li class="svc">
+            <div class="svc__main"><h3>Вечерний макияж</h3><p>Выразительный образ для праздника</p></div>
+            <div class="svc__meta"><span class="svc__dur">1 ч</span><span class="svc__price">220 сом.</span></div>
+            <a class="btn btn--ghost btn--sm" href="booking.html?service=mk-eve">Записаться<span class="sr-only"> на услугу: Вечерний макияж</span></a>
+          </li>
+<li class="svc">
+            <div class="svc__main"><h3>Свадебный макияж с пробным</h3><p>Пробный визит и образ в день свадьбы</p></div>
+            <div class="svc__meta"><span class="svc__dur">1 ч 30 мин</span><span class="svc__price">380 сом.</span></div>
+            <a class="btn btn--ghost btn--sm" href="booking.html?service=mk-bride">Записаться<span class="sr-only"> на услугу: Свадебный макияж с пробным</span></a>
+          </li></ul>
+        </section>
+    <p class="note">Цены указаны в сомони и приведены для примера (концепт). Окончательную стоимость мастер уточнит на консультации — например, для длинных волос или сложного дизайна.</p>
+  </div>
+
+  <div class="wrap" style="padding-block:56px 80px">
+    <section class="cta" aria-labelledby="cta-title" style="margin-bottom:0">
+      <h2 class="h2" id="cta-title">Не знаете, <em>что выбрать?</em></h2>
+      <p>Выберите любую услугу — мастер подскажет на месте, что подойдёт именно вам.</p>
+      <a class="btn btn--light" href="booking.html">Записаться онлайн</a>
+    </section>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer__grid">
+    <div>
+      <a class="logo logo--light" href="index.html" aria-label="Iris — на главную">
+        <svg class="logo__mark" viewBox="0 0 32 32" width="30" height="30" aria-hidden="true" focusable="false"><path d="M5 28V15a11 11 0 0 1 22 0v13z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="16" cy="19" r="3.6" fill="currentColor"/><path d="M16 15c-2.4-3-1.4-6.4 0-8.6 1.4 2.2 2.4 5.6 0 8.6z" fill="currentColor" opacity=".55"/></svg>
+        <span>Iris</span>
+      </a>
+      <p class="footer__about">Салон красоты в Душанбе. Запишитесь онлайн за минуту: услуга, мастер, удобное время.</p>
+    </div>
+    <nav aria-label="Разделы сайта">
+      <p class="footer__h">Разделы</p>
+      <ul>
+        <li><a href="services.html">Услуги и цены</a></li>
+        <li><a href="masters.html">Мастера</a></li>
+        <li><a href="booking.html">Онлайн-запись</a></li>
+        <li><a href="contacts.html">Контакты</a></li>
+      </ul>
+    </nav>
+    <div>
+      <p class="footer__h">Связь</p>
+      <ul class="footer__contacts">
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span>Душанбе, ул. Образцовая, 7 <span class="muted-l">(адрес для примера)</span></span></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>Ежедневно с 10:00 до 20:00</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 4h4l1.5 4-2 1.5a11 11 0 0 0 5 5L15 12.5l4 1.5v4a2 2 0 0 1-2 2A14 14 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg><a href="tel:+992370005566">+992 37 000 55 66</a></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 4L3 11l6 2.5L11.5 20z"/><path d="M9 13.5L21 4"/></svg>@iris_demo</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer__bar">
+    <div class="wrap footer__bar-row">
+      <p>Концепт: вымышленный салон. Названия, цены и адреса придуманы для примера.</p>
+      <p><a href="privacy.html">Политика обработки данных</a><span>Сайт-пример студии Dorvan</span></p>
+    </div>
+  </div>
+</footer>
+
+<a class="fab" href="tel:+992370005566" aria-label="Позвонить в салон: +992 37 000 55 66">
+  <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" focusable="false"><path d="M5 4h4l1.5 4-2 1.5a11 11 0 0 0 5 5L15 12.5l4 1.5v4a2 2 0 0 1-2 2A14 14 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>
+</a>
+<aside class="demo-plate" aria-label="Демо-сайт студии Dorvan">
+  <span class="dp-brand">Dorvan</span>
+  <span class="dp-text">Пример за <b>$350</b></span>
+  <span class="dp-dot" aria-hidden="true">·</span>
+  <a class="dp-btn" href="https://t.me/dorvan_tj?text=%D0%A5%D0%BE%D1%87%D1%83%20%D1%81%D0%B0%D0%B9%D1%82%20%D0%B7%D0%B0%20%24350%2C%20%D0%BA%D0%B0%D0%BA%20%C2%ABIris%C2%BB" target="_blank" rel="noopener noreferrer" data-copy="Хочу сайт за $350, как «Iris»">Хочу такой <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+</aside>
+
+<script src="js/data.js"></script>
+<script src="js/app.js" defer></script>
+</body>
+</html>

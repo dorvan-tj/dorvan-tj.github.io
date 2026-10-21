@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="ru" class="no-js" data-glaze="strawberry">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Melty Bakery — кондитерская в Душанбе: торты на заказ, десерты, макаронс</title>
+<meta name="description" content="Авторские торты, десерты, макаронс и круассаны ручной работы в Душанбе. Свежее каждое утро, доставка по городу от 45 минут, торт на заказ за 24 часа.">
+<meta name="theme-color" content="#FF8FAB">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Melty Bakery — десерты, которые тают">
+<meta property="og:description" content="Кондитерская в Душанбе: торты на заказ, десерты, макаронс. Доставка от 45 минут.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1554163328-61681c4f303f?auto=format&fit=crop&w=1200&q=72">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Dela+Gothic+One&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Bakery","name":"Melty Bakery","description":"Кондитерская в Душанбе: торты на заказ, десерты, макаронс, круассаны. Демо-проект: данные вымышлены.",
+ "telephone":"+992 37 000 11 22","email":"hello@meltybakery.tj","priceRange":"TJS 12–290","servesCuisine":"Десерты и выпечка","currenciesAccepted":"TJS",
+ "address":{"@type":"PostalAddress","streetAddress":"пр. Рудаки, 112","addressLocality":"Душанбе","addressCountry":"TJ"},
+ "geo":{"@type":"GeoCoordinates","latitude":38.5598,"longitude":68.787},
+ "openingHoursSpecification":{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"08:00","closes":"22:00"}}
+</script>
+<script>
+  document.documentElement.className = 'js';
+  try { var g = localStorage.getItem('melty.glaze'); if (g) document.documentElement.setAttribute('data-glaze', g); } catch (e) {}
+</script>
+</head>
+<body>
+
+<!-- иконки: один спрайт, дальше <use href="#i-…"> -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+  <symbol id="i-bag" viewBox="0 0 24 24"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V7a3 3 0 0 1 6 0v1"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+  <symbol id="i-truck" viewBox="0 0 24 24"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></symbol>
+  <symbol id="i-gift" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></symbol>
+  <symbol id="i-percent" viewBox="0 0 24 24"><path d="M19 5 5 19"/><circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="17" r="2.5"/></symbol>
+  <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3 2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.5 6.6 19.5l1.2-6L3.3 9.3l6.1-.7L12 3z" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+  <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5m6-6-6 6 6 6"/></symbol>
+  <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 19V5m-6 6 6-6 6 6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-instagram" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-telegram" viewBox="0 0 24 24"><path d="M21.5 3 2.8 10.2a.6.6 0 0 0 0 1.1l4.6 1.8 1.8 5.6a.6.6 0 0 0 1 .3l2.6-2.4 4.6 3.4a.6.6 0 0 0 1-.4L22.4 3.8a.6.6 0 0 0-.9-.8z"/><path d="m7.4 13.1 10.3-7.4"/></symbol>
+  <symbol id="i-whatsapp" viewBox="0 0 24 24"><path d="M3.5 20.5 5 16A8.5 8.5 0 1 1 8 19l-4.5 1.5z"/><path d="M9 8.8c.3 2.6 2.700 5 5.300 5.300l1.200-1.200a.7.700 0 0 1 .7-.2l1.700.6c.3.100.5.400.4.700-.4 1.200-1.600 1.800-2.900 1.500-3.300-.8-5.700-3.200-6.500-6.500-.3-1.300.3-2.500 1.500-2.900.3-.1.6.1.7.4l.6 1.700c.1.300 0 .6-.2.700L9 8.800z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 7 8.5 6 8.5-6"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></symbol>
+  <symbol id="i-cake" viewBox="0 0 24 24"><path d="M4 20h16v-7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7z"/><path d="M4 16c2 0 2 1.500 4 1.500s2-1.500 4-1.500 2 1.500 4 1.500 2-1.500 4-1.500"/><path d="M12 11V8"/><path d="M12 4c.8.9.8 1.600 0 2.400-.8-.8-.8-1.500 0-2.400z"/></symbol>
+</svg>
+
+<a class="skip" href="#main">К содержимому</a>
+
+<!-- верхняя полоса: статус по времени Душанбе, телефон, соцсети -->
+<div class="topbar">
+  <div class="wrap topbar-in">
+    <p class="status" id="status"><span class="dot" aria-hidden="true"></span><span id="statusText">Открыто до 22:00</span></p>
+    <p class="topbar-note">Доставка по Душанбе от 45 минут · торты на заказ за 24 часа</p>
+    <div class="topbar-r">
+      <a class="tb-link" href="tel:+992370001122" aria-label="Позвонить: +992 37 000 11 22"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg><span class="tb-num">+992 37 000 11 22</span></a>
+      <a class="tb-ic" href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><svg class="ic" aria-hidden="true"><use href="#i-instagram"/></svg></a>
+      <a class="tb-ic" href="https://t.me/" target="_blank" rel="noopener" aria-label="Telegram"><svg class="ic" aria-hidden="true"><use href="#i-telegram"/></svg></a>
+      <a class="tb-ic" href="https://wa.me/992900001122" target="_blank" rel="noopener" aria-label="WhatsApp"><svg class="ic" aria-hidden="true"><use href="#i-whatsapp"/></svg></a>
+    </div>
+  </div>
+</div>
+
+<header class="hdr" id="hdr">
+  <div class="wrap hdr-in">
+    <a class="logo" href="#top" aria-label="Melty Bakery — на главную">
+      <svg class="logo-mark" viewBox="0 0 40 44" aria-hidden="true"><path d="M5 17C5 9 11 3 20 3s15 6 15 14c0 2.600-1.700 4.500-4 4.500h-.5v11a3.500 3.500 0 0 1-7 0V25h-1.500v14a4 4 0 0 1-8 0V25H13v8a3.500 3.500 0 0 1-7 0V21C5.500 20.300 5 19 5 17z"/><path d="M13 9.500c2-2 5-3 8-2.700" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="2.500" stroke-linecap="round"/></svg>
+      <span class="logo-txt"><span class="logo-word">Melty</span><span class="logo-sub">bakery · Душанбе</span></span>
+    </a>
+    <nav class="nav" id="nav" aria-label="Основное меню">
+      <a href="#menu">Меню</a>
+      <a href="#builder">Торт на заказ</a>
+      <a href="#delivery">Доставка</a>
+      <a href="#about">О нас</a>
+      <a href="#business">Для бизнеса</a>
+      <a href="#contacts">Адреса</a>
+    </nav>
+    <div class="hdr-act">
+      <div class="search" id="search">
+        <svg class="ic" aria-hidden="true"><use href="#i-search"/></svg>
+        <input id="searchInput" type="search" placeholder="Поиск по меню" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="searchList" aria-autocomplete="list" aria-label="Поиск по меню">
+        <ul class="search-list" id="searchList" role="listbox" hidden></ul>
+      </div>
+      <button class="icon-btn search-toggle" id="searchToggle" type="button" aria-label="Искать в меню"><svg class="ic" aria-hidden="true"><use href="#i-search"/></svg></button>
+      <button class="cart-btn" id="cartBtn" type="button" aria-label="Корзина">
+        <svg class="ic" aria-hidden="true"><use href="#i-bag"/></svg>
+        <span class="cart-sum" id="cartSum">Корзина</span>
+        <span class="cart-count" id="cartCount" aria-hidden="true">0</span>
+      </button>
+      <button class="icon-btn burger" id="navToggle" type="button" aria-label="Открыть меню" aria-haspopup="dialog"><svg class="ic" aria-hidden="true"><use href="#i-menu"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- HERO: торт, залитый глазурью. Цвет глазури = цвет сайта -->
+  <section class="hero drip-after" id="top" aria-labelledby="h1">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="chip rv">Кондитерская в Душанбе · с 2016 года</p>
+        <h1 class="hero-h1 rv" id="h1">Десерты, которые <span class="melt">тают</span></h1>
+        <p class="hero-lead rv">Авторские торты, макаронс и круассаны из сливочного масла и местных фруктов. Печём каждое утро — привозим по Душанбе за&nbsp;45&nbsp;минут.</p>
+        <div class="hero-cta rv">
+          <a class="btn btn-dark" href="#menu">Смотреть меню <svg class="ic" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+          <a class="btn btn-ghost" href="#builder">Собрать свой торт</a>
+        </div>
+        <ul class="hero-facts rv">
+          <li><strong>4,9 <svg class="ic ic-star" aria-hidden="true"><use href="#i-star"/></svg></strong><span>2&nbsp;318 отзывов</span></li>
+          <li><strong>45 мин</strong><span>доставка по городу</span></li>
+        </ul>
+        <p class="batch rv"><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg><span id="batchText">Свежие круассаны каждые три часа</span></p>
+      </div>
+      <div class="hero-stage">
+        <div class="hero-cake" id="heroCake"></div>
+        <svg class="sticker" id="sticker" viewBox="0 0 120 120" aria-hidden="true">
+          <defs><path id="stickerPath" d="M60 60m-45 0a45 45 0 1 1 90 0a45 45 0 1 1-90 0"/></defs>
+          <circle cx="60" cy="60" r="58" class="sticker-bg"/>
+          <text class="sticker-txt"><textPath href="#stickerPath" startOffset="0">СВЕЖЕЕ КАЖДОЕ УТРО • РУЧНАЯ РАБОТА •</textPath></text>
+          <path class="sticker-drop" d="M44 58c0-9 7-16 16-16s16 7 16 16c0 2-1.200 3.400-3 3.400h-.4v8a2.600 2.600 0 0 1-5.200 0V64h-1.200v10a3 3 0 0 1-6 0V64h-1.500v6a2.600 2.600 0 0 1-5.200 0V61c-.4-.4-.5-1.400-.5-3z"/>
+        </svg>
+        <div class="glaze">
+          <p class="glaze-lbl" id="glazeLbl"><span class="hand">Выберите глазурь</span><span class="glaze-name" id="glazeName">Клубника</span></p>
+          <div class="glaze-sw" id="glazePicker" role="group" aria-labelledby="glazeLbl"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- категории -->
+  <section class="cats" aria-label="Категории меню">
+    <div class="wrap">
+      <p class="cats-hand hand">что сегодня хочется?</p>
+      <ul class="cats-row" id="catsRow"></ul>
+    </div>
+  </section>
+
+  <!-- три обещания (как в референсе) -->
+  <section class="sec-s perks" aria-label="Преимущества">
+    <div class="wrap perks-grid">
+      <article class="perk rv"><span class="perk-ic"><svg class="ic" aria-hidden="true"><use href="#i-truck"/></svg></span><div><h2 class="perk-t">Доставка за 45 минут</h2><p>По всем районам Душанбе с 09:00 до 21:00. Бесплатно от 300&nbsp;сом.</p></div></article>
+      <article class="perk rv" style="--d:80ms"><span class="perk-ic"><svg class="ic" aria-hidden="true"><use href="#i-percent"/></svg></span><div><h2 class="perk-t">Честные цены</h2><p>−10% именинникам, −5% при самовывозе и промокод <b>MELTY10</b> на первый заказ.</p></div></article>
+      <article class="perk rv" style="--d:160ms"><span class="perk-ic"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg></span><div><h2 class="perk-t">Только натуральное</h2><p>Сливочное масло, настоящий шоколад и фрукты с рынков Душанбе. Без маргарина и красителей.</p></div></article>
+    </div>
+  </section>
+
+  <!-- хиты -->
+  <section class="sec hits" id="hits" aria-labelledby="hitsT">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <div><p class="eyebrow">Чаще всего заказывают</p><h2 class="h2" id="hitsT">Хиты продаж</h2></div>
+        <div class="sec-ctrl">
+          <button class="round-btn" id="hitsPrev" type="button" aria-label="Назад"><svg class="ic" aria-hidden="true"><use href="#i-arrow-left"/></svg></button>
+          <button class="round-btn" id="hitsNext" type="button" aria-label="Вперёд"><svg class="ic" aria-hidden="true"><use href="#i-arrow-right"/></svg></button>
+        </div>
+      </div>
+    </div>
+    <ul class="track" id="hitsTrack"></ul>
+  </section>
+
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-in">
+      <ul><li>Свежее каждое утро</li><li>Ручная работа</li><li>Сливочное масло 82%</li><li>Без красителей</li><li>Доставка за 45 минут</li><li>Торты на заказ</li></ul>
+      <ul><li>Свежее каждое утро</li><li>Ручная работа</li><li>Сливочное масло 82%</li><li>Без красителей</li><li>Доставка за 45 минут</li><li>Торты на заказ</li></ul>
+    </div>
+  </div>
+
+  <!-- новинки -->
+  <section class="sec new" id="new" aria-labelledby="newT">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <div><p class="eyebrow">Только из печи</p><h2 class="h2" id="newT">Новинки сезона</h2></div>
+      </div>
+      <div class="bento" id="newBento"></div>
+    </div>
+  </section>
+
+  <!-- о кондитерской -->
+  <section class="sec about" id="about" aria-labelledby="aboutT">
+    <div class="wrap about-grid">
+      <div class="about-collage rv">
+        <figure class="ac ac-arch"><img data-photo="g-baker" data-w="800" alt="Кондитер раскладывает печенье на противне" loading="lazy" decoding="async"></figure>
+        <figure class="ac ac-round"><img data-photo="p-somoni" data-w="600" alt="Памятник Исмоилу Сомони в Душанбе" loading="lazy" decoding="async"><figcaption>Душанбе</figcaption></figure>
+        <figure class="ac ac-card"><img data-photo="g-tray" data-w="600" alt="Противень бриошей с кремом и малиной" loading="lazy" decoding="async"></figure>
+        <div class="ac-stamp" aria-hidden="true"><span>с</span><b>2016</b></div>
+      </div>
+      <div class="about-copy">
+        <p class="eyebrow rv">О кондитерской</p>
+        <h2 class="h2 rv" id="aboutT">Печём в Душанбе с 2016 года</h2>
+        <p class="lead rv">Мы начинали с одной кухни на улице Айни и семейного рецепта медовика. Сегодня Melty Bakery — три кофейни-магазина, команда из 24 кондитеров и одно правило: десерт должен таять.</p>
+        <p class="rv">Берём сливочное масло, настоящий шоколад и фрукты с душанбинских рынков. Никакого маргарина, ароматизаторов и красителей — только то, что можно прочитать в составе.</p>
+        <dl class="stats rv">
+          <div><dt>лет у плиты</dt><dd><span data-count="10">10</span></dd></div>
+          <div><dt>десертов в меню</dt><dd><span data-count="27" id="statProducts">27</span></dd></div>
+          <div><dt>точки в городе</dt><dd><span data-count="3">3</span></dd></div>
+          <div><dt>средняя оценка</dt><dd><span data-count="4.9" data-dec="1">4,9</span></dd></div>
+        </dl>
+        <p class="sign rv"><span class="hand">Зарина Рахимова</span><span>основательница и шеф-кондитер</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- меню -->
+  <section class="sec menu" id="menu" aria-labelledby="menuT">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <div><p class="eyebrow">Свежее сегодня</p><h2 class="h2" id="menuT">Меню</h2></div>
+        <label class="field-search" for="menuSearch"><svg class="ic" aria-hidden="true"><use href="#i-search"/></svg><input id="menuSearch" type="search" placeholder="Найти: эклер, медовик, макаронс…" autocomplete="off"></label>
+      </div>
+      <div class="tabs" id="menuTabs" role="group" aria-label="Категории меню"></div>
+      <ul class="grid" id="menuGrid" aria-live="polite"></ul>
+      <div class="empty" id="menuEmpty" hidden>
+        <p class="empty-t">Ничего не нашли по запросу «<span id="emptyQ"></span>»</p>
+        <p>Попробуйте «эклер», «чизкейк» или «круассан» — или посмотрите всё меню.</p>
+        <button class="btn btn-ghost" id="emptyReset" type="button">Показать всё меню</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- вкусы Таджикистана -->
+  <section class="flavors drip-after" id="flavors" aria-labelledby="flT">
+    <div class="wrap">
+      <div class="fl-head">
+        <p class="eyebrow on-dark rv">Вкусы Таджикистана</p>
+        <h2 class="h2 rv" id="flT">Лучшее с местных рынков и садов</h2>
+        <p class="lead rv">Курага, гранат, шелковица и фисташка — в наших кремах, начинках и глазурях. Выберите вкус, и мы зальём им торт.</p>
+      </div>
+      <ul class="fl-grid" id="flGrid"></ul>
+    </div>
+  </section>
+
+  <!-- конструктор -->
+  <section class="builder" id="builder" aria-labelledby="bT">
+    <div class="wrap">
+      <div class="sec-head sec-head-col rv">
+        <p class="eyebrow">Торт на заказ</p>
+        <h2 class="h2" id="bT">Соберите свой торт</h2>
+        <p class="lead">Выберите размер, начинку и декор — цена считается сразу. Готовим за 24 часа и привозим в удобное время.</p>
+      </div>
+      <div class="b-grid">
+        <div class="b-stage rv">
+          <div class="b-cake" id="bCake"></div>
+          <p class="b-line" id="bLine" aria-live="polite"></p>
+        </div>
+        <div class="b-panel rv" id="bPanel">
+          <div id="bSteps"></div>
+          <div class="b-total">
+            <div><span class="b-total-l">Ваш торт</span><strong class="b-total-v" id="bPrice">0 сом.</strong><span class="b-total-n" id="bNote"></span></div>
+            <button class="btn btn-dark" id="bAdd" type="button"><svg class="ic" aria-hidden="true"><use href="#i-bag"/></svg>В корзину</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- акции -->
+  <section class="sec promos" aria-label="Акции">
+    <div class="wrap promo-grid">
+      <article class="promo promo-a rv">
+        <div class="promo-txt"><p class="promo-k">Бесплатная доставка</p><h3 class="promo-t">От 300 сом.</h3><p>По всем районам Душанбе. Заказ меньше — доставка от 15 сом.</p><a class="btn btn-dark btn-s" href="#delivery">Рассчитать доставку</a></div>
+        <img data-photo="g-gift-macarons" data-w="700" alt="Подарочная коробка макаронс с лентой" loading="lazy" decoding="async">
+      </article>
+      <article class="promo promo-b rv" style="--d:80ms">
+        <div class="promo-txt"><p class="promo-k">Именинникам</p><h3 class="promo-t">−10% на торт</h3><p>Покажите документ — скидка действует три дня до и три дня после праздника.</p><a class="btn btn-dark btn-s" href="#builder">Собрать торт</a></div>
+        <img data-photo="g-bday" data-w="700" alt="Розовый торт со свечой на подставке" loading="lazy" decoding="async">
+      </article>
+      <article class="promo promo-c rv" style="--d:160ms">
+        <div class="promo-txt"><p class="promo-k">Новинка</p><h3 class="promo-t">Рулет «Шелковица»</h3><p>Меренга, нежный крем и ягоды шелковицы. 95&nbsp;сом.</p><button class="btn btn-dark btn-s" type="button" data-open="meringue-roll">Попробовать</button></div>
+        <img data-photo="meringue-roll" data-w="700" alt="Меренговый рулет с ягодами и фисташками" loading="lazy" decoding="async">
+      </article>
+    </div>
+  </section>
+
+  <!-- доставка -->
+  <section class="sec delivery" id="delivery" aria-labelledby="dT">
+    <div class="wrap d-grid">
+      <div class="d-copy">
+        <p class="eyebrow rv">Доставка и оплата</p>
+        <h2 class="h2 rv" id="dT">Привезём тёплым и целым</h2>
+        <p class="lead rv">Десерты едут в термосумках с холодовыми элементами. Курьер звонит за 10 минут до приезда.</p>
+        <ol class="steps rv">
+          <li><b>Выбираете десерты и район.</b> Цена доставки видна сразу.</li>
+          <li><b>Мы собираем заказ.</b> Это занимает 20–30 минут.</li>
+          <li><b>Курьер привозит.</b> Термосумка, чек и улыбка в комплекте.</li>
+        </ol>
+        <ul class="d-info rv">
+          <li><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg><div><b>09:00–21:00</b><span>Последний заказ с доставкой — в 20:15</span></div></li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-bag"/></svg><div><b>Самовывоз −5%</b><span>Заберите в любой из трёх кофеен</span></div></li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-percent"/></svg><div><b>Оплата</b><span>Наличными, картой курьеру или переводом</span></div></li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-cake"/></svg><div><b>Торты на заказ</b><span>Оформите за 24 часа до даты</span></div></li>
+        </ul>
+      </div>
+      <div class="calc rv" id="calc">
+        <h3 class="calc-t">Рассчитайте доставку</h3>
+        <div class="calc-dist" id="dzChips" role="radiogroup" aria-label="Район доставки"></div>
+        <label class="calc-lbl" for="dzSum">Сумма заказа <output id="dzSumOut">200 сом.</output></label>
+        <input class="range" type="range" id="dzSum" min="50" max="600" step="10" value="200">
+        <div class="calc-out">
+          <div><span>Доставка</span><strong id="dzFee">15 сом.</strong></div>
+          <div><span>Время в пути</span><strong id="dzEta">35–45 мин</strong></div>
+        </div>
+        <div class="calc-bar" aria-hidden="true"><span id="dzBar"></span></div>
+        <p class="calc-left" id="dzLeft" aria-live="polite"></p>
+        <p class="calc-next" id="dzNext"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- отзывы -->
+  <section class="sec reviews" id="reviews" aria-labelledby="revT">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <div><p class="eyebrow">Нас любят в Душанбе</p><h2 class="h2" id="revT">Отзывы</h2></div>
+        <div class="rev-sum">
+          <p class="rev-score"><strong>4,9</strong><span class="stars" aria-hidden="true"></span></p>
+          <p class="rev-n">2&nbsp;318 оценок</p>
+        </div>
+        <div class="sec-ctrl">
+          <button class="round-btn" id="revPrev" type="button" aria-label="Назад"><svg class="ic" aria-hidden="true"><use href="#i-arrow-left"/></svg></button>
+          <button class="round-btn" id="revNext" type="button" aria-label="Вперёд"><svg class="ic" aria-hidden="true"><use href="#i-arrow-right"/></svg></button>
+        </div>
+      </div>
+    </div>
+    <ul class="track track-rev" id="revTrack"></ul>
+  </section>
+
+  <!-- полезно узнать -->
+  <section class="sec journal" id="journal" aria-labelledby="jT">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <div><p class="eyebrow">Блог кондитеров</p><h2 class="h2" id="jT">Полезно узнать</h2></div>
+      </div>
+      <ul class="j-grid" id="jGrid"></ul>
+    </div>
+  </section>
+
+  <!-- галерея -->
+  <section class="sec gallery" id="gallery" aria-labelledby="gT">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <div><p class="eyebrow">Наши работы</p><h2 class="h2" id="gT">Галерея</h2></div>
+        <a class="btn btn-ghost" href="https://www.instagram.com/" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-instagram"/></svg>@melty.bakery.dushanbe</a>
+      </div>
+      <div class="gal" id="galGrid"></div>
+    </div>
+  </section>
+
+  <!-- для бизнеса -->
+  <section class="b2b drip-after" id="business" aria-labelledby="b2bT">
+    <div class="wrap b2b-grid">
+      <div class="b2b-copy">
+        <p class="eyebrow on-dark rv">Для кофеен, отелей и ресторанов</p>
+        <h2 class="h2 rv" id="b2bT">Десерты для вашего заведения</h2>
+        <p class="lead rv">Свежая выпечка и десерты с ежедневной доставкой. Подберём ассортимент, сделаем рецепты под ваше меню и упаковку с вашим логотипом.</p>
+        <ul class="b2b-list rv">
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Доставка каждое утро до 08:00</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>От 10 позиций — скидка 15%</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Индивидуальные рецепты и упаковка</li>
+        </ul>
+      </div>
+      <form class="b2b-form rv" id="b2bForm" novalidate>
+        <div class="fld"><label for="b2bName">Имя <span aria-hidden="true">*</span></label><input id="b2bName" name="name" autocomplete="name" required><p class="err" id="b2bNameE" hidden></p></div>
+        <div class="fld"><label for="b2bCo">Заведение</label><input id="b2bCo" name="company" autocomplete="organization"></div>
+        <div class="fld"><label for="b2bTel">Телефон <span aria-hidden="true">*</span></label><input id="b2bTel" name="tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="+992" required><p class="err" id="b2bTelE" hidden></p></div>
+        <div class="fld"><label for="b2bMsg">Что нужно?</label><textarea id="b2bMsg" name="msg" rows="3" placeholder="Например: 20 эклеров и 10 круассанов каждое утро"></textarea></div>
+        <button class="btn btn-glaze" type="submit">Отправить заявку</button>
+        <p class="b2b-ok" id="b2bOk" role="status" hidden>Заявка принята. Менеджер позвонит в течение рабочего дня. <i>Демо: заявка никуда не отправляется.</i></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- контакты -->
+  <section class="sec contacts" id="contacts" aria-labelledby="cT">
+    <div class="wrap c-grid">
+      <div class="c-copy">
+        <p class="eyebrow rv">Адреса и контакты</p>
+        <h2 class="h2 rv" id="cT">Заходите — угостим кофе</h2>
+        <p class="status status-lg rv" id="status2"><span class="dot" aria-hidden="true"></span><span id="statusText2">Открыто до 22:00</span></p>
+        <div class="loc-list rv" id="locList" role="radiogroup" aria-label="Выберите адрес"></div>
+        <div class="c-phones rv">
+          <a class="c-phone" href="tel:+992370001122"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg><span>Телефон<b>+992 37 000 11 22</b></span></a>
+          <a class="c-phone" href="https://wa.me/992900001122" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-whatsapp"/></svg><span>WhatsApp и Telegram<b>+992 90 000 11 22</b></span></a>
+          <a class="c-phone" href="mailto:hello@meltybakery.tj"><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg><span>Почта<b>hello@meltybakery.tj</b></span></a>
+        </div>
+      </div>
+      <div class="c-map rv">
+        <iframe id="map" title="Карта Душанбе с адресами Melty Bakery" loading="lazy" referrerpolicy="no-referrer"></iframe>
+        <p class="c-note">Метка условная: адреса и номера в этом проекте вымышлены.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p class="foot-word melt" aria-hidden="true">Melty</p>
+    <div class="foot-grid">
+      <div>
+        <h2 class="foot-h">Melty Bakery</h2>
+        <p class="foot-p">Кондитерская в Душанбе. Печём с 2016 года, привозим за 45 минут.</p>
+        <p class="foot-p"><a href="tel:+992370001122">+992 37 000 11 22</a><br><a href="mailto:hello@meltybakery.tj">hello@meltybakery.tj</a></p>
+      </div>
+      <nav aria-label="Меню в подвале">
+        <h2 class="foot-h">Меню</h2>
+        <ul class="foot-ul" id="footCats"></ul>
+      </nav>
+      <nav aria-label="Покупателям">
+        <h2 class="foot-h">Покупателям</h2>
+        <ul class="foot-ul">
+          <li><a href="#delivery">Доставка и оплата</a></li>
+          <li><a href="#builder">Торт на заказ</a></li>
+          <li><a href="#reviews">Отзывы</a></li>
+          <li><a href="#journal">Полезно узнать</a></li>
+          <li><a href="#business">Для бизнеса</a></li>
+        </ul>
+      </nav>
+      <div>
+        <h2 class="foot-h">Часы работы</h2>
+        <p class="foot-p">Ежедневно 08:00–22:00<br>Доставка 09:00–21:00</p>
+        <p class="foot-p">пр. Рудаки, 112<br>ул. Айни, 41<br>пр. Борбад, 15</p>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <p>© 2026 Melty Bakery. Демо-проект для портфолио: бренд, адреса, телефоны и цены вымышлены. Фото — Unsplash.</p>
+      <a class="to-top" href="#top" aria-label="Наверх"><svg class="ic" aria-hidden="true"><use href="#i-arrow-up"/></svg></a>
+    </div>
+  </div>
+</footer>
+
+<!-- мобильное меню -->
+<dialog class="mnav" id="navDlg" aria-label="Меню">
+  <div class="mnav-in">
+    <button class="icon-btn mnav-x" type="button" data-close aria-label="Закрыть меню"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button>
+    <nav class="mnav-links" aria-label="Мобильное меню">
+      <a href="#menu">Меню</a><a href="#builder">Торт на заказ</a><a href="#delivery">Доставка</a><a href="#about">О нас</a><a href="#business">Для бизнеса</a><a href="#contacts">Адреса</a>
+    </nav>
+    <div class="mnav-foot">
+      <a class="btn btn-dark" href="tel:+992370001122"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg>+992 37 000 11 22</a>
+      <p class="mnav-st"><span class="dot" aria-hidden="true"></span><span id="statusText3">Открыто до 22:00</span></p>
+    </div>
+  </div>
+</dialog>
+
+<!-- корзина -->
+<dialog class="drawer" id="cartDlg" aria-labelledby="cartT">
+  <div class="panel">
+    <header class="panel-h"><h2 class="panel-t" id="cartT">Корзина</h2><button class="icon-btn" type="button" data-close aria-label="Закрыть корзину"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button></header>
+    <div class="cart-body" id="cartBody"></div>
+    <footer class="cart-foot" id="cartFoot"></footer>
+  </div>
+</dialog>
+
+<!-- карточка товара -->
+<dialog class="modal" id="prodDlg" aria-labelledby="pdName">
+  <div class="modal-in" id="prodBody"></div>
+</dialog>
+
+<!-- статья -->
+<dialog class="modal modal-s" id="artDlg" aria-labelledby="artT">
+  <div class="modal-in" id="artBody"></div>
+</dialog>
+
+<!-- оформление заказа -->
+<dialog class="modal modal-s" id="coDlg" aria-labelledby="coT">
+  <div class="modal-in" id="coBody"></div>
+</dialog>
+
+<!-- галерея -->
+<dialog class="lightbox" id="lbDlg" aria-label="Фотография">
+  <button class="icon-btn lb-x" type="button" data-close aria-label="Закрыть"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button>
+  <button class="round-btn lb-prev" id="lbPrev" type="button" aria-label="Предыдущее фото"><svg class="ic" aria-hidden="true"><use href="#i-arrow-left"/></svg></button>
+  <figure class="lb-fig"><img id="lbImg" alt=""><figcaption id="lbCap"></figcaption></figure>
+  <button class="round-btn lb-next" id="lbNext" type="button" aria-label="Следующее фото"><svg class="ic" aria-hidden="true"><use href="#i-arrow-right"/></svg></button>
+</dialog>
+
+<div class="toast" id="toast" popover="manual" role="status" aria-live="polite"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span id="toastMsg"></span><button type="button" id="toastBtn" hidden>Корзина</button></div>
+
+<noscript><p class="noscript">Включите JavaScript — без него не работают корзина, меню и конструктор торта.</p></noscript>
+
+<script src="js/photos.js"></script>
+<script src="js/data.js"></script>
+<script src="js/cake.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

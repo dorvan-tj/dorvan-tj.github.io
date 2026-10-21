@@ -1,0 +1,169 @@
+<!doctype html>
+<!-- Этот файл собран скриптом build-pages.mjs из src/. Правьте заготовки в src/ и js/data.js, а не его. -->
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<script>document.documentElement.className += " js";</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#FBF5EF">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preload" href="fonts/playfair-display-cyrillic-500-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/manrope-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/style.css">
+
+<title>Контакты — Iris, салон красоты в Душанбе</title>
+<meta name="description" content="Адрес, телефон, часы работы салона Iris в Душанбе и форма для вопросов. Концепт студии Dorvan.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Iris beauty studio (концепт студии Dorvan)">
+<meta property="og:title" content="Контакты — Iris">
+<meta property="og:description" content="Адрес, телефон, часы работы и форма для вопросов. Концепт студии Dorvan.">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:image" content="https://dorvan-tj.github.io/demos/350-salon/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+<a class="skip" href="#main">Перейти к содержимому</a>
+<header class="site-header">
+  <div class="wrap header__row">
+    <a class="logo" href="index.html" aria-label="Iris — на главную">
+      <svg class="logo__mark" viewBox="0 0 32 32" width="30" height="30" aria-hidden="true" focusable="false"><path d="M5 28V15a11 11 0 0 1 22 0v13z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="16" cy="19" r="3.6" fill="currentColor"/><path d="M16 15c-2.4-3-1.4-6.4 0-8.6 1.4 2.2 2.4 5.6 0 8.6z" fill="currentColor" opacity=".55"/></svg>
+      <span>Iris</span>
+    </a>
+    <span class="badge-concept" title="Концепт: вымышленный салон. Названия, цены и адреса придуманы для примера.">Концепт</span>
+    <nav class="nav" aria-label="Основное меню">
+      <a href="services.html">Услуги и цены</a>
+      <a href="masters.html">Мастера</a>
+      <a href="booking.html">Онлайн-запись</a>
+      <a href="contacts.html" aria-current="page">Контакты</a>
+    </nav>
+    <a class="btn btn--primary btn--sm header__cta" href="booking.html">Записаться</a>
+    <button class="burger" type="button" aria-expanded="false" aria-controls="mnav" aria-label="Открыть меню">
+      <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path class="b-open" d="M4 7h16M4 12h16M4 17h16"/><path class="b-close" d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <nav class="mnav" id="mnav" aria-label="Основное меню" hidden>
+    <div class="wrap">
+      <a href="services.html">Услуги и цены</a>
+      <a href="masters.html">Мастера</a>
+      <a href="booking.html">Онлайн-запись</a>
+      <a href="contacts.html" aria-current="page">Контакты</a>
+      <a class="btn btn--primary" href="booking.html">Записаться онлайн</a>
+    </div>
+  </nav>
+</header>
+
+
+<main id="main" tabindex="-1">
+  <section class="wrap pagehead">
+    <p class="eyebrow">Контакты</p>
+    <h1 class="h1">Ждём вас в <em>Iris</em></h1>
+    <p class="lead">Запишитесь онлайн или задайте вопрос — ответим в течение рабочего дня.</p>
+  </section>
+
+  <div class="wrap contact-grid">
+    <div>
+      <div class="card">
+        <ul class="clist">
+          <li><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span><div><small>Салон</small><b>Душанбе, ул. Образцовая, 7</b><small>(адрес для примера)</small></div></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></span><div><small>Часы работы</small><b>Ежедневно с 10:00 до 20:00</b></div></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 4h4l1.5 4-2 1.5a11 11 0 0 0 5 5L15 12.5l4 1.5v4a2 2 0 0 1-2 2A14 14 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></span><a href="tel:+992370005566"><small>Телефон</small><b>+992 37 000 55 66</b></a></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 4L3 11l6 2.5L11.5 20z"/><path d="M9 13.5L21 4"/></svg></span><div><small>Telegram</small><b>@iris_demo</b></div></li>
+        </ul>
+      </div>
+      <svg class="map" viewBox="0 0 800 480" role="img" aria-label="Схема района: салон Iris отмечен меткой">
+        <rect width="800" height="480" fill="#EFE3D6"/>
+        <g fill="#FAF3EA" stroke="#E4D3C2">
+          <rect x="30" y="30" width="130" height="90" rx="12"/><rect x="200" y="30" width="200" height="90" rx="12"/><rect x="440" y="30" width="180" height="90" rx="12"/><rect x="660" y="30" width="110" height="90" rx="12"/>
+          <rect x="30" y="160" width="130" height="120" rx="12"/><rect x="200" y="160" width="200" height="120" rx="12"/><rect x="440" y="160" width="180" height="120" rx="12"/><rect x="660" y="160" width="110" height="120" rx="12"/>
+          <rect x="30" y="320" width="130" height="80" rx="12"/><rect x="200" y="320" width="200" height="80" rx="12"/><rect x="440" y="320" width="180" height="80" rx="12"/><rect x="660" y="320" width="110" height="80" rx="12"/>
+        </g>
+        <ellipse cx="540" cy="440" rx="95" ry="26" fill="#D5DFCB"/>
+        <path d="M0 470 L800 40" stroke="#FFFBF5" stroke-width="18"/>
+        <!-- подписи крупные: на телефоне схема уменьшается почти вдвое -->
+        <g fill="#6A5662" font-family="Manrope, sans-serif" font-size="25"><text x="40" y="148">ул. Образцовая</text><text x="440" y="148">пр. Примерный</text></g>
+        <g transform="translate(300 220)"><ellipse cx="0" cy="32" rx="16" ry="5" fill="rgba(0,0,0,.2)"/><path d="M0 30C-3 20 -22 8 -22 -8a22 22 0 0 1 44 0C22 8 3 20 0 30z" fill="#9C4A40"/><circle cy="-8" r="8.5" fill="#fff"/></g>
+        <g transform="translate(332 186)"><rect width="140" height="52" rx="26" fill="#2B1A28"/><text x="70" y="34" text-anchor="middle" fill="#FBF5EF" font-family="Manrope, sans-serif" font-size="26" font-weight="700">Iris</text></g>
+      </svg>
+      <p class="mapcap"><b>Схема проезда (пример).</b> Парковка во дворе. Вход со стороны улицы.</p>
+    </div>
+
+    <div class="card" id="form">
+      <h2 class="h2" style="font-size:34px">Задать вопрос</h2>
+      <p class="muted" style="margin:8px 0 22px">Оставьте имя и телефон — перезвоним и подскажем.</p>
+      <form class="form" data-demo-form novalidate>
+        <div class="field">
+          <label for="c-name">Ваше имя <span aria-hidden="true">*</span></label>
+          <input id="c-name" name="name" type="text" autocomplete="name" required>
+          <p class="err" id="c-name-err" aria-live="polite"></p>
+        </div>
+        <div class="field">
+          <label for="c-phone">Телефон <span aria-hidden="true">*</span></label>
+          <input id="c-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+992 90 000 00 00" required>
+          <p class="err" id="c-phone-err" aria-live="polite"></p>
+        </div>
+        <div class="field">
+          <label for="c-msg">Вопрос</label>
+          <textarea id="c-msg" name="message" rows="3"></textarea>
+        </div>
+        <div class="field">
+          <label class="check" for="c-ok"><input id="c-ok" name="consent" type="checkbox"><span>Согласен на обработку персональных данных (<a href="privacy.html" target="_blank" rel="noopener noreferrer" style="text-decoration:underline;text-underline-offset:4px">политика</a>)</span></label>
+          <p class="err" id="c-ok-err" aria-live="polite"></p>
+        </div>
+        <button class="btn btn--primary" type="submit">Отправить</button>
+      </form>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer__grid">
+    <div>
+      <a class="logo logo--light" href="index.html" aria-label="Iris — на главную">
+        <svg class="logo__mark" viewBox="0 0 32 32" width="30" height="30" aria-hidden="true" focusable="false"><path d="M5 28V15a11 11 0 0 1 22 0v13z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="16" cy="19" r="3.6" fill="currentColor"/><path d="M16 15c-2.4-3-1.4-6.4 0-8.6 1.4 2.2 2.4 5.6 0 8.6z" fill="currentColor" opacity=".55"/></svg>
+        <span>Iris</span>
+      </a>
+      <p class="footer__about">Салон красоты в Душанбе. Запишитесь онлайн за минуту: услуга, мастер, удобное время.</p>
+    </div>
+    <nav aria-label="Разделы сайта">
+      <p class="footer__h">Разделы</p>
+      <ul>
+        <li><a href="services.html">Услуги и цены</a></li>
+        <li><a href="masters.html">Мастера</a></li>
+        <li><a href="booking.html">Онлайн-запись</a></li>
+        <li><a href="contacts.html">Контакты</a></li>
+      </ul>
+    </nav>
+    <div>
+      <p class="footer__h">Связь</p>
+      <ul class="footer__contacts">
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span>Душанбе, ул. Образцовая, 7 <span class="muted-l">(адрес для примера)</span></span></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>Ежедневно с 10:00 до 20:00</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 4h4l1.5 4-2 1.5a11 11 0 0 0 5 5L15 12.5l4 1.5v4a2 2 0 0 1-2 2A14 14 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg><a href="tel:+992370005566">+992 37 000 55 66</a></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 4L3 11l6 2.5L11.5 20z"/><path d="M9 13.5L21 4"/></svg>@iris_demo</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer__bar">
+    <div class="wrap footer__bar-row">
+      <p>Концепт: вымышленный салон. Названия, цены и адреса придуманы для примера.</p>
+      <p><a href="privacy.html">Политика обработки данных</a><span>Сайт-пример студии Dorvan</span></p>
+    </div>
+  </div>
+</footer>
+
+<a class="fab" href="tel:+992370005566" aria-label="Позвонить в салон: +992 37 000 55 66">
+  <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" focusable="false"><path d="M5 4h4l1.5 4-2 1.5a11 11 0 0 0 5 5L15 12.5l4 1.5v4a2 2 0 0 1-2 2A14 14 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>
+</a>
+<aside class="demo-plate" aria-label="Демо-сайт студии Dorvan">
+  <span class="dp-brand">Dorvan</span>
+  <span class="dp-text">Пример за <b>$350</b></span>
+  <span class="dp-dot" aria-hidden="true">·</span>
+  <a class="dp-btn" href="https://t.me/dorvan_tj?text=%D0%A5%D0%BE%D1%87%D1%83%20%D1%81%D0%B0%D0%B9%D1%82%20%D0%B7%D0%B0%20%24350%2C%20%D0%BA%D0%B0%D0%BA%20%C2%ABIris%C2%BB" target="_blank" rel="noopener noreferrer" data-copy="Хочу сайт за $350, как «Iris»">Хочу такой <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+</aside>
+
+<script src="js/data.js"></script>
+<script src="js/app.js" defer></script>
+</body>
+</html>
