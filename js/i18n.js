@@ -95,10 +95,10 @@ window.I18N = {
 
     'process.label': 'My process', 'process.title': 'How a project goes',
     'process.1.t': 'Brief', 'process.1.d': 'We clarify the goal, audience and budget, then fix the scope and timeline.',
-    'process.2.t': 'Concept', 'process.2.d': 'Structure, visual style and a prototype of the key screens — before any code.',
-    'process.3.t': 'Build', 'process.3.d': 'I build in iterations and show intermediate versions on a live staging site.',
-    'process.4.t': 'Testing', 'process.4.d': 'Responsiveness, accessibility, speed and user flows. I fix what I find.',
-    'process.5.t': 'Launch & support', 'process.5.d': 'Publishing, handover of source code and access, support after launch.',
+    'process.2.t': 'Concept', 'process.2.d': 'Structure, visual style and a mock-up of the key screens — before I start building.',
+    'process.3.t': 'Build', 'process.3.d': 'I build the site step by step and share interim versions by link.',
+    'process.4.t': 'Testing', 'process.4.d': 'I check it on a phone and a computer, for speed and ease of use. I fix what I find.',
+    'process.5.t': 'Launch & support', 'process.5.d': 'I publish the site, hand over access and files, and help after launch.',
 
     'faq.label': 'FAQ', 'faq.title': 'Good to know',
     'faq.lead': "Can't find your answer? Write to me — I'll reply personally.",
