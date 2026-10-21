@@ -16,10 +16,11 @@ window.I18N = {
     'hero.sub': '<span class="ln"><span>Websites for business</span></span><br><span class="ln"><span>from $20, end to end</span></span>',
     'hero.lead': 'I build websites, Telegram bots and presentations for small businesses in Dushanbe. Prices from $20, timelines from 1 day, and you can open my examples and try them live.',
     'hero.cta1': 'How much is a site', 'hero.cta2': 'Send a request',
-    'hero.browser': 'AURA Dental Studio · concept',
-    'hero.browser.alt': 'Screenshot of the AURA Dental Studio website',
-    'hero.phone.alt': 'Noverim app screen: 3D anatomy atlas',
-    'hero.stat.t': 'first website', 'hero.stat.s': 'a business card in 1–2 days',
+    'hero.browser': 'ОТАШ · concept',
+    'hero.browser.alt': 'First screen of the ОТАШ restaurant demo website',
+    'hero.phone.alt': 'Online booking in the Iris salon demo website, phone screen',
+    'hero.stat.t': 'Websites from $20', 'hero.stat.s': 'live examples inside',
+    'hero.site.s': 'concept · a $20 website',
     'hero.flow.t': 'End to end',
     'hero.flow.1': 'Idea', 'hero.flow.2': 'Design', 'hero.flow.3': 'Site', 'hero.flow.4': 'Launch',
 
@@ -257,8 +258,7 @@ window.I18N = {
       'pack.msg': 'Хочу пакет «{n}» за ${p}. ',
       'mods.incl': 'В пакете уже есть: {m} — отмечать это не нужно.',
       'gal.prev': 'Предыдущий кадр', 'gal.next': 'Следующий кадр',
-      'case.prev': 'Предыдущий проект', 'case.next': 'Следующий проект', 'case.more': 'Другие проекты',
-      'cur.open': 'Открыть'
+      'case.prev': 'Предыдущий проект', 'case.next': 'Следующий проект', 'case.more': 'Другие проекты'
     },
     en: {
       'btn.open': 'Open Telegram', 'btn.copy': 'Copy', 'btn.copied': 'Copied', 'btn.edit': 'Edit brief', 'btn.new': 'New brief',
@@ -285,8 +285,7 @@ window.I18N = {
       'pack.msg': 'I want the “{n}” bundle for ${p}. ',
       'mods.incl': 'The bundle already includes: {m} — no need to tick them.',
       'gal.prev': 'Previous image', 'gal.next': 'Next image',
-      'case.prev': 'Previous project', 'case.next': 'Next project', 'case.more': 'More projects',
-      'cur.open': 'Open'
+      'case.prev': 'Previous project', 'case.next': 'Next project', 'case.more': 'More projects'
     }
   }
 };
