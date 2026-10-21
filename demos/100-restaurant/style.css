@@ -74,7 +74,7 @@ button,input,select,textarea{font:inherit;color:inherit}button{cursor:pointer}
 @media (max-width:1039px){.hdr-cta .btn{display:none}}
 
 /* — 1. главный экран — */
-.hero{position:relative;min-height:max(100svh,660px);padding-top:calc(var(--hdr) + 28px);display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;isolation:isolate;background:var(--coal)}
+.hero{position:relative;min-height:max(100svh,660px);padding-top:calc(var(--hdr) + 28px + var(--notes-h,0px));display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;isolation:isolate;background:var(--coal)}
 .hero-bg{position:absolute;inset:-4% 0 0;z-index:-3}
 .hero-bg img{width:100%;height:100%;object-fit:cover;object-position:40% 60%;opacity:.5;transform:translate3d(0,var(--py,0),0) scale(1.1)}
 .hero::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(180deg,rgba(18,11,8,.72) 0,rgba(18,11,8,0) 28%,rgba(18,11,8,.1) 58%,var(--coal) 100%)}
@@ -293,3 +293,30 @@ html.is-og .fab,html.is-og .hdr{display:none!important}
 .logo{display:inline-flex;align-items:center;min-height:44px}
 .map-link{min-height:44px}
 .ftr-nav a,.ct a{display:inline-flex;align-items:center;min-height:44px;padding:0 6px}
+
+/* ---------- демо-админка (admin-demo/): стоп-лист, новая цена, «Сегодня закрыто», плашка «меню изменено», кнопка для владельца ---------- */
+.hit-img{position:relative}
+.dish.is-stop .dish-img img,.hit.is-stop .hit-img img{filter:grayscale(1) brightness(.5)}
+.dish.is-stop .dish-body h3,.dish.is-stop .dish-foot b,.hit.is-stop .hit-body{opacity:.9}
+.stop-badge{position:absolute;left:50%;top:50%;z-index:3;transform:translate(-50%,-50%) rotate(-7deg);width:max-content;max-width:86%;padding:8px 14px;border-radius:999px;background:var(--saffron);color:var(--ink);font:800 12px/1.15 var(--f-body);letter-spacing:.05em;text-transform:uppercase;text-align:center;box-shadow:0 10px 24px -8px rgba(0,0,0,.6)}
+.stop-badge[hidden]{display:none}
+@keyframes price-pop{0%{transform:scale(1)}40%{transform:scale(1.18)}100%{transform:scale(1)}}
+b.is-new{color:var(--chili);animation:price-pop .7s var(--out) 1}
+.hit-body b.is-new{color:var(--saffron)}
+/* плашки демо-админки лежат внутри первого экрана и прокручиваются вместе с ним: не плавают поверх фильтров, меню и кнопок */
+.dm-notes{position:absolute;z-index:6;left:50%;top:calc(var(--hdr) + 14px);transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;width:max-content;max-width:calc(100% - 24px);pointer-events:none}
+.dm-notes>*{pointer-events:auto}
+.closed-bar{max-width:100%;padding:12px 20px;border-radius:16px;background:var(--saffron);color:var(--ink);font:500 15px/1.4 var(--f-body);text-align:center;box-shadow:0 18px 40px -14px rgba(0,0,0,.6)}
+.closed-bar b{font-weight:800}.closed-bar a{color:inherit;font-weight:700;text-underline-offset:3px}
+.closed-bar[hidden]{display:none}
+.admin-chip{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:2px 12px;max-width:100%;padding:6px 12px;border-radius:14px;background:rgba(18,11,8,.92);color:var(--ash);border:1px solid rgba(255,200,87,.5);font:500 13.5px/1.3 var(--f-body);box-shadow:0 12px 32px rgba(0,0,0,.4)}
+.admin-chip a{display:inline-flex;align-items:center;min-height:44px;color:var(--glow);font-weight:700;text-underline-offset:3px}
+.admin-chip button{min-height:44px;padding:0 16px;border-radius:999px;background:transparent;border:1px solid rgba(234,227,215,.4);color:var(--ash);font:600 13px var(--f-body)}
+.admin-chip button:hover{background:var(--ash);color:var(--coal)}
+.admin-chip[hidden]{display:none}
+.owner-cta{margin-top:clamp(28px,4vw,48px);display:grid;gap:22px;align-items:center;padding:clamp(22px,3vw,36px);border:1px solid var(--line);border-radius:26px;background:linear-gradient(135deg,rgba(255,122,26,.12),rgba(255,200,87,.04))}
+.owner-cta h3{margin-top:12px;font:800 clamp(30px,4vw,52px)/.95 var(--f-display);text-transform:uppercase}
+.owner-cta h3 em{font:italic 400 .8em var(--f-accent);text-transform:none;color:var(--saffron)}
+.owner-cta p:not(.eyebrow){margin-top:12px;max-width:40em;color:var(--ash-dim);font-size:16.5px}
+@media (min-width:820px){.owner-cta{grid-template-columns:minmax(0,1fr) auto}}
+@media (prefers-reduced-motion:reduce){b.is-new{animation:none}}@media (max-width:600px){.closed-bar{padding:9px 14px;font-size:14px}.closed-bar .more{display:none}}

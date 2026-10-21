@@ -56,6 +56,9 @@
     });
   }
 
+  // «Назад» из админки: страницу могли достать из кэша браузера со старыми окнами — загружаем её заново
+  window.addEventListener("pageshow", function (e) { if (e.persisted && doc.querySelector("[data-nearest]")) location.reload(); });
+
   /* ---------- Главная: «ближайшее окно» ---------- */
   var slot = doc.querySelector("[data-nearest]");
   if (slot && D) {

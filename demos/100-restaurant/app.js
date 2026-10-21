@@ -10,6 +10,14 @@
   if (qs.has('og')) root.classList.add('is-og');
   if (qs.has('shot')) root.classList.add('is-shot');
   let DATA = {}; try { DATA = JSON.parse($('#site-data').textContent); } catch (e) { /* без данных часы не показываются */ }
+  // — демо-админка (admin-demo/): цены, стоп-лист и «закрыто сегодня» хранятся только в браузере посетителя и никуда не отправляются —
+  const ADMIN_KEY = 'dorvan-demo-otash-v1';
+  const todayIso = () => { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
+  // «закрыто сегодня» хранится с датой и после полуночи само перестаёт действовать (как в настоящем боте)
+  // из памяти берём только то, что похоже на правду (после старой версии демо там может лежать что угодно)
+  const readAdmin = () => { try { const v = JSON.parse(localStorage.getItem(ADMIN_KEY)); if (!v || typeof v !== 'object') return {}; const prices = {}; if (v.prices && typeof v.prices === 'object') Object.keys(v.prices).forEach((id) => { const n = v.prices[id]; if (Number.isInteger(n) && n > 0 && n < 100000) prices[id] = n; }); return { prices, stop: Array.isArray(v.stop) ? v.stop.filter((x) => typeof x === 'string') : [], closed: v.closed === todayIso() }; } catch (e) { return {}; } };
+  let adm = readAdmin(), nextOpen = '12:00';
+  const adminHooks = [];
 
   // — искры (рисуем на canvas, останавливаем, когда не видно) —
   function Embers(canvas, count) {
@@ -133,17 +141,22 @@
   const tzNow = (tz) => { const o = {}; new Intl.DateTimeFormat('en-GB', { timeZone: tz, weekday: 'short', hour: '2-digit', minute: '2-digit', hour12: false }).formatToParts(new Date()).forEach((p) => { o[p.type] = p.value; }); return { wd: { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 }[o.weekday], min: (+o.hour % 24) * 60 + +o.minute }; };
   const toMin = (t) => { const [h, m] = t.split(':'); return +h * 60 + +m; };
   const show24 = (t) => (t === '24:00' ? '00:00' : t);
-  let now = null;
+  let now = null, paintHours = () => {};
   if (DATA.hours) {
     try { now = tzNow(DATA.tz); } catch (e) { const t = new Date(); now = { wd: t.getDay(), min: t.getHours() * 60 + t.getMinutes() }; }
     const slot = (wd) => DATA.hours.find((h) => h.days.includes(wd));
     $$('.hours li').forEach((li) => li.classList.toggle('today', li.dataset.days.split(',').map(Number).includes(now.wd)));
-    const t = slot(now.wd); let msg, closed = true;
-    if (t && now.min >= toMin(t.open) && now.min < toMin(t.close)) { msg = 'Сейчас открыто · до ' + show24(t.close); closed = false; }
-    else if (t && now.min < toMin(t.open)) msg = 'Сейчас закрыто · откроемся сегодня в ' + t.open;
-    else { const s = slot((now.wd + 1) % 7); msg = 'Сейчас закрыто · откроемся завтра в ' + (s ? s.open : '12:00'); }
-    $$('[data-open-status]').forEach((el) => { el.innerHTML = '<i></i><span></span>'; $('span', el).textContent = msg; el.classList.toggle('is-closed', closed); });
-    const line = $('[data-open-line]'); if (line) line.textContent = closed ? msg : 'Открыто сейчас · до ' + show24(t.close);
+    paintHours = () => {
+      const t = slot(now.wd), s = slot((now.wd + 1) % 7); let msg, closed = true;
+      nextOpen = s ? s.open : '12:00';
+      if (adm.closed) msg = 'Сегодня закрыто · откроемся завтра в ' + nextOpen; // «закрыто сегодня» из демо-админки
+      else if (t && now.min >= toMin(t.open) && now.min < toMin(t.close)) { msg = 'Сейчас открыто · до ' + show24(t.close); closed = false; }
+      else if (t && now.min < toMin(t.open)) msg = 'Сейчас закрыто · откроемся сегодня в ' + t.open;
+      else msg = 'Сейчас закрыто · откроемся завтра в ' + nextOpen;
+      $$('[data-open-status]').forEach((el) => { el.innerHTML = '<i></i><span></span>'; $('span', el).textContent = msg; el.classList.toggle('is-closed', closed); });
+      const line = $('[data-open-line]'); if (line) line.textContent = closed ? msg : 'Открыто сейчас · до ' + show24(t.close);
+    };
+    paintHours();
   }
 
   // — бронь: день, время, гости, форма —
@@ -192,6 +205,12 @@
     });
     $('[data-again]', form).addEventListener('click', () => { form.reset(); day = time = null; $$('[role=radio]', form).forEach((b) => b.setAttribute('aria-checked', 'false')); setG(2); refresh(); form.classList.remove('sent'); f.name.focus(); });
     refresh();
+    // «закрыто сегодня» из демо-админки: на сегодня записаться нельзя
+    adminHooks.push(() => {
+      const b0 = $('.day[data-i="0"]', daysBox); if (!b0) return;
+      b0.disabled = !!adm.closed; b0.title = adm.closed ? 'Сегодня закрыто' : 'Сегодня';
+      if (adm.closed && b0.getAttribute('aria-checked') === 'true') { b0.setAttribute('aria-checked', 'false'); day = null; time = null; $$('[role=radio]', $('#times')).forEach((x) => x.setAttribute('aria-checked', 'false')); refresh(); }
+    });
   }
 
   // — политика и кнопка связи —
@@ -200,4 +219,47 @@
   pol && pol.addEventListener('click', (e) => { if (e.target === pol || e.target.closest('[data-pol-close]')) pol.close(); });
   const fab = $('.fab');
   if (fab) { const btn = $('.fab-btn', fab); btn.addEventListener('click', () => { const o = fab.classList.toggle('open'); btn.setAttribute('aria-expanded', String(o)); }); d.addEventListener('click', (e) => { if (!fab.contains(e.target)) { fab.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); } }); }
+
+  // — применяем демо-админку: цены, стоп-лист, плашка «Сегодня закрыто» —
+  function applyAdmin() {
+    const pr = adm.prices || {}, stop = new Set(adm.stop || []), closed = !!adm.closed;
+    $$('b[data-price]').forEach((el) => {
+      if (!('base' in el.dataset)) el.dataset.base = el.textContent;
+      const v = +pr[el.closest('[data-id]').dataset.id], changed = Number.isFinite(v) && v > 0;
+      el.textContent = changed ? Math.round(v) + ' сом.' : el.dataset.base;
+      el.classList.toggle('is-new', changed);
+      if (changed) el.title = 'Цена изменена в демо-админке (было ' + el.dataset.base + ')'; else el.removeAttribute('title');
+    });
+    $$('.dish[data-id], .hit[data-id]').forEach((el) => {
+      const on = stop.has(el.dataset.id), box = $('.dish-img, .hit-img', el);
+      el.classList.toggle('is-stop', on);
+      let b = $('.stop-badge', box);
+      if (on && !b) { b = d.createElement('span'); b.className = 'stop-badge'; b.textContent = 'Стоп-лист · нет сегодня'; box.appendChild(b); }
+      if (b) b.hidden = !on;
+    });
+    // плашки кладём внутрь первого экрана (а не поверх страницы): так они не закрывают ни фильтры меню, ни кнопку связи
+    const host = () => { let h = $('.dm-notes'); if (!h) { h = d.createElement('div'); h.className = 'dm-notes'; ($('.hero') || d.body).appendChild(h); } return h; };
+    let bar = $('.closed-bar');
+    if (closed && !bar) { bar = d.createElement('div'); bar.className = 'closed-bar'; bar.setAttribute('role', 'status'); host().appendChild(bar); }
+    if (bar) { bar.hidden = !closed; bar.innerHTML = '<b>Сегодня закрыто.</b> Откроемся завтра в ' + nextOpen + '.<span class="more"> Стол можно забронировать на другой день — <a href="#book">форма ниже</a>.</span>'; }
+    const n = Object.keys(pr).length + stop.size + (closed ? 1 : 0);
+    let chip = $('.admin-chip');
+    if (n && !chip) {
+      chip = d.createElement('div'); chip.className = 'admin-chip'; chip.setAttribute('role', 'region'); chip.setAttribute('aria-label', 'Изменения из демо-админки');
+      chip.innerHTML = '<span>Меню изменено в демо-админке</span><a href="admin-demo/index.html">Открыть админку</a><button type="button">Сбросить демо</button>';
+      host().appendChild(chip);
+      $('button', chip).addEventListener('click', () => { try { localStorage.removeItem(ADMIN_KEY); } catch (e) { /* не страшно */ } adm = {}; paintHours(); applyAdmin(); });
+    }
+    if (chip) chip.hidden = !n;
+    // плашки лежат в верхней части первого экрана: даём этому месту отступ, чтобы они не наезжали на заголовок
+    const hero = $('.hero'), box = $('.dm-notes');
+    if (hero) hero.style.setProperty('--notes-h', box && box.offsetHeight ? box.offsetHeight + 16 + 'px' : '0px');
+    adminHooks.forEach((f) => f());
+  }
+  applyAdmin();
+  addEventListener('resize', () => { const hero = $('.hero'), box = $('.dm-notes'); if (hero) hero.style.setProperty('--notes-h', box && box.offsetHeight ? box.offsetHeight + 16 + 'px' : '0px'); });
+  // админку могли изменить в другой вкладке — перерисовываем сразу
+  addEventListener('storage', (e) => { if (e.key === ADMIN_KEY || e.key === null) { adm = readAdmin(); paintHours(); applyAdmin(); } });
+  // «Назад» из админки: страницу могли достать из кэша браузера — перечитываем изменения
+  addEventListener('pageshow', (e) => { if (e.persisted) { adm = readAdmin(); paintHours(); applyAdmin(); } });
 })();

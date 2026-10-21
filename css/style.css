@@ -76,6 +76,7 @@ p{text-wrap:pretty}
 /* ---------- buttons ---------- */
 .btn{position:relative;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:46px;padding:0 22px;border-radius:999px;font-weight:600;font-size:15px;white-space:nowrap;transition:transform var(--dur-2) var(--ease),translate var(--dur-2) var(--ease),background-color var(--dur-1) var(--ease)}
 .btn>:not(.fx){position:relative}
+.btn>.sr{position:absolute} /* скрытое имя кнопки не должно занимать место в ряду (иначе gap сдвигает содержимое) */
 .btn .ico{width:18px;height:18px}
 .btn .ico use{transition:transform var(--dur-2) var(--ease)}
 /* цветное свечение под тёмной кнопкой: отдельный слой, при ховере меняется только opacity */
@@ -281,8 +282,6 @@ button.round:active{transform:scale(.92)}
 .demo__go .ico{width:16px;height:16px}
 @media (hover:hover){.demo:hover{transform:translateY(-4px)}.demo:hover .demo__go{background:var(--acc-ink)}}
 .demo:active{transform:scale(.985)}
-.demo-none{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px;padding:18px 20px}
-.demo-none p{flex:1 1 280px;font-size:15px;color:var(--ink-2)}
 .prices__note{margin-top:20px;max-width:56em;font-size:13.5px;line-height:1.55;color:var(--ink-2)}
 
 /* ---------- work ---------- */
@@ -693,6 +692,7 @@ html.has-cursor :is(input:not([type=radio]):not([type=checkbox]),textarea,select
   .round,.gal__bar .round{width:44px;height:44px}
   .chip span{min-height:44px}
   .contact__item a{display:inline-block;padding:13px 0;margin:-13px 0}
+  .addon__all{padding:11px 0;margin-block:-11px}
   .foot a{display:inline-block;padding:11px 0;margin:-11px 0}
 }
 
@@ -703,3 +703,77 @@ html.has-cursor :is(input:not([type=radio]):not([type=checkbox]),textarea,select
   .step__top::after{opacity:1;scale:1}
   .js [data-reveal]:not(.is-done){opacity:1;transform:none}
 }
+
+/* ===== строка «Можно добавить», «Модули», «Пакеты», подписи ступеней в форме, «Фишки для вашего бизнеса» ===== */
+.tierpanel__start{margin-top:8px;font-size:13.5px;font-weight:650;line-height:1.4;color:var(--acc-ink)}
+.addon{margin-top:14px;font-size:14px;line-height:1.55;color:var(--ink-2)}
+.addon__t{font-weight:650;color:var(--ink)}
+.addon__all{display:inline-block;margin-left:4px;font-weight:650;color:var(--acc-ink);text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:3px;white-space:nowrap}
+.addon__all::after{content:" →";content:" →" / ""}
+.demo-item{display:flex;flex-direction:column;gap:10px}
+.demos:has(.demo-item){align-items:start}
+.demo-item .demo{flex:none;height:auto}
+@media (min-width:961px){.demos:has(.demo-item:only-child){grid-template-columns:minmax(0,440px)}} /* один пример — карточка пошире, чтобы подпись не ломалась */
+.modules,.packs{margin-top:clamp(14px,2vw,24px)}
+.mods__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.mod{display:flex;flex-direction:column;gap:10px;padding:clamp(18px,2.2vw,24px)}
+.mod__top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:4px}
+.mod__ic{display:grid;place-items:center;width:44px;height:44px;border-radius:14px;background:#E4DBFF;color:#4A33C8}
+.mod__price{font-size:26px;line-height:1;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums;color:var(--acc-ink)}
+.mod h3{font-size:clamp(18px,1.8vw,20px);line-height:1.2;letter-spacing:-.02em;font-weight:680}
+.mod p{font-size:14.5px;line-height:1.55;color:var(--ink-2)}
+.mod__foot{margin-top:auto;padding-top:8px}
+.mod__demo{width:100%;min-height:44px;padding:10px 16px;gap:8px;font-size:14px}
+.mod__ask{display:inline-flex;align-items:center;min-height:44px;font-size:13.5px;color:var(--ink-2)}
+.packs__grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.pack{display:flex;flex-direction:column;gap:14px;padding:clamp(18px,2.4vw,28px)}
+.pack--best{box-shadow:0 1px 0 #fff inset,0 0 0 2px rgba(255,190,70,.6),0 26px 50px -26px rgba(200,130,0,.5)}
+.pack .tierpanel__badge{align-self:flex-start}
+.pack h3{font-size:clamp(22px,2.4vw,28px);line-height:1.12;letter-spacing:-.03em;font-weight:700}
+.pack .tierpanel__badge+h3{margin-top:-2px}
+.pack__parts{display:grid}
+.pack__parts li{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:9px 0;border-top:1px solid var(--line);font-size:14.5px;line-height:1.4;color:var(--ink-2)}
+.pack__parts li:first-child{border-top:0}
+.pack__parts b{flex:none;font-weight:650;font-variant-numeric:tabular-nums;color:var(--ink)}
+.pack__sum{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;margin-top:auto}
+.pack__was{font-size:14.5px;color:var(--ink-3)}
+.pack__was s{font-size:17px;font-variant-numeric:tabular-nums;text-decoration-thickness:1.5px}
+.pack__new{font-size:clamp(34px,3.6vw,44px);line-height:1;letter-spacing:-.04em;font-weight:700;font-variant-numeric:tabular-nums;color:var(--acc-ink)}
+.pack__save{display:inline-flex;gap:4px;padding:4px 11px;border-radius:999px;font-size:12.5px;font-weight:700;line-height:1.3;background:#CFF5EF;color:#0A675F}
+.pack__acts{display:flex;flex-wrap:wrap;gap:10px}
+.pack__demo{min-height:44px;padding:10px 16px;gap:8px;font-size:14px}
+/* форма: вилки бюджета с подписью ступеней, цены пакетов и модулей в чипах */
+.chip span{gap:6px}
+.chip i{font-style:normal}
+.field__hint{margin:-2px 0 0;font-size:12.5px;line-height:1.4;color:var(--ink-2)}
+.mods__grid+.prices__admin{margin-top:20px}
+.chips--sub{display:grid;grid-template-columns:repeat(3,1fr)}
+.chip--sub{display:flex}
+.chip--sub span{flex:1;flex-direction:column;align-items:flex-start;justify-content:center;gap:2px;min-height:56px;padding:9px 14px;border-radius:18px}
+.chip--sub b{font-size:14px;font-weight:650;line-height:1.2}
+.chip--sub small{font-size:12px;font-weight:500;line-height:1.25;color:var(--ink-2)}
+.chip--sub input:checked+span small{color:rgba(255,255,255,.78)}
+.chip__p{font-style:normal;font-weight:700;font-variant-numeric:tabular-nums;color:var(--acc-ink)}
+.chip input:checked+span .chip__p{color:#CFC6FF}
+@media (max-width:960px){.mods__grid{grid-template-columns:repeat(2,1fr)}.packs__grid{grid-template-columns:1fr}}
+@media (max-width:640px){.mods__grid{grid-template-columns:1fr}.chips--sub{grid-template-columns:repeat(2,1fr)}.pack__acts .btn{flex:1 1 100%;white-space:normal;line-height:1.25}}
+.prices__admin{margin-top:12px;max-width:56em;font-size:13.5px;line-height:1.55;color:var(--ink-2)}
+.prices__support{margin-top:10px;max-width:56em;font-size:14.5px;line-height:1.5;font-weight:600;color:var(--ink)}
+.features{margin-top:clamp(14px,2vw,24px)}
+.feat__grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.feat{padding:clamp(18px,2.4vw,26px)}
+.feat h3{font-size:clamp(19px,2vw,22px);line-height:1.2;letter-spacing:-.02em;font-weight:680}
+.feat__list{margin-top:10px;display:grid}
+.feat__list li{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:46px;padding:6px 0;border-top:1px solid var(--line);font-size:15px;line-height:1.35}
+.feat__list li:first-child{border-top:0}
+.feat__link{display:flex;flex:1;align-items:center;justify-content:space-between;gap:12px;min-height:44px;color:var(--ink);text-decoration:none}
+.feat__nm{display:flex;flex-wrap:wrap;align-items:center;gap:2px 8px;min-width:0}
+.feat__n{font-weight:550}
+.feat__tag{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11.5px;font-weight:650;line-height:1.35;white-space:nowrap;background:#E4DBFF;color:#4A33C8}
+.feat__go{display:inline-flex;flex:none;align-items:center;gap:5px;font-size:13px;font-weight:650;color:var(--acc-ink)}
+.feat__go .ico{width:15px;height:15px}
+.feat__ask{flex:none;font-size:13px;color:var(--ink-2)}
+@media (hover:hover){.feat__link:hover .feat__n{text-decoration:underline;text-underline-offset:3px}}
+.feat__link:focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:8px}
+@media (max-width:960px){.feat__grid{grid-template-columns:1fr}}
+

@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#FBF5EF">
+<meta name="format-detection" content="telephone=no">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="bot.css">
+
+<title>Бот для клиентов — Telegram-бот для салона · концепт студии Dorvan</title>
+<meta name="description" content="Схема-показ Telegram-бота для салона красоты: запись, напоминание за день, перенос и отмена, рассылки и отчёт владельцу. Нажимайте кнопки в чате. Концепт студии Dorvan, все данные вымышлены.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Iris (концепт студии Dorvan)">
+<meta property="og:title" content="Бот для клиентов — Telegram-бот для салона">
+<meta property="og:description" content="Нажимайте кнопки в чате: запись, напоминание, перенос, рассылка. Схема-показ, концепт студии Dorvan.">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:image" content="https://dorvan-tj.github.io/demos/500-bot/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+<a class="skip" href="#main">Перейти к содержимому</a>
+
+<header class="top">
+  <div class="wrap top__row">
+    <span class="logo">
+      <svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true" focusable="false"><path d="M5 28V15a11 11 0 0 1 22 0v13z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="16" cy="19" r="3.6" fill="currentColor"/><path d="M16 15c-2.4-3-1.4-6.4 0-8.6 1.4 2.2 2.4 5.6 0 8.6z" fill="currentColor" opacity=".55"/></svg>
+      Iris
+    </span>
+    <a class="top__link" href="../350-salon/index.html">Пример салона</a>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+
+  <!-- 1. Первый экран -->
+  <section class="hero" aria-labelledby="h1">
+    <div class="wrap hero__grid">
+      <div class="hero__copy">
+        <p class="eyebrow">Telegram-бот для салона красоты</p>
+        <h1 class="h1" id="h1">Бот для <em>клиентов</em></h1>
+        <p class="lead">Принимает записи в Telegram, напоминает о визите, переносит и отменяет записи, рассылает акции — пока вы работаете.</p>
+        <p class="plaque" role="note">
+          <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9.5"/><path d="M12 11v6M12 7.5v.01"/></svg>
+          <span><b>Это схема-показ, а не настоящий бот.</b> Сообщения никуда не отправляются, все данные вымышлены. <b>Модуль: +$120 — можно добавить к любому сайту.</b></span>
+        </p>
+        <a class="btn btn--primary" href="#chat">Попробовать в чате
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+        </a>
+      </div>
+
+      <!-- Картинка для украшения: настоящий чат — ниже -->
+      <div class="hero__art" aria-hidden="true">
+        <div class="mini">
+          <div class="mini__head"><span class="ava"><svg viewBox="0 0 32 32" width="22" height="22"><path d="M5 28V15a11 11 0 0 1 22 0v13z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="16" cy="19" r="3.6" fill="currentColor"/></svg></span><span class="who"><b>Iris · запись</b><small>бот · пример</small></span></div>
+          <div class="mini__log">
+            <div class="chip">Сегодня</div>
+            <div class="msg msg--bot"><div class="bubble"><p class="bubble__text">Запись сохранена. Напомню за день до визита.</p><span class="bubble__time">09:14</span></div></div>
+            <div class="msg msg--bot">
+              <div class="bubble"><p class="bubble__text">Напоминаю: <b>завтра в 14:00</b> — маникюр с гель-лаком, мастер Мадина.
+Придёте?</p><span class="bubble__time">14:00</span></div>
+              <div class="kb"><div class="kb__row"><span class="kbtn">Приду</span><span class="kbtn">Перенести</span><span class="kbtn">Отменить</span></div></div>
+            </div>
+            <div class="msg msg--me"><div class="bubble"><p class="bubble__text">Приду</p><span class="bubble__time">14:01</span></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Чат-показ -->
+  <section class="demo" aria-labelledby="demo-h">
+    <div class="wrap demo__grid">
+
+      <div class="demo__head">
+        <p class="eyebrow">Попробуйте сами</p>
+        <h2 class="h2" id="demo-h">Чат бота: <em>нажимайте кнопки</em></h2>
+        <p class="demo__sub">Схема-показ: сообщения никуда не отправляются.</p>
+        <ol class="steps" id="steps" aria-label="Что попробовать"></ol>
+      </div>
+
+      <div class="stage" id="chat">
+        <div class="seg" role="group" aria-label="Чей телефон показать">
+          <button class="seg__b" type="button" data-view="client" aria-pressed="true">Клиент<span class="seg__n" hidden></span></button>
+          <button class="seg__b" type="button" data-view="owner" aria-pressed="false">Владелец<span class="seg__n" hidden></span></button>
+        </div>
+
+        <div class="phones" id="phones" data-view="client">
+          <noscript><p class="plaque">Для показа нужен включённый JavaScript.</p></noscript>
+
+          <section class="phone" data-who="client" aria-label="Телефон клиента">
+            <h3 class="phone__cap">Так видит клиент</h3>
+            <div class="frame">
+              <div class="head">
+                <span class="ava" aria-hidden="true"><svg viewBox="0 0 32 32" width="24" height="24"><path d="M5 28V15a11 11 0 0 1 22 0v13z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="16" cy="19" r="3.6" fill="currentColor"/><path d="M16 15c-2.4-3-1.4-6.4 0-8.6 1.4 2.2 2.4 5.6 0 8.6z" fill="currentColor" opacity=".55"/></svg></span>
+                <span class="who"><b>Iris · запись</b><small>бот · пример</small></span>
+              </div>
+              <div class="log" role="log" aria-live="polite" aria-label="Переписка клиента с ботом" tabindex="0"></div>
+              <div class="bar">
+                <button class="startbtn" type="button" id="start">Начать</button>
+                <div class="fake" aria-hidden="true" hidden><span>Сообщение</span><i>Здесь всё делается кнопками</i></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="phone" data-who="owner" aria-label="Телефон владельца салона">
+            <h3 class="phone__cap">Так видит владелец салона</h3>
+            <div class="frame">
+              <div class="head">
+                <span class="ava" aria-hidden="true"><svg viewBox="0 0 32 32" width="24" height="24"><path d="M5 28V15a11 11 0 0 1 22 0v13z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="16" cy="19" r="3.6" fill="currentColor"/><path d="M16 15c-2.4-3-1.4-6.4 0-8.6 1.4 2.2 2.4 5.6 0 8.6z" fill="currentColor" opacity=".55"/></svg></span>
+                <span class="who"><b>Iris · запись</b><small>режим владельца</small></span>
+              </div>
+              <div class="log" role="log" aria-live="polite" aria-label="Переписка владельца с ботом" tabindex="0"></div>
+              <div class="bar">
+                <div class="fake" aria-hidden="true"><span>Сообщение</span><i>Здесь всё делается кнопками</i></div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn--rose" type="button" id="rewind" disabled>
+          <span>Перемотать время: за день до визита</span>
+          <small id="rewind-note">доступно после записи</small>
+        </button>
+        <button class="btn btn--ghost" type="button" id="reset">Сбросить демо</button>
+      </div>
+    </div>
+    <div class="sr-only" id="sr" role="status"></div>
+  </section>
+
+  <!-- 3. Что умеет -->
+  <section class="section" id="features" aria-labelledby="feat-h">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="eyebrow">Модуль: +$120 — можно добавить к любому сайту</p>
+        <h2 class="h2" id="feat-h">Что умеет бот <em>для клиентов</em></h2>
+        <p class="lead">Бот работает в связке с сайтом, где есть онлайн-запись (как в примере салона).</p>
+      </div>
+      <ul class="feats">
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18M9 15l2 2 4-4"/></svg><h3>Запись в Telegram</h3><p>Клиент сам выбирает услугу, мастера, день и время. Без звонков и долгой переписки.</p></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0"/></svg><h3>Напоминание за день</h3><p>Бот сам пишет клиенту накануне визита и спрашивает, придёт ли он.</p></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M17 2l4 4-4 4M3 11V9a3 3 0 0 1 3-3h15M7 22l-4-4 4-4M21 13v2a3 3 0 0 1-3 3H3"/></svg><h3>Перенос и отмена</h3><p>Клиент меняет или отменяет запись в пару нажатий, а вам приходит уведомление. Окно освобождается.</p></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/></svg><h3>Рассылки клиентам</h3><p>Напишите текст, например про акцию, — он уйдёт всем клиентам с кнопкой «Записаться».</p></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM23 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg><h3>База клиентов</h3><p>Имена, телефоны и визиты собираются сами. Тетрадь вести не нужно.</p></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18 20V10M12 20V4M6 20v-6"/></svg><h3>Отчёт за неделю</h3><p>Каждую неделю бот присылает вам сводку: записи, отмены, новые клиенты.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 4. Как это работает -->
+  <section class="section section--blush" aria-labelledby="how-h">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="eyebrow">Три шага</p>
+        <h2 class="h2" id="how-h">Как это работает <em>на вашем сайте</em></h2>
+      </div>
+      <ol class="how">
+        <li><h3>Клиент нажимает «Записаться»</h3><p>На вашем сайте или в Instagram. Открывается ваш бот в Telegram.</p></li>
+        <li><h3>Бот ведёт клиента сам</h3><p>Услуга, мастер, день, время. Вам сразу приходит сообщение о новой записи.</p></li>
+        <li><h3>Бот напоминает и помогает вам</h3><p>За день до визита пишет клиенту. Вы видите записи и отчёт за неделю, а акции рассылаете в пару нажатий.</p></li>
+      </ol>
+      <p class="honest">После запуска рекомендуем поддержку — от $10 в месяц.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot__row">
+    <p>Концепт студии Dorvan: все данные вымышлены</p>
+    <a href="../350-salon/index.html">Вернуться к примеру салона</a>
+  </div>
+</footer>
+
+<script src="bot.js" defer></script>
+<script src="demo-kit.js" data-name="Iris" data-module="120" data-module-name="Бот для клиентов" defer></script>
+</body>
+</html>

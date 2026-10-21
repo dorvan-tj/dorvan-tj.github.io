@@ -1,0 +1,129 @@
+/* Iris · демо-админка. Цвета, шрифты и кнопки — из style.css (подключён раньше). */
+
+.adm { background: var(--cream); }
+.adm main { padding-bottom: 72px; }
+
+/* шапка админки: тёмная, чтобы сразу было видно — это не публичный сайт */
+.adm-top { background: var(--plum); color: var(--cream); }
+.adm-top__row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; padding-block: 10px; }
+.adm-top .logo { color: var(--cream); }
+.adm-top .logo__mark { color: var(--gold-soft); }
+.adm-top__title { display: inline-flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(251 245 239 / 0.85); }
+.adm-top .badge-concept { border-color: var(--gold-soft); color: var(--gold-soft); }
+.adm-top__act { display: flex; flex-wrap: wrap; gap: 8px; margin-left: auto; }
+.adm-top .btn--ghost { border-color: rgb(251 245 239 / 0.55); color: var(--cream); }
+.adm-top .btn--ghost:hover { background: var(--cream); border-color: var(--cream); color: var(--plum); }
+.adm-top :focus-visible { outline-color: #f1d3c8; }
+@media (max-width: 720px) {
+  .adm-top__act { width: 100%; margin-left: 0; }
+  .adm-top__act .btn { flex: 1 1 0; padding-inline: 12px; }
+}
+
+.adm-note { margin-top: 20px; }
+.adm-note strong, #nostore strong { color: var(--rose-ink); }
+#nostore { margin-top: 16px; }
+
+/* вход */
+.adm-login { display: grid; place-items: start center; padding-block: 32px 24px; }
+.adm-login__card { width: min(100%, 560px); }
+.adm-login__card .h2 { margin-top: 10px; font-size: clamp(30px, 4.4vw, 44px); outline: none; }
+.adm-login__card .lead { margin-top: 10px; }
+.adm-pass { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; margin-top: 18px; padding: 14px 16px; border-radius: var(--r-md); background: var(--blush); font-size: 15.5px; }
+.adm-pass span { color: var(--plum-2); }
+.adm-pass code { padding: 4px 12px; border-radius: 10px; background: #fff; border: 1px dashed rgb(156 74 64 / 0.6); font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; font-size: 18px; font-weight: 700; letter-spacing: 0.04em; color: var(--rose-ink); }
+.adm-login .form { margin-top: 20px; }
+.adm-login .field input[type="password"] { width: 100%; min-height: 52px; padding: 12px 16px; border-radius: 14px; border: 1.5px solid rgb(43 26 40 / 0.52); background: #fff; font-size: 16px; transition: border-color 0.2s, box-shadow 0.2s; }
+.adm-login .field input[type="password"]:hover { border-color: rgb(43 26 40 / 0.8); }
+.adm-login .field input[type="password"]:focus-visible { outline: none; border-color: var(--rose-ink); box-shadow: 0 0 0 4px rgb(156 74 64 / 0.18); }
+.adm-login .field [aria-invalid="true"] { border-color: #b3261e; }
+.adm-login .btn { width: 100%; margin-top: 4px; }
+.adm-login__note { margin-top: 16px; font-size: 14px; color: var(--muted); }
+
+/* заголовок рабочей части и разделы */
+.adm-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 8px 24px; margin-top: 30px; }
+.adm-head .h2 { margin-top: 6px; font-size: clamp(32px, 4.4vw, 52px); outline: none; }
+.adm-today { max-width: 46ch; font-size: 15.5px; color: var(--plum-2); }
+.adm-jump { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.adm-jump a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 999px; border: 1px solid var(--line); background: #fff; font-size: 15px; font-weight: 600; text-decoration: none; transition: background-color 0.2s, border-color 0.2s; }
+.adm-jump a:hover { border-color: var(--rose); background: var(--blush); }
+.adm-sec { margin-top: 48px; scroll-margin-top: 16px; }
+.adm-sec > h2 { font-size: clamp(28px, 3.4vw, 40px); outline: none; }
+.adm-hint { max-width: 74ch; margin-top: 6px; font-size: 15px; color: var(--muted); }
+.adm-status { min-height: 1.5em; margin-top: 10px; font-size: 15px; font-weight: 600; color: var(--rose-ink); }
+
+/* записи */
+.bklist { display: grid; gap: 12px; margin-top: 8px; }
+.bk { position: relative; display: grid; gap: 10px 22px; padding: 16px 18px; border-radius: var(--r-md); background: #fff; border-left: 6px solid var(--gold); box-shadow: 0 16px 40px -32px rgb(43 26 40 / 0.55); }
+.bk.st-confirmed { border-left-color: #5b8a67; }
+.bk.st-done { border-left-color: #8a7d86; }
+.bk.st-cancelled { border-left-color: #c0564b; background: #fbf3f1; }
+.bk.is-fresh { box-shadow: 0 0 0 2px var(--rose-ink), 0 16px 40px -28px rgb(156 74 64 / 0.7); }
+.bk__when b { display: block; font-family: var(--f-display); font-size: 22px; font-weight: 500; line-height: 1.15; }
+.bk__when span { font-size: 15.5px; font-weight: 700; color: var(--plum-2); font-variant-numeric: tabular-nums; }
+.bk__what b, .bk__who b { display: block; font-size: 16.5px; line-height: 1.3; }
+.bk__what span { font-size: 14.5px; color: var(--muted); }
+.bk.st-cancelled .bk__what b { text-decoration: line-through; text-decoration-thickness: 1.5px; color: var(--muted); }
+.bk__who a { display: inline-block; padding-block: 8px; margin-block: -6px; font-weight: 600; color: var(--rose-ink); text-underline-offset: 3px; }
+.bk__who em { display: block; font-family: var(--f-body); font-style: normal; font-size: 14px; color: var(--muted); }
+.bk__st label { display: block; margin-bottom: 4px; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.bk__st select {
+  width: 100%; min-height: 48px; padding: 0 12px; border-radius: 12px; border: 1.5px solid rgb(43 26 40 / 0.5); background: #fdf1d8; color: var(--plum); font-size: 16px; font-weight: 700; cursor: pointer;
+}
+.bk.st-confirmed select { background: var(--sage); }
+.bk.st-done select { background: #ece7ea; }
+.bk.st-cancelled select { background: #f6dedb; color: #7d241d; }
+.bk__st select:hover { border-color: var(--plum); }
+.bk__st select:focus-visible { outline: 2px solid var(--rose-ink); outline-offset: 3px; }
+.bk > * { min-width: 0; overflow-wrap: anywhere; } /* длинное имя или комментарий без пробелов не растягивают страницу */
+.bk__tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.bk__warn { grid-column: 1 / -1; }
+.tag { display: inline-flex; align-items: center; min-height: 26px; padding: 2px 12px; border-radius: 999px; border: 1px solid rgb(43 26 40 / 0.35); font-size: 13px; font-weight: 700; color: var(--plum-2); }
+.tag--new { background: var(--rose-ink); border-color: var(--rose-ink); color: #fff; }
+.tag--warn { background: #fff0cc; border-color: #b8860b; color: #5b4000; }
+.bk-empty { padding: 22px; border-radius: var(--r-md); background: #fff; color: var(--plum-2); }
+@media (min-width: 560px) {
+  .bk { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+}
+@media (min-width: 1000px) {
+  .bk { grid-template-columns: 190px minmax(0, 1.2fr) minmax(0, 1.1fr) 210px; align-items: center; }
+}
+
+/* расписание мастеров */
+.mlist { display: grid; gap: 14px; margin-top: 8px; }
+.ms { padding: 18px; border-radius: var(--r-lg); background: #fff; box-shadow: 0 20px 50px -36px rgb(43 26 40 / 0.55); }
+.ms__head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
+.ms__ava { display: grid; place-items: center; flex: none; width: 46px; height: 46px; border-radius: 50%; background: var(--blush); color: var(--rose-ink); font-family: var(--f-display); font-size: 22px; }
+.ms__head h3 { font-size: 24px; }
+.ms__head p { font-size: 14px; color: var(--muted); }
+.ms__link { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; margin-left: auto; font-size: 14.5px; font-weight: 700; color: var(--rose-ink); text-decoration: none; }
+.ms__link:hover { text-decoration: underline; text-underline-offset: 4px; }
+.days { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px 8px; margin-top: 14px; }
+@media (min-width: 600px) { .days { grid-template-columns: repeat(7, 1fr); } } /* 14 дней = две недели в два ряда */
+.day { position: relative; display: grid; justify-items: center; gap: 1px; width: 100%; height: 100%; min-height: 76px; padding: 8px 4px 7px; border-radius: 16px; border: 1.5px solid rgb(43 26 40 / 0.45); background: var(--cream); text-align: center; transition: border-color 0.2s, background-color 0.2s, color 0.2s; }
+.day__wd { font-size: 12.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+.day__n { font-family: var(--f-display); font-size: 24px; line-height: 1.1; }
+.day__f { font-size: 12px; line-height: 1.25; color: var(--plum-2); }
+button.day:hover { border-color: var(--plum); }
+button.day:focus-visible { outline: 2px solid var(--rose-ink); outline-offset: 3px; }
+.day.is-off { background: var(--rose-ink); border-color: var(--rose-ink); color: #fff; }
+.day.is-off .day__wd, .day.is-off .day__f { color: rgb(255 255 255 / 0.9); }
+.day--fixed { border-style: dashed; border-color: rgb(43 26 40 / 0.3); background: transparent; }
+.day--fixed .day__n { color: var(--muted); }
+.day__b { position: absolute; top: -7px; right: -5px; display: grid; place-items: center; min-width: 22px; height: 22px; padding: 0 5px; border-radius: 999px; background: var(--plum); color: var(--cream); font-size: 12px; font-weight: 700; box-shadow: 0 0 0 2px #fff; }
+
+/* пример сообщения в Telegram */
+.tg { width: min(100%, 480px); margin-top: 16px; overflow: hidden; border-radius: 22px; border: 1px solid var(--line); background: #fff; box-shadow: 0 20px 50px -36px rgb(43 26 40 / 0.55); }
+.tg__head { display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: #3f6e9a; color: #fff; }
+.tg__head b { display: block; font-size: 16px; }
+.tg__head small { font-size: 13px; color: rgb(255 255 255 / 0.9); }
+.tg__ava { display: grid; place-items: center; flex: none; width: 40px; height: 40px; border-radius: 50%; background: var(--rose); color: var(--plum); font-family: var(--f-display); font-size: 20px; }
+.tg__chat { padding: 18px 14px 20px; background: #dfe8d9; }
+.tg__msg { max-width: 94%; padding: 11px 14px; border-radius: 16px 16px 16px 5px; background: #fff; font-size: 15.5px; line-height: 1.5; white-space: pre-line; box-shadow: 0 1px 2px rgb(0 0 0 / 0.12); overflow-wrap: anywhere; }
+.tg__msg b { display: block; margin-bottom: 2px; }
+.tg__empty { color: var(--plum-2); }
+
+@media (max-width: 520px) {
+  .ms { padding: 14px; }
+  .ms__link { margin-left: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .day, .adm-jump a { transition: none; } }

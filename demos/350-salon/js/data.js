@@ -95,6 +95,84 @@
   function hhmm(min) { return pad(Math.floor(min / 60)) + ":" + pad(min % 60); }
   function byId(list, id) { for (var i = 0; i < list.length; i++) if (list[i].id === id) return list[i]; return null; }
 
+  /* ---------- Память демо: только этот браузер, никуда не отправляется ----------
+     Записи с сайта, статусы и выходные из демо-админки лежат в localStorage под одним ключом. Сайт и админка читают его одинаково,
+     поэтому выходной в админке сразу убирает окна в онлайн-записи, а запись с сайта сразу появляется в админке.
+     off[мастер] — даты выходных, поставленные в админке; bookings — записи; seedDay — день, на который созданы примеры. */
+  var STORE_KEY = "dorvan-demo-iris-v1";
+  var memStore = null; // если браузер не даёт сохранять (закрытый режим), демо работает в пределах одной страницы
+  var cacheRaw = null, cacheObj = null;
+  var idSeq = 0;
+  function emptyStore() { return { v: 1, bookings: [], off: {}, seedDay: "" }; }
+  // Из памяти берём только записи и выходные правильной формы: после старой версии демо там может лежать что угодно,
+  // а одна «кривая» запись не должна ломать сайт и админку.
+  var STATUS_OK = { "new": 1, confirmed: 1, done: 1, cancelled: 1 };
+  var RX_DATE = /^\d{4}-\d{2}-\d{2}$/, RX_TIME = /^\d{2}:\d{2}$/;
+  function cleanStore(o) {
+    var out = emptyStore();
+    if (!o || o.v !== 1 || !Array.isArray(o.bookings) || !o.off || typeof o.off !== "object") return out;
+    out.seedDay = typeof o.seedDay === "string" ? o.seedDay.slice(0, 10) : "";
+    o.bookings.forEach(function (b) {
+      if (!b || typeof b !== "object" || typeof b.id !== "string" || !/^[A-Za-z0-9_-]{1,40}$/.test(b.id)) return;
+      if (!RX_DATE.test(b.date) || !RX_TIME.test(b.time) || !byId(DATA.services, b.service) || !byId(DATA.masters, b.master)) return;
+      if (!(b.min > 0 && b.min <= 600) || !STATUS_OK[b.status]) return;
+      out.bookings.push({ id: b.id, service: b.service, master: b.master, date: b.date, time: b.time, min: +b.min, price: +b.price || 0,
+        name: String(b.name || "").slice(0, 80), phone: String(b.phone || "").slice(0, 30), comment: String(b.comment || "").slice(0, 400),
+        status: b.status, created: +b.created || 0, example: !!b.example, touched: !!b.touched });
+    });
+    Object.keys(o.off).forEach(function (m) {
+      if (!byId(DATA.masters, m) || !Array.isArray(o.off[m])) return;
+      var days = o.off[m].filter(function (x) { return typeof x === "string" && RX_DATE.test(x); });
+      if (days.length) out.off[m] = days;
+    });
+    return out;
+  }
+  function readStore() {
+    if (memStore) return memStore; // браузер не даёт сохранять — живём в памяти страницы
+    var raw = null;
+    try { raw = localStorage.getItem(STORE_KEY); } catch (e) { return emptyStore(); }
+    if (raw === cacheRaw && cacheObj) return cacheObj;
+    var obj;
+    try { obj = cleanStore(JSON.parse(raw)); } catch (e) { obj = emptyStore(); }
+    cacheRaw = raw; cacheObj = obj;
+    return obj;
+  }
+  /** Изменить память: fn получает копию, результат записывается целиком */
+  function updateStore(fn) {
+    var s = JSON.parse(JSON.stringify(readStore()));
+    fn(s);
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(s)); memStore = null; }
+    catch (e) { memStore = s; }
+    return s;
+  }
+  function storeWorks() {
+    try { localStorage.setItem(STORE_KEY + "-t", "1"); localStorage.removeItem(STORE_KEY + "-t"); return true; } catch (e) { return false; }
+  }
+  function resetStore() {
+    memStore = null; cacheRaw = null; cacheObj = null;
+    try { localStorage.removeItem(STORE_KEY); } catch (e) { /* нечего чистить */ }
+  }
+  function addBooking(b) {
+    var rec = Object.assign({ status: "new", created: Date.now(), comment: "" }, b);
+    rec.id = "b" + Date.now().toString(36) + (idSeq++).toString(36) + Math.floor(Math.random() * 1296).toString(36); // счётчик: примеры создаются в одну миллисекунду
+    updateStore(function (s) { s.bookings.push(rec); });
+    return rec;
+  }
+  function isOff(masterId, date) { // выходной, поставленный в админке
+    var list = readStore().off[masterId];
+    return !!list && list.indexOf(iso(date)) !== -1;
+  }
+  function bookedCells(masterId, date) { // ячейки по 30 минут, занятые записями из демо (отменённые время не держат)
+    var day = iso(date), cells = [];
+    readStore().bookings.forEach(function (b) {
+      if (b.master !== masterId || b.date !== day || b.status === "cancelled") return;
+      var p = b.time.split(":");
+      var start = (+p[0] * 60 + +p[1] - DATA.day.from) / DATA.day.step;
+      for (var j = 0; j < Math.ceil(b.min / DATA.day.step); j++) cells.push(start + j);
+    });
+    return cells;
+  }
+
   /* Занятость мастера на день. Записи идут «блоками» по 1–2 часа, как в настоящем расписании, — поэтому и длинные услуги
      (например, окрашивание на 4 часа) находят окна. День делится на 4 «полосы» по 2,5 часа; в каждой полосе с вероятностью 60 %
      есть одна запись. Раз в неделю у мастера «лёгкий» день: первые пять часов свободны (так в любые две недели есть окно). */
@@ -127,9 +205,10 @@
     now = now || new Date();
     var m = byId(DATA.masters, masterId);
     var out = [];
-    if (!m || m.off.indexOf(date.getDay()) !== -1) return out;
+    if (!m || m.off.indexOf(date.getDay()) !== -1 || isOff(m.id, date)) return out;
     var need = Math.ceil(service.min / DATA.day.step);
     var busy = busyCells(m, date);
+    bookedCells(m.id, date).forEach(function (i) { if (i >= 0 && i < busy.length) busy[i] = true; });
     var day = iso(date);
     var past = day < iso(now); // прошедшие дни записать нельзя (вкладку могли оставить открытой с вечера)
     var nowMin = now.getHours() * 60 + now.getMinutes() + 60; // записываем минимум за час
@@ -201,7 +280,8 @@
   }
   DATA = deep(DATA);
 
-  DATA.util = { rnd: rnd, iso: iso, hhmm: hhmm, byId: byId, slots: slots, daySlots: daySlots, freeCount: freeCount, nearest: nearest, glue: glue };
+  DATA.util = { rnd: rnd, iso: iso, hhmm: hhmm, byId: byId, slots: slots, daySlots: daySlots, freeCount: freeCount, nearest: nearest, glue: glue,
+    store: { KEY: STORE_KEY, get: readStore, update: updateStore, reset: resetStore, works: storeWorks, add: addBooking, isOff: isOff } };
 
   if (typeof module !== "undefined" && module.exports) module.exports = DATA;
   else root.IRIS = DATA;

@@ -1,0 +1,1 @@
+import{j as o}from"./DemoPlate-D38Bh1Z-.js";function n({text:s}){const r=s.trim();return r?o.jsx("div",{className:"promo",children:o.jsx("p",{className:"wrap promo__text",lang:/[а-яё]/i.test(r)?"ru":void 0,children:r})}):null}export{n as P};

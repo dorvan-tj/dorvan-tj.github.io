@@ -1,15 +1,18 @@
 /* Dorvan · плашка демо. Подключается только в демо-версиях (в проданном сайте файл удаляют).
    <script src="demo-kit.js" data-price="70" data-name="Жемчуг" defer></script>
+   Страница-модуль (админка, бот) вместо цены ступени: data-module="50" data-module-name="Админка через бота" (плашка «Модуль: +$50 — можно добавить к любому сайту»).
    Что делает: полоска «Концепт» сверху, плашка «Пример за $N · Хочу такой» внизу (ссылка в Telegram с готовым текстом),
    подсказки вместо реальных звонков/мессенджеров у ссылок с атрибутом data-demo="Telegram".
    ?og=1 — спрятать всё (для снимка превью-картинки). */
 (function () {
-  var s = document.currentScript || document.querySelector('script[data-price]');
+  var s = document.currentScript || document.querySelector('script[data-name]');
   var price = s.getAttribute('data-price'), name = s.getAttribute('data-name');
   var qs = new URLSearchParams(location.search);
   if (qs.has('og')) { document.documentElement.classList.add('is-og'); return; }
 
-  var text = 'Хочу сайт за $' + price + ', как «' + name + '»';
+  // страница-модуль (админка, бот): вместо цены ступени — «Модуль: +$N — можно добавить к любому сайту»
+  var mod = s.getAttribute('data-module'), modName = s.getAttribute('data-module-name');
+  var text = mod ? 'Хочу модуль «' + modName + '» (+$' + mod + '), как в демо «' + name + '»' : 'Хочу сайт за $' + price + ', как «' + name + '»';
   var href = 'https://t.me/dorvan_tj?text=' + encodeURIComponent(text);
 
   var css = '' +
@@ -28,6 +31,7 @@
     'font:500 14px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;box-shadow:0 12px 36px rgba(0,0,0,.28);opacity:0;pointer-events:none;transition:opacity .25s ease,transform .25s ease;text-align:center}' +
     '.dk-toast.on{opacity:1;transform:translate(-50%,0)}' +
     'body{padding-bottom:84px}' +
+    '.dk-plate i{font-style:normal}@media (max-width:620px){.dk-long{display:none}}' +
     '@media (max-width:520px){.dk-plate small{display:none}.dk-plate{padding-left:14px;gap:8px;font-size:13px}.dk-plate em{padding:10px 13px}}' +
     '@media (prefers-reduced-motion:reduce){.dk-plate,.dk-toast,.dk-plate em svg{transition:none}}';
   var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
@@ -39,8 +43,8 @@
 
   var plate = document.createElement('a');
   plate.className = 'dk-plate'; plate.href = href; plate.target = '_blank'; plate.rel = 'noopener';
-  plate.setAttribute('aria-label', 'Пример за $' + price + '. Хочу такой сайт — написать в Telegram');
-  plate.innerHTML = '<small>Dorvan</small><span>Пример за $' + price + '</span>' +
+  plate.setAttribute('aria-label', (mod ? 'Модуль: +$' + mod + ' — можно добавить к любому сайту. Хочу такой модуль' : 'Пример за $' + price + '. Хочу такой сайт') + ' — написать в Telegram');
+  plate.innerHTML = '<small>Dorvan</small><span>' + (mod ? 'Модуль: +$' + mod + '<i class="dk-long"> — можно добавить к любому сайту</i>' : 'Пример за $' + price) + '</span>' +
     '<em>Хочу такой<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></em>';
   document.body.appendChild(plate);
 

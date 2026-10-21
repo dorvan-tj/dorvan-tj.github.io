@@ -99,7 +99,7 @@
     <div class="hits-ctl" data-reveal><button type="button" class="round" id="hits-prev" aria-label="Назад"><svg class="ic" aria-hidden="true"><use href="#i-left"/></svg></button><button type="button" class="round" id="hits-next" aria-label="Вперёд"><svg class="ic" aria-hidden="true"><use href="#i-right"/></svg></button></div>
   </div>
   <div class="hits-rail" id="hits-rail" tabindex="0" role="region" aria-label="Хиты шефа — прокручивается вбок">
-    <div class="hits-track"><article class="hit"><div class="hit-img"><img src="images/m05.webp" width="700" height="700" alt="Стейк рибай на сковороде с розмарином" loading="lazy" decoding="async" draggable="false"></div><div class="hit-body"><span>300 г</span><h3>Рибай на углях</h3><b>285 сом.</b></div></article><article class="hit"><div class="hit-img"><img src="images/m06.webp" width="700" height="700" alt="Томагавк-стейк на чугунной сковороде" loading="lazy" decoding="async" draggable="false"></div><div class="hit-body"><span>1 кг</span><h3>Томагавк</h3><b>690 сом.</b></div></article><article class="hit"><div class="hit-img"><img src="images/m07.webp" width="700" height="700" alt="Шашлык из баранины над углями" loading="lazy" decoding="async" draggable="false"></div><div class="hit-body"><span>250 г</span><h3>Шашлык из баранины</h3><b>120 сом.</b></div></article><article class="hit"><div class="hit-img"><img src="images/m13.webp" width="700" height="700" alt="Шоколадный фондан с мороженым и вишней" loading="lazy" decoding="async" draggable="false"></div><div class="hit-body"><span>160 г</span><h3>Тёплый фондан</h3><b>58 сом.</b></div></article><article class="hit"><div class="hit-img"><img src="images/m02.webp" width="700" height="700" alt="Бурата с томатами и зеленью на тёмной тарелке" loading="lazy" decoding="async" draggable="false"></div><div class="hit-body"><span>220 г</span><h3>Бурата с томатами</h3><b>96 сом.</b></div></article></div>
+    <div class="hits-track"><article class="hit" data-id="m05"><div class="hit-img"><img src="images/m05.webp" width="700" height="700" alt="Стейк рибай на сковороде с розмарином" loading="lazy" decoding="async" draggable="false"></div><div class="hit-body"><span>300 г</span><h3>Рибай на углях</h3><b data-price>285 сом.</b></div></article><article class="hit" data-id="m06"><div class="hit-img"><img src="images/m06.webp" width="700" height="700" alt="Томагавк-стейк на чугунной сковороде" loading="lazy" decoding="async" draggable="false"></div><div class="hit-body"><span>1 кг</span><h3>Томагавк</h3><b data-price>690 сом.</b></div></article><article class="hit" data-id="m07"><div class="hit-img"><img src="images/m07.webp" width="700" height="700" alt="Шашлык из баранины над углями" loading="lazy" decoding="async" draggable="false"></div><div class="hit-body"><span>250 г</span><h3>Шашлык из баранины</h3><b data-price>120 сом.</b></div></article><article class="hit" data-id="m13"><div class="hit-img"><img src="images/m13.webp" width="700" height="700" alt="Шоколадный фондан с мороженым и вишней" loading="lazy" decoding="async" draggable="false"></div><div class="hit-body"><span>160 г</span><h3>Тёплый фондан</h3><b data-price>58 сом.</b></div></article><article class="hit" data-id="m02"><div class="hit-img"><img src="images/m02.webp" width="700" height="700" alt="Бурата с томатами и зеленью на тёмной тарелке" loading="lazy" decoding="async" draggable="false"></div><div class="hit-body"><span>220 г</span><h3>Бурата с томатами</h3><b data-price>96 сом.</b></div></article></div>
   </div>
   <div class="wrap"><div class="hits-bar" aria-hidden="true"><i id="hits-prog"></i></div></div>
 </section>
@@ -114,82 +114,86 @@
         <p class="card-sub">Короткое меню — только то, что получается лучше всего. Выберите раздел или отметьте, что вам по вкусу.</p>
       </header>
       <div class="filters" id="filters">
-        <div class="f-cats" role="group" aria-label="Раздел меню"><button type="button" class="chip" data-cat="all" aria-pressed="true">Всё меню<sup>18</sup></button><button type="button" class="chip" data-cat="starters" aria-pressed="false">Закуски<sup>4</sup></button><button type="button" class="chip" data-cat="grill" aria-pressed="false">Гриль<sup>6</sup></button><button type="button" class="chip" data-cat="fish" aria-pressed="false">Рыба<sup>2</sup></button><button type="button" class="chip" data-cat="dessert" aria-pressed="false">Десерты<sup>3</sup></button><button type="button" class="chip" data-cat="drinks" aria-pressed="false">Напитки<sup>3</sup></button></div>
+        <div class="f-cats" role="group" aria-label="Раздел меню"><button type="button" class="chip" data-cat="all" aria-pressed="true">Всё меню<sup>19</sup></button><button type="button" class="chip" data-cat="starters" aria-pressed="false">Закуски<sup>4</sup></button><button type="button" class="chip" data-cat="grill" aria-pressed="false">Гриль<sup>7</sup></button><button type="button" class="chip" data-cat="fish" aria-pressed="false">Рыба<sup>2</sup></button><button type="button" class="chip" data-cat="dessert" aria-pressed="false">Десерты<sup>3</sup></button><button type="button" class="chip" data-cat="drinks" aria-pressed="false">Напитки<sup>3</sup></button></div>
         <div class="f-tags" role="group" aria-label="Особенности блюд"><button type="button" class="tog" data-tag="hit" aria-pressed="false"><svg class="ic" aria-hidden="true"><use href="#i-hit"/></svg>Хит шефа</button><button type="button" class="tog" data-tag="spicy" aria-pressed="false"><svg class="ic" aria-hidden="true"><use href="#i-chili"/></svg>Острое</button><button type="button" class="tog" data-tag="veg" aria-pressed="false"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg>Вегетарианское</button></div>
         <p class="f-count" id="count" role="status" aria-live="polite"></p>
       </div>
-      <div class="dishes" id="dishes"><article class="dish" data-cat="starters" data-tags="veg" data-name="Лепёшка из печи">
+      <div class="dishes" id="dishes"><article class="dish" data-id="m01" data-cat="starters" data-tags="veg" data-name="Лепёшка из печи">
         <div class="dish-img"><img src="images/m01.webp" width="700" height="700" alt="Горячие лепёшки на деревянной доске" loading="lazy" decoding="async"></div>
         <div class="dish-body"><h3>Лепёшка из печи</h3><p>Горячая, с хрустящими краями, чесночным маслом и травами.</p>
-        <p class="dish-foot"><span class="dish-w">180 г</span><span class="dish-tags"><i title="Вегетарианское"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg></i></span><b>28 сом.</b></p></div>
-      </article><article class="dish" data-cat="starters" data-tags="veg" data-name="Бурата с томатами">
+        <p class="dish-foot"><span class="dish-w">180 г</span><span class="dish-tags"><i title="Вегетарианское"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg></i></span><b data-price>28 сом.</b></p></div>
+      </article><article class="dish" data-id="m02" data-cat="starters" data-tags="veg" data-name="Бурата с томатами">
         <div class="dish-img"><img src="images/m02.webp" width="700" height="700" alt="Бурата с томатами и зеленью на тёмной тарелке" loading="lazy" decoding="async"></div>
         <div class="dish-body"><h3>Бурата с томатами</h3><p>Сливочная бурата, томаты, базиликовое масло, жареные семечки.</p>
-        <p class="dish-foot"><span class="dish-w">220 г</span><span class="dish-tags"><i title="Вегетарианское"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg></i></span><b>96 сом.</b></p></div>
-      </article><article class="dish" data-cat="starters" data-tags="veg" data-name="Баклажаны с йогуртом">
+        <p class="dish-foot"><span class="dish-w">220 г</span><span class="dish-tags"><i title="Вегетарианское"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg></i></span><b data-price>96 сом.</b></p></div>
+      </article><article class="dish" data-id="m03" data-cat="starters" data-tags="veg" data-name="Баклажаны с йогуртом">
         <div class="dish-img"><img src="images/m03.webp" width="700" height="700" alt="Рулетики из баклажана с йогуртом и орехом" loading="lazy" decoding="async"></div>
         <div class="dish-body"><h3>Баклажаны с йогуртом</h3><p>Баклажаны на углях, йогуртовый соус, грецкий орех, зелень.</p>
-        <p class="dish-foot"><span class="dish-w">190 г</span><span class="dish-tags"><i title="Вегетарианское"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg></i></span><b>62 сом.</b></p></div>
-      </article><article class="dish" data-cat="starters" data-tags="veg" data-name="Овощи на углях">
+        <p class="dish-foot"><span class="dish-w">190 г</span><span class="dish-tags"><i title="Вегетарианское"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg></i></span><b data-price>62 сом.</b></p></div>
+      </article><article class="dish" data-id="m04" data-cat="starters" data-tags="veg" data-name="Овощи на углях">
         <div class="dish-img"><img src="images/m04.webp" width="700" height="700" alt="Овощи гриль на сланцевой доске" loading="lazy" decoding="async"></div>
         <div class="dish-body"><h3>Овощи на углях</h3><p>Томаты, баклажан, цукини и перцы с дымком и оливковым маслом.</p>
-        <p class="dish-foot"><span class="dish-w">260 г</span><span class="dish-tags"><i title="Вегетарианское"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg></i></span><b>58 сом.</b></p></div>
-      </article><article class="dish" data-cat="grill" data-tags="hit" data-name="Рибай на углях">
+        <p class="dish-foot"><span class="dish-w">260 г</span><span class="dish-tags"><i title="Вегетарианское"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg></i></span><b data-price>58 сом.</b></p></div>
+      </article><article class="dish" data-id="m05" data-cat="grill" data-tags="hit" data-name="Рибай на углях">
         <div class="dish-img"><img src="images/m05.webp" width="700" height="700" alt="Стейк рибай на сковороде с розмарином" loading="lazy" decoding="async"><span class="dish-badge"><svg class="ic" aria-hidden="true"><use href="#i-hit"/></svg>Хит</span></div>
         <div class="dish-body"><h3>Рибай на углях</h3><p>Мраморная говядина, розмарин и морская соль. Выдержка 28 дней.</p>
-        <p class="dish-foot"><span class="dish-w">300 г</span><span class="dish-tags"></span><b>285 сом.</b></p></div>
-      </article><article class="dish" data-cat="grill" data-tags="hit" data-name="Томагавк">
+        <p class="dish-foot"><span class="dish-w">300 г</span><span class="dish-tags"></span><b data-price>285 сом.</b></p></div>
+      </article><article class="dish" data-id="m06" data-cat="grill" data-tags="hit" data-name="Томагавк">
         <div class="dish-img"><img src="images/m06.webp" width="700" height="700" alt="Томагавк-стейк на чугунной сковороде" loading="lazy" decoding="async"><span class="dish-badge"><svg class="ic" aria-hidden="true"><use href="#i-hit"/></svg>Хит</span></div>
         <div class="dish-body"><h3>Томагавк</h3><p>Стейк на кости на двоих: хрустящая корочка, сочная середина.</p>
-        <p class="dish-foot"><span class="dish-w">1 кг</span><span class="dish-tags"></span><b>690 сом.</b></p></div>
-      </article><article class="dish" data-cat="grill" data-tags="hit" data-name="Шашлык из баранины">
+        <p class="dish-foot"><span class="dish-w">1 кг</span><span class="dish-tags"></span><b data-price>690 сом.</b></p></div>
+      </article><article class="dish" data-id="m07" data-cat="grill" data-tags="hit" data-name="Шашлык из баранины">
         <div class="dish-img"><img src="images/m07.webp" width="700" height="700" alt="Шашлык из баранины над углями" loading="lazy" decoding="async"><span class="dish-badge"><svg class="ic" aria-hidden="true"><use href="#i-hit"/></svg>Хит</span></div>
         <div class="dish-body"><h3>Шашлык из баранины</h3><p>Мякоть на мангале, красный лук, лепёшка и гранатовый соус.</p>
-        <p class="dish-foot"><span class="dish-w">250 г</span><span class="dish-tags"></span><b>120 сом.</b></p></div>
-      </article><article class="dish" data-cat="grill" data-tags="spicy" data-name="Люля-кебаб с хумусом">
+        <p class="dish-foot"><span class="dish-w">250 г</span><span class="dish-tags"></span><b data-price>120 сом.</b></p></div>
+      </article><article class="dish" data-id="m08" data-cat="grill" data-tags="spicy" data-name="Люля-кебаб с хумусом">
         <div class="dish-img"><img src="images/m08.webp" width="700" height="700" alt="Люля-кебаб с хумусом и лепёшкой" loading="lazy" decoding="async"></div>
         <div class="dish-body"><h3>Люля-кебаб с хумусом</h3><p>Рубленая баранина со специями, хумус, овощи на гриле.</p>
-        <p class="dish-foot"><span class="dish-w">280 г</span><span class="dish-tags"><i title="Острое"><svg class="ic" aria-hidden="true"><use href="#i-chili"/></svg></i></span><b>98 сом.</b></p></div>
-      </article><article class="dish" data-cat="grill" data-tags="spicy" data-name="Бёдра с чимичурри">
+        <p class="dish-foot"><span class="dish-w">280 г</span><span class="dish-tags"><i title="Острое"><svg class="ic" aria-hidden="true"><use href="#i-chili"/></svg></i></span><b data-price>98 сом.</b></p></div>
+      </article><article class="dish" data-id="m09" data-cat="grill" data-tags="spicy" data-name="Бёдра с чимичурри">
         <div class="dish-img"><img src="images/m09.webp" width="700" height="700" alt="Куриные бёдра с зелёным соусом" loading="lazy" decoding="async"></div>
         <div class="dish-body"><h3>Бёдра с чимичурри</h3><p>Куриные бёдра на огне, зелёный соус с чесноком и перцем чили.</p>
-        <p class="dish-foot"><span class="dish-w">300 г</span><span class="dish-tags"><i title="Острое"><svg class="ic" aria-hidden="true"><use href="#i-chili"/></svg></i></span><b>88 сом.</b></p></div>
-      </article><article class="dish" data-cat="grill" data-tags="" data-name="Филе-миньон">
+        <p class="dish-foot"><span class="dish-w">300 г</span><span class="dish-tags"><i title="Острое"><svg class="ic" aria-hidden="true"><use href="#i-chili"/></svg></i></span><b data-price>88 сом.</b></p></div>
+      </article><article class="dish" data-id="m10" data-cat="grill" data-tags="" data-name="Филе-миньон">
         <div class="dish-img"><img src="images/m10.webp" width="700" height="700" alt="Филе-миньон со спаржей и соусом" loading="lazy" decoding="async"></div>
         <div class="dish-body"><h3>Филе-миньон</h3><p>Нежная вырезка, спаржа, картофель, соус демигляс.</p>
-        <p class="dish-foot"><span class="dish-w">260 г</span><span class="dish-tags"></span><b>245 сом.</b></p></div>
-      </article><article class="dish" data-cat="fish" data-tags="" data-name="Лосось на углях">
+        <p class="dish-foot"><span class="dish-w">260 г</span><span class="dish-tags"></span><b data-price>245 сом.</b></p></div>
+      </article><article class="dish" data-id="m19" data-cat="grill" data-tags="" data-name="Плов на углях">
+        <div class="dish-img"><img src="images/m19.webp" width="700" height="700" alt="Плов с бараниной и барбарисом на большом подносе" loading="lazy" decoding="async"></div>
+        <div class="dish-body"><h3>Плов на углях</h3><p>Рассыпчатый рис с бараниной из казана на огне, лимон и ягоды барбариса.</p>
+        <p class="dish-foot"><span class="dish-w">320 г</span><span class="dish-tags"></span><b data-price>85 сом.</b></p></div>
+      </article><article class="dish" data-id="m11" data-cat="fish" data-tags="" data-name="Лосось на углях">
         <div class="dish-img"><img src="images/m11.webp" width="700" height="700" alt="Стейк лосося на тёмной доске" loading="lazy" decoding="async"></div>
         <div class="dish-body"><h3>Лосось на углях</h3><p>Стейк лосося с золотистой корочкой, розмарин, лимон.</p>
-        <p class="dish-foot"><span class="dish-w">220 г</span><span class="dish-tags"></span><b>165 сом.</b></p></div>
-      </article><article class="dish" data-cat="fish" data-tags="" data-name="Лосось с овощами">
+        <p class="dish-foot"><span class="dish-w">220 г</span><span class="dish-tags"></span><b data-price>165 сом.</b></p></div>
+      </article><article class="dish" data-id="m12" data-cat="fish" data-tags="" data-name="Лосось с овощами">
         <div class="dish-img"><img src="images/m12.webp" width="700" height="700" alt="Лосось с овощной сальсой на чёрной тарелке" loading="lazy" decoding="async"></div>
         <div class="dish-body"><h3>Лосось с овощами</h3><p>Обжаренное филе, овощная сальса, лайм.</p>
-        <p class="dish-foot"><span class="dish-w">240 г</span><span class="dish-tags"></span><b>175 сом.</b></p></div>
-      </article><article class="dish" data-cat="dessert" data-tags="hit veg" data-name="Тёплый фондан">
+        <p class="dish-foot"><span class="dish-w">240 г</span><span class="dish-tags"></span><b data-price>175 сом.</b></p></div>
+      </article><article class="dish" data-id="m13" data-cat="dessert" data-tags="hit veg" data-name="Тёплый фондан">
         <div class="dish-img"><img src="images/m13.webp" width="700" height="700" alt="Шоколадный фондан с мороженым и вишней" loading="lazy" decoding="async"><span class="dish-badge"><svg class="ic" aria-hidden="true"><use href="#i-hit"/></svg>Хит</span></div>
         <div class="dish-body"><h3>Тёплый фондан</h3><p>Шоколадный кекс с жидкой серединой и ванильным мороженым.</p>
-        <p class="dish-foot"><span class="dish-w">160 г</span><span class="dish-tags"><i title="Вегетарианское"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg></i></span><b>58 сом.</b></p></div>
-      </article><article class="dish" data-cat="dessert" data-tags="veg" data-name="Баскский чизкейк">
+        <p class="dish-foot"><span class="dish-w">160 г</span><span class="dish-tags"><i title="Вегетарианское"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg></i></span><b data-price>58 сом.</b></p></div>
+      </article><article class="dish" data-id="m14" data-cat="dessert" data-tags="veg" data-name="Баскский чизкейк">
         <div class="dish-img"><img src="images/m14.webp" width="700" height="700" alt="Баскский чизкейк на пергаменте" loading="lazy" decoding="async"></div>
         <div class="dish-body"><h3>Баскский чизкейк</h3><p>Карамелизованная корочка и нежный сливочный центр.</p>
-        <p class="dish-foot"><span class="dish-w">140 г</span><span class="dish-tags"><i title="Вегетарианское"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg></i></span><b>55 сом.</b></p></div>
-      </article><article class="dish" data-cat="dessert" data-tags="veg" data-name="Крем-брюле на огне">
+        <p class="dish-foot"><span class="dish-w">140 г</span><span class="dish-tags"><i title="Вегетарианское"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg></i></span><b data-price>55 сом.</b></p></div>
+      </article><article class="dish" data-id="m15" data-cat="dessert" data-tags="veg" data-name="Крем-брюле на огне">
         <div class="dish-img"><img src="images/m15.webp" width="700" height="700" alt="Крем-брюле, карамель горит под пламенем горелки" loading="lazy" decoding="async"></div>
         <div class="dish-body"><h3>Крем-брюле на огне</h3><p>Карамель поджигаем горелкой прямо у вашего стола.</p>
-        <p class="dish-foot"><span class="dish-w">120 г</span><span class="dish-tags"><i title="Вегетарианское"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg></i></span><b>48 сом.</b></p></div>
-      </article><article class="dish" data-cat="drinks" data-tags="veg" data-name="Домашний лимонад">
+        <p class="dish-foot"><span class="dish-w">120 г</span><span class="dish-tags"><i title="Вегетарианское"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg></i></span><b data-price>48 сом.</b></p></div>
+      </article><article class="dish" data-id="m16" data-cat="drinks" data-tags="veg" data-name="Домашний лимонад">
         <div class="dish-img"><img src="images/m16.webp" width="700" height="700" alt="Стакан лимонада с лимоном и мятой" loading="lazy" decoding="async"></div>
         <div class="dish-body"><h3>Домашний лимонад</h3><p>Лимон, мята, много льда. Можно без сахара.</p>
-        <p class="dish-foot"><span class="dish-w">400 мл</span><span class="dish-tags"><i title="Вегетарианское"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg></i></span><b>32 сом.</b></p></div>
-      </article><article class="dish" data-cat="drinks" data-tags="veg" data-name="Мятный мохито без алкоголя">
+        <p class="dish-foot"><span class="dish-w">400 мл</span><span class="dish-tags"><i title="Вегетарианское"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg></i></span><b data-price>32 сом.</b></p></div>
+      </article><article class="dish" data-id="m17" data-cat="drinks" data-tags="veg" data-name="Мятный мохито без алкоголя">
         <div class="dish-img"><img src="images/m17.webp" width="700" height="700" alt="Стакан мятного лимонада со льдом" loading="lazy" decoding="async"></div>
         <div class="dish-body"><h3>Мятный мохито без алкоголя</h3><p>Лайм, мята, содовая и лёд.</p>
-        <p class="dish-foot"><span class="dish-w">400 мл</span><span class="dish-tags"><i title="Вегетарианское"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg></i></span><b>36 сом.</b></p></div>
-      </article><article class="dish" data-cat="drinks" data-tags="veg" data-name="Чай по-восточному">
+        <p class="dish-foot"><span class="dish-w">400 мл</span><span class="dish-tags"><i title="Вегетарианское"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg></i></span><b data-price>36 сом.</b></p></div>
+      </article><article class="dish" data-id="m18" data-cat="drinks" data-tags="veg" data-name="Чай по-восточному">
         <div class="dish-img"><img src="images/m18.webp" width="700" height="700" alt="Чай наливают в расписную пиалу" loading="lazy" decoding="async"></div>
         <div class="dish-body"><h3>Чай по-восточному</h3><p>Чёрный и зелёный чай, пиала на двоих, сладости.</p>
-        <p class="dish-foot"><span class="dish-w">600 мл</span><span class="dish-tags"><i title="Вегетарианское"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg></i></span><b>30 сом.</b></p></div>
+        <p class="dish-foot"><span class="dish-w">600 мл</span><span class="dish-tags"><i title="Вегетарианское"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg></i></span><b data-price>30 сом.</b></p></div>
       </article></div>
       <div class="empty" id="empty" hidden>
         <div class="empty-ic"><svg class="ic" aria-hidden="true"><use href="#i-flame"/></svg></div>
@@ -199,6 +203,14 @@
       </div>
       <p class="card-foot">Концепт: меню и цены вымышлены. На вашем сайте здесь будет ваше меню; блюда и цены можно менять в любой момент.</p>
     </div>
+    <aside class="owner-cta" data-reveal aria-labelledby="owner-cta-t">
+      <div class="oc-copy">
+        <p class="eyebrow">Для владельца</p>
+        <h3 id="owner-cta-t">Меню меняется <em>сообщением боту</em></h3>
+        <p>Цена, стоп-лист и «закрыто сегодня» — одной строкой в Telegram, без звонков разработчику сайта. Попробуйте прямо на этом меню.</p>
+      </div>
+      <a class="btn btn-fire" href="admin-demo/index.html">Попробовать админку <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </aside>
   </div>
 </section>
 
@@ -282,7 +294,7 @@
 
 <footer class="ftr">
   <div class="wrap ftr-top">
-    <nav class="ftr-nav" aria-label="Подвал"><a href="#about">О нас</a><a href="#menu">Меню</a><a href="#chef">Шеф</a><a href="#gallery">Атмосфера</a><a href="#book">Бронь</a><a href="#" data-pol>Политика обработки данных</a></nav>
+    <nav class="ftr-nav" aria-label="Подвал"><a href="#about">О нас</a><a href="#menu">Меню</a><a href="#chef">Шеф</a><a href="#gallery">Атмосфера</a><a href="#book">Бронь</a><a href="admin-demo/index.html">Админка (демо)</a><a href="#" data-pol>Политика обработки данных</a></nav>
     <p class="ftr-note">© 2026 ОТАШ. Концепт: название, шеф, меню, цены и контакты вымышлены.</p>
   </div>
   <div class="ftr-mark" aria-hidden="true"><span class="fire fire-xl"><span>ОТ</span><span>АШ</span></span></div>

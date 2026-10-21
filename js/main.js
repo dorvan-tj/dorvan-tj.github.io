@@ -98,9 +98,11 @@
     }
     $$('[data-dyn]').forEach((el) => { const v = dyn(el.dataset.dyn); if (el.textContent !== v) el.textContent = v; });
     $$('[data-dyn-label]').forEach((el) => el.setAttribute('aria-label', dyn(el.dataset.dynLabel)));
+    if (autoBtn && msgEl.dataset.auto) msgEl.value = autoPhrase(autoBtn); // автофраза в поле «О проекте» — на новом языке
+    syncModsHint();
     root.lang = lang;
     $$('[data-lang]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
-    if (persist) { try { localStorage.setItem('gb-lang', lang); } catch (e) { /* private mode */ } }
+    if (persist) { try { localStorage.setItem('dorvan-lang', lang); } catch (e) { /* private mode */ } }
     rail = null; // высота карточек процесса зависит от языка
     renderSent();
     clearErrors();
@@ -138,6 +140,7 @@
   const links = $$('.nav__links a');
   const byId = {};
   links.forEach((a) => { const id = a.getAttribute('href').slice(1); if (!byId[id]) byId[id] = a; });
+  byId.modules = byId.packs = byId.features = byId.prices; // модули, пакеты и «фишки» — продолжение блока цен: пункт «Цены» остаётся подсвеченным
   if ('IntersectionObserver' in window) {
     const spy = new IntersectionObserver((es) => es.forEach((e) => {
       const a = e.isIntersecting && byId[e.target.id];
@@ -145,7 +148,7 @@
       links.forEach((l) => { l.classList.remove('is-active'); l.removeAttribute('aria-current'); });
       a.classList.add('is-active'); a.setAttribute('aria-current', 'location');
     }), { rootMargin: '-40% 0px -55% 0px' });
-    ['top', 'about', 'services', 'prices', 'work', 'process', 'faq', 'contact'].forEach((id) => { const s = document.getElementById(id); if (s) spy.observe(s); });
+    ['top', 'about', 'services', 'prices', 'modules', 'packs', 'features', 'work', 'process', 'faq', 'contact'].forEach((id) => { const s = document.getElementById(id); if (s) spy.observe(s); });
   }
 
   /* ---------- прокрутка: плотность шапки и прогресс чтения ---------- */
@@ -180,7 +183,7 @@
   }
 
   /* ---------- «Обо мне»: число проектов считается по карточкам на странице (примеры сайтов + другие работы) — оно не разойдётся с тем, что видно ---------- */
-  const pc = $('[data-projects]'); if (pc) pc.textContent = String($$('.demo,.work-card').length);
+  const pc = $('[data-projects]'); if (pc) pc.textContent = String(new Set($$('.demo').map((a) => a.getAttribute('href'))).size + $$('.work-card').length); // пример на двух ступенях считается один раз
   /* счётчики 0 → N (числа берутся из разметки) */
   const nums = $$('.stats b');
   if (nums.length && !reduce && 'IntersectionObserver' in window) {
@@ -437,32 +440,50 @@
   const tierPanels = $$('.tierpanel');
   const showTier = (v) => tierPanels.forEach((p) => { p.hidden = p.id !== 'tier-' + v; });
   $$('input[name="tier"]').forEach((r) => r.addEventListener('change', () => showTier(r.value)));
-  $$('[data-tier]').forEach((b) => b.addEventListener('click', () => {
-    const r = $('input[name="tier"][value="' + b.dataset.tier + '"]');
-    r.checked = true; showTier(r.value);
-    r.closest('.tiers').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
-  }));
+  showTier($('input[name="tier"]:checked').value); // после перезагрузки браузер (Firefox) помнит выбранную ступень: панель должна совпасть с ней
 
-  /* ---------- услуги и ступени цены -> бриф ---------- */
+  /* ---------- услуги, ступени цены и пакеты -> бриф ---------- */
+  // Автофраза «Хочу сайт «Вау» за $100» / «Хочу пакет «Магазин» за $250»: название берётся из карточки, поэтому при смене языка фраза собирается заново (пока человек не начал писать своё)
+  let autoBtn = null; let budAuto = false; // кнопка, поставившая автофразу; бюджет в форме выбран кнопкой, а не человеком
+  const autoPhrase = (b) => {
+    const isPack = Boolean(b.dataset.pack);
+    const name = $(isPack ? '.pack__name' : '.tierpanel__name', b.closest(isPack ? '.pack' : '.tierpanel')).textContent;
+    return dyn(b.dataset.msg || (isPack ? 'pack.msg' : 'tier.msg')).replace('{n}', name).replace('{p}', b.dataset.price);
+  };
   $$('[data-pick]').forEach((b) => b.addEventListener('click', () => {
     const r = $('input[name="type"][value="' + b.dataset.pick + '"]');
-    if (r) { r.checked = true; $('#err-type').textContent = ''; }
+    if (r) { r.checked = true; $('#err-type').textContent = ''; typeChips.classList.remove('is-invalid'); }
     const bud = b.dataset.budget && $('input[name="budget"][value="' + b.dataset.budget + '"]');
-    if (bud) bud.checked = true;
-    // кнопка ступени цены: в бриф подставляется фраза «Хочу сайт «Вау» за $100» (пока человек не начал писать своё)
-    if (b.dataset.price && (!msgEl.value.trim() || msgEl.dataset.auto)) {
-      msgEl.value = dyn('tier.msg').replace('{n}', $('.tierpanel__name', b.closest('.tierpanel')).textContent).replace('{p}', b.dataset.price);
-      msgEl.dataset.auto = '1'; msgEl.removeAttribute('aria-invalid'); $('#err-msg').textContent = '';
-    }
+    if (bud) { bud.checked = true; budAuto = true; } // бюджет выбирается сам: у ступени и у пакета в кнопке записана своя вилка
+    else if (budAuto) { $('input[name="budget"][value="b0"]').checked = true; budAuto = false; } // кнопка услуги: вилка от прежней ступени или пакета больше не подходит
+    const pack = $('input[name="pack"][value="' + (b.dataset.pack || '') + '"]'); // пакет остаётся выбранным только после кнопки пакета: любая другая кнопка его снимает
+    if (pack) pack.checked = true;
+    syncModsHint();
+    if (b.dataset.price) {
+      if (!msgEl.value.trim() || msgEl.dataset.auto) { msgEl.value = autoPhrase(b); msgEl.dataset.auto = '1'; autoBtn = b; msgEl.removeAttribute('aria-invalid'); $('#err-msg').textContent = ''; }
+    } else if (msgEl.dataset.auto) { msgEl.value = ''; delete msgEl.dataset.auto; autoBtn = null; } // кнопка услуги без цены: прежняя фраза про ступень или пакет не подходит
     $('#contact').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
     setTimeout(() => $('#f-msg').focus({ preventScroll: true }), reduce ? 0 : 700);
   }));
+  $$('input[name="budget"]').forEach((r) => r.addEventListener('change', () => { budAuto = false; })); // сам поставил бюджет — кнопки услуг его не трогают
 
   /* ---------- бриф ---------- */
   const form = $('#brief'); const sent = $('#sent');
   const msgEl = form.elements.message; const contactEl = form.elements.contact;
   let state = null;
-  const label = (name) => { const r = form.querySelector('input[name="' + name + '"]:checked'); return r ? r.nextElementSibling.textContent.trim() : ''; };
+  // подпись выбранного варианта; у чипов бюджета в <b> сама вилка, а <small> — подпись ступеней, в заявку она не идёт
+  const label = (name) => { const r = form.querySelector('input[name="' + name + '"]:checked'); if (!r) return ''; const s = r.nextElementSibling; return (s.querySelector('b') || s).textContent.trim(); };
+  const pickedPack = () => (form.elements.pack.value ? label('pack') : ''); // пустое значение — «Без пакета»
+  const pickedMods = () => $$('input[name="mods"]:checked', form).map((m) => m.nextElementSibling.textContent.trim());
+  // подсказка под модулями: что уже входит в выбранный пакет (отмечать это ещё раз не нужно)
+  const modsHint = $('#mods-hint');
+  const syncModsHint = () => {
+    const p = form.querySelector('input[name="pack"]:checked');
+    const names = ((p && p.dataset.incl) || '').split(' ').filter(Boolean).map((k) => { const n = $('input[name="mods"][value="' + k + '"]').nextElementSibling.firstElementChild.textContent.trim(); return n[0].toLowerCase() + n.slice(1); });
+    modsHint.hidden = !names.length;
+    if (names.length) modsHint.textContent = dyn('mods.incl').replace('{m}', names.join(', '));
+  };
+  $$('input[name="pack"]').forEach((r) => r.addEventListener('change', syncModsHint));
 
   // Через Worker заявка приходит без Telegram-аккаунта клиента, поэтому контакт обязателен.
   $('#brief-note').dataset.dyn = viaApi ? 'note.ep' : 'note.tg';
@@ -470,11 +491,14 @@
 
   function buildText() {
     const none = dyn('tpl.none');
+    const pack = pickedPack(); const mods = pickedMods();
     return [
       dyn('tpl.head'), '',
       dyn('tpl.type') + ': ' + (label('type') || none),
       dyn('tpl.budget') + ': ' + (label('budget') || none),
-      dyn('tpl.time') + ': ' + (label('time') || none), '',
+      dyn('tpl.time') + ': ' + (label('time') || none),
+      ...(pack ? [dyn('tpl.pack') + ': ' + pack] : []), // пакет и модули — строками только если выбраны
+      ...(mods.length ? [dyn('tpl.mods') + ': ' + mods.join(', ')] : []), '',
       dyn('tpl.msg') + ':', msgEl.value.trim(), '',
       dyn('tpl.contact') + ': ' + (contactEl.value.trim() || none)
     ].join('\n');
@@ -550,6 +574,7 @@
             lang, type: label('type'), typeCode: form.elements.type.value,
             budget: label('budget'), budgetCode: form.elements.budget.value,
             time: label('time'), timeCode: form.elements.time.value,
+            pack: pickedPack(), mods: pickedMods(),
             message: msgEl.value.trim(), contact: contactEl.value.trim(),
             hp: form.elements.hp.value, t: Math.round(performance.now())
           })
@@ -573,7 +598,7 @@
     setTimeout(() => { span.textContent = dyn('btn.copy'); }, 1800);
   });
   $('#sent-edit').addEventListener('click', () => {
-    if (state && state.mode === 'ok') form.reset();
+    if (state && state.mode === 'ok') { form.reset(); syncModsHint(); budAuto = false; autoBtn = null; delete msgEl.dataset.auto; } // reset не шлёт события: подсказку и «автовыбор» сбрасываем сами
     clearErrors();
     sent.hidden = true; form.hidden = false; msgEl.focus();
     if (!reduce && form.animate) form.animate([{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }], { duration: 420, easing: 'cubic-bezier(.22,.9,.3,1)' });
@@ -581,7 +606,7 @@
 
   /* ---------- старт ---------- */
   $('#year').textContent = new Date().getFullYear();
-  let saved = ''; try { saved = localStorage.getItem('gb-lang') || ''; } catch (e) { /* private mode */ }
+  let saved = ''; try { saved = localStorage.getItem('dorvan-lang') || ''; } catch (e) { /* private mode */ }
   setLang((new URLSearchParams(location.search).get('lang') || saved) === 'en' ? 'en' : 'ru', false);
   if (window.scrollY > 0) requestAnimationFrame(onScrollFrame); // открыли не с верха (восстановление прокрутки, якорь)
   // аврора — в простое после загрузки, анимации, привязанные к прокрутке, — с первой прокруткой (раньше они не видны):

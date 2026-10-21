@@ -33,6 +33,7 @@
 
   var step = "service";
   var preMaster = null; // пришли по ссылке «Записаться к мастеру»
+  var notice = ""; // короткое сообщение над выбором времени (например, «это окно только что заняли»)
 
   /* ---------- Мелкие помощники ---------- */
   var esc = function (s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); };
@@ -43,7 +44,7 @@
   var svc = function () { return state.service ? U.byId(D.services, state.service) : null; };
   var master = function () { return state.master && state.master !== "any" ? U.byId(D.masters, state.master) : null; };
   var parseISO = function (s) { var p = s.split("-"); return new Date(+p[0], +p[1] - 1, +p[2]); };
-  var fmtLong = function (d) { return cap(new Intl.DateTimeFormat("ru-RU", { weekday: "long", day: "numeric", month: "long" }).format(d)); };
+  var fmtLong = function (d) { return cap(new Intl.DateTimeFormat("ru-RU", { weekday: "long", day: "numeric", month: "long" }).format(d)).replace(/(\d) /, "$1\u00a0"); };
   var fmtWd = function (d) { return new Intl.DateTimeFormat("ru-RU", { weekday: "short" }).format(d); };
   var addMin = function (hhmm, min) { var p = hhmm.split(":"); return U.hhmm(+p[0] * 60 + +p[1] + min); };
   var now = function () { return new Date(); };
@@ -66,7 +67,8 @@
   var whenLabel = function () {
     if (!state.date || !state.time) return null;
     var s = svc();
-    return fmtLong(parseISO(state.date)) + ", " + state.time + (s ? "–" + addMin(state.time, s.min) : "");
+    // между днём недели, датой и временем остаются обычные пробелы (строка может переноситься), «24 октября» и «12:30–14:00» не рвутся
+    return fmtLong(parseISO(state.date)) + ", " + state.time + (s ? "–⁠" + addMin(state.time, s.min) : "");
   };
 
   /* Ближайшее окно мастера (или любого) для выбранной услуги */
@@ -76,7 +78,7 @@
     for (var i = 0; i < ds.length; i++) {
       var list = U.daySlots(mid, ds[i], s, now()).filter(function (x) { return x.free; });
       if (list.length) {
-        var when = i === 0 ? "сегодня" : i === 1 ? "завтра" : new Intl.DateTimeFormat("ru-RU", { day: "numeric", month: "long" }).format(ds[i]);
+        var when = i === 0 ? "сегодня" : i === 1 ? "завтра" : new Intl.DateTimeFormat("ru-RU", { day: "numeric", month: "long" }).format(ds[i]).replace(/(\d) /, "$1\u00a0");
         return when + " в " + list[0].time;
       }
     }
@@ -84,12 +86,15 @@
   };
 
   /* ---------- Проверки шагов ---------- */
-  var timeStillFree = function () {
-    if (!state.service || !state.master || !state.date || !state.time) return false;
+  // Свободное окно на выбранное время (или null). У «любого мастера» в окне указан тот, кто свободен ПРЯМО СЕЙЧАС:
+  // пока заполняли форму, выбранного раньше мастера могли занять или отпустить на выходной.
+  var freeSlot = function () {
+    if (!state.service || !state.master || !state.date || !state.time) return null;
     var list = U.daySlots(state.master, parseISO(state.date), svc(), now());
-    for (var i = 0; i < list.length; i++) if (list[i].time === state.time) return list[i].free;
-    return false;
+    for (var i = 0; i < list.length; i++) if (list[i].time === state.time) return list[i].free ? list[i] : null;
+    return null;
   };
+  var timeStillFree = function () { return !!freeSlot(); };
   // телефон: цифры, пробелы, скобки, дефис и плюс в начале; не меньше 9 и не больше 15 цифр
   var phoneOk = function (v) { v = v.trim(); var n = v.replace(/\D/g, "").length; return /^\+?[\d\s().\-–]+$/.test(v) && n >= 9 && n <= 15; };
   // примеры пожеланий в поле «Комментарий» — по направлению выбранной услуги
@@ -190,6 +195,7 @@
       state.time = null;
     } else if (state.time && !timeStillFree()) state.time = null;
     var html = '<h2 class="panel__title" id="st-title" tabindex="-1">Выберите день и время</h2><p class="panel__hint">Показываем окна, в которые уместится «' + esc(s.name) + '» (' + dur(s.min) + ").</p>";
+    if (notice) { html += '<p class="empty" role="status">' + esc(notice) + "</p>"; notice = ""; }
     html += '<fieldset class="dates" id="dates" style="border:0;padding:0 0 6px;min-width:0"><legend class="sr-only">День</legend>';
     ds.forEach(function (d) {
       var iso = U.iso(d);
@@ -208,9 +214,9 @@
     return '<h2 class="panel__title" id="st-title" tabindex="-1">Оставьте контакты</h2><p class="panel__hint">Имя и телефон — чтобы подтвердить запись.</p>' +
       '<dl class="ticket only-mobile" style="margin-top:16px;max-width:none">' + miniSummary() + "</dl>" +
       '<form class="form" id="cform" novalidate style="margin-top:20px">' +
-      '<div class="field"><label for="f-name">Ваше имя <span aria-hidden="true">*</span></label><input id="f-name" type="text" autocomplete="name" value="' + esc(state.name) + '" required><p class="err" id="f-name-err" aria-live="polite"></p></div>' +
-      '<div class="field"><label for="f-phone">Телефон <span aria-hidden="true">*</span></label><input id="f-phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+992 90 000 00 00" value="' + esc(state.phone) + '" required><p class="err" id="f-phone-err" aria-live="polite"></p></div>' +
-      '<div class="field"><label for="f-comment">Комментарий (необязательно)</label><textarea id="f-comment" rows="3" placeholder="' + esc(HINTS[(svc() || {}).cat] || "Например: пожелания к визиту") + '">' + esc(state.comment) + "</textarea></div>" +
+      '<div class="field"><label for="f-name">Ваше имя <span aria-hidden="true">*</span></label><input id="f-name" type="text" autocomplete="name" maxlength="60" value="' + esc(state.name) + '" required><p class="err" id="f-name-err" aria-live="polite"></p></div>' +
+      '<div class="field"><label for="f-phone">Телефон <span aria-hidden="true">*</span></label><input id="f-phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="25" placeholder="+992 90 000 00 00" value="' + esc(state.phone) + '" required><p class="err" id="f-phone-err" aria-live="polite"></p></div>' +
+      '<div class="field"><label for="f-comment">Комментарий (необязательно)</label><textarea id="f-comment" rows="3" maxlength="300" placeholder="' + esc(HINTS[(svc() || {}).cat] || "Например: пожелания к визиту") + '">' + esc(state.comment) + "</textarea></div>" +
       '<div class="field"><label class="check" for="f-consent"><input id="f-consent" type="checkbox"' + (state.consent ? " checked" : "") + '><span>Согласен на обработку персональных данных (<a href="privacy.html" target="_blank" rel="noopener noreferrer" style="text-decoration:underline;text-underline-offset:4px">политика</a>)</span></label><p class="err" id="f-consent-err" aria-live="polite"></p></div>' +
       '<div class="actions actions--inline" style="margin-top:8px"><button type="button" class="btn btn--ghost" data-act="back">Назад</button><button type="submit" class="btn btn--primary">Записаться</button></div>' +
       "</form>";
@@ -228,8 +234,8 @@
       '<h2 id="st-title" tabindex="-1">Вы записаны' + (first ? ", " + esc(first) : "") + "!</h2>" +
       "<p>Ждём вас в салоне. Если понадобится уточнить детали, мы позвоним по телефону " + esc(state.phone) + ".</p>" +
       '<dl class="ticket"><div><dt>Услуга</dt><dd>' + esc(s.name) + "</dd></div><div><dt>Мастер</dt><dd>" + esc(masterName()) + "</dd></div><div><dt>Когда</dt><dd>" + esc(whenLabel()) + "</dd></div><div><dt>Адрес</dt><dd>" + esc(D.brand.address) + "</dd></div><div><dt>Стоимость</dt><dd>" + money(s.price) + " (ориентировочно)</dd></div></dl>" +
-      '<p class="done__demo">Это концепт: запись никуда не отправлена. В настоящем салоне она пришла бы администратору в Telegram и появилась в расписании мастера.</p>' +
-      '<div class="done__btns"><button type="button" class="btn btn--primary" data-act="ics">Добавить в календарь</button><button type="button" class="btn btn--ghost" data-act="again">Записаться ещё</button><a class="btn btn--ghost" href="index.html">На главную</a></div></div>';
+      '<p class="done__demo">Это концепт: запись никуда не отправлена, она сохранена только в вашем браузере. В настоящем салоне она пришла бы администратору в Telegram и появилась в расписании мастера. Посмотрите, как она выглядит в админке.</p>' +
+      '<div class="done__btns"><button type="button" class="btn btn--primary" data-act="ics">Добавить в календарь</button><a class="btn btn--ghost" href="admin.html">Открыть в админке</a><button type="button" class="btn btn--ghost" data-act="again">Записаться ещё</button><a class="btn btn--ghost" href="index.html">На главную</a></div></div>';
   };
 
   /* ---------- Кнопки, шаги, итог ---------- */
@@ -368,6 +374,20 @@
       if (input) { if (errs[k]) { input.setAttribute("aria-invalid", "true"); input.setAttribute("aria-describedby", map[k] + "-err"); if (!first) first = input; } else { input.removeAttribute("aria-invalid"); input.removeAttribute("aria-describedby"); } }
     });
     if (first) { first.focus(); return; }
+    // пока заполняли форму, окно могли убрать: выходной в админке или такая же запись в другой вкладке
+    var slot = freeSlot();
+    if (!slot) {
+      notice = "Это время только что стало недоступно. Выберите другое.";
+      state.time = null; state.assigned = null;
+      save();
+      go("time");
+      said(notice);
+      return;
+    }
+    var sv = svc();
+    var mid = slot.master || (master() && master().id) || sv.masters[0];
+    state.assigned = mid;
+    U.store.add({ service: sv.id, master: mid, date: state.date, time: state.time, min: sv.min, price: sv.price, name: state.name.trim(), phone: state.phone.trim(), comment: state.comment.trim() });
     state.done = true;
     save();
     go("done");
@@ -458,6 +478,27 @@
     focusTitle();
   });
 
+  // выходной или запись из другой вкладки (например, из демо-админки) меняют свободные окна — обновляем выбор
+  window.addEventListener("storage", function (e) {
+    if (e.key !== null && e.key !== U.store.KEY) return;
+    var lost = false;
+    if (step === "contacts") {
+      var fs = freeSlot();
+      if (fs) { state.assigned = fs.master || state.assigned; save(); return; } // окно на месте, мастер мог смениться
+      lost = true;
+      state.time = null; state.assigned = null;
+      save();
+      step = "time";
+    } else if (step === "time") {
+      lost = !!((state.date && U.freeCount(state.master, parseISO(state.date), svc(), now()) === 0) || (state.time && !timeStillFree()));
+    } else if (step !== "master") return;
+    if (lost) { notice = "Выбранное время только что стало недоступно. Выберите другое."; said(notice); }
+    render();
+    if (lost) { var t = $("#st-title"); if (t) t.focus({ preventScroll: true }); } // фокус не пропадает вместе с перерисованным блоком
+  });
+  // «Назад» из админки: браузер мог достать страницу из кэша — выбор и окна надо пересчитать
+  window.addEventListener("pageshow", function (e) { if (e.persisted) { step = guard(step); render(); } });
+
   /* ---------- Старт ---------- */
   var q = new URLSearchParams(location.search);
   var qs = q.get("service"), qm = q.get("master");
@@ -467,6 +508,7 @@
     var sv = U.byId(D.services, qs);
     if (sv.masters.length === 1) state.master = sv.masters[0];
     startStep = "master";
+    if (qm && sv.masters.indexOf(qm) !== -1) { state.master = qm; startStep = "time"; } // ссылка из админки: сразу к выбору дня
     save();
   } else if (qm && U.byId(D.masters, qm)) {
     state = blank();

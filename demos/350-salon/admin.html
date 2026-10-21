@@ -1,0 +1,120 @@
+<!doctype html>
+<!-- Этот файл собран скриптом build-pages.mjs из src/. Правьте заготовки в src/ и js/data.js, а не его. -->
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<script>document.documentElement.className += " js";</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#FBF5EF">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preload" href="fonts/playfair-display-cyrillic-500-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/manrope-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/style.css">
+
+<title>Админка салона (демо) — Iris</title>
+<meta name="description" content="Демо-админка салона Iris: записи со статусами, расписание мастеров и выходные. Концепт студии Dorvan: всё работает только в вашем браузере и никуда не отправляется.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Iris beauty studio (концепт студии Dorvan)">
+<meta property="og:title" content="Админка салона — демо">
+<meta property="og:description" content="Записи, статусы, расписание мастеров и выходные. Концепт студии Dorvan.">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:image" content="https://dorvan-tj.github.io/demos/350-salon/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="adm">
+<a class="skip" href="#main">Перейти к содержимому</a>
+<header class="adm-top">
+  <div class="wrap adm-top__row">
+    <a class="logo" href="index.html" aria-label="Iris — на сайт салона">
+      <svg class="logo__mark" viewBox="0 0 32 32" width="30" height="30" aria-hidden="true" focusable="false"><path d="M5 28V15a11 11 0 0 1 22 0v13z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="16" cy="19" r="3.6" fill="currentColor"/><path d="M16 15c-2.4-3-1.4-6.4 0-8.6 1.4 2.2 2.4 5.6 0 8.6z" fill="currentColor" opacity=".55"/></svg>
+      <span>Iris</span>
+    </a>
+    <span class="adm-top__title">Админка <span class="badge-concept">демо</span></span>
+    <div class="adm-top__act">
+      <a class="btn btn--ghost btn--sm" href="booking.html">Запись на сайте</a>
+      <button class="btn btn--ghost btn--sm" type="button" id="reset">Сбросить демо</button>
+      <button class="btn btn--ghost btn--sm" type="button" id="logout" hidden>Выйти</button>
+    </div>
+  </div>
+</header>
+
+<main id="main" tabindex="-1" class="wrap">
+  <p class="note adm-note"><strong>Это демо-админка.</strong> Всё работает только в вашем браузере и никуда не отправляется. Имена клиентов и числа в примерах придуманы, они помечены «пример». Записи, которые вы сделаете на сайте, появятся здесь сами. <strong>Модуль: +$150 — можно добавить к любому сайту.</strong></p>
+
+  <section id="login" class="adm-login" aria-labelledby="login-t">
+    <div class="card adm-login__card">
+      <p class="eyebrow">Вход для администратора</p>
+      <h1 class="h2" id="login-t" tabindex="-1">Вход в админку салона</h1>
+      <p class="lead">Это демо, поэтому пароль написан прямо здесь.</p>
+      <div class="adm-pass" role="group" aria-label="Демо-пароль">
+        <span>Демо-пароль:</span> <code id="demo-pass">iris-demo</code>
+        <button type="button" class="linkbtn" id="fill-pass">Подставить</button>
+      </div>
+      <form id="login-form" class="form" novalidate>
+        <div class="field">
+          <label for="pw">Пароль</label>
+          <input id="pw" name="demo-password" type="password" autocomplete="off" required>
+          <p class="err" id="pw-err" aria-live="polite"></p>
+        </div>
+        <button class="btn btn--primary" type="submit">Войти</button>
+      </form>
+      <p class="adm-login__note">В настоящей админке пароль знаете только вы, а вход проверяет сервер. Здесь проверка нарочно простая: демо не должно мешать посмотреть.</p>
+      <p class="adm-status" id="lg-status" role="status" aria-live="polite"></p>
+      <noscript><p class="err">Для демо-админки нужен включённый JavaScript.</p></noscript>
+    </div>
+  </section>
+
+  <div id="app" hidden>
+    <div class="adm-head">
+      <div>
+        <p class="eyebrow">Админка салона</p>
+        <h1 class="h2" id="app-t" tabindex="-1">Записи и расписание</h1>
+      </div>
+      <p class="adm-today" id="today"></p>
+    </div>
+    <p class="note" id="nostore" hidden><strong>Браузер не даёт сохранять данные</strong> (возможно, включён приватный режим). Записи с сайта в админке не появятся, а выходные будут действовать только на этой странице.</p>
+
+    <nav class="adm-jump" aria-label="Разделы админки">
+      <a href="#bookings">Записи</a>
+      <a href="#schedule">Расписание мастеров</a>
+      <a href="#tg">Уведомление в Telegram</a>
+    </nav>
+
+    <section id="bookings" class="adm-sec" aria-labelledby="bk-t">
+      <h2 id="bk-t" tabindex="-1">Записи</h2>
+      <p class="adm-hint">Запись с сайта появляется здесь сразу. Поменяйте статус: «отменена» освобождает время, и оно снова доступно на сайте.</p>
+      <div class="pills" id="filters" role="group" aria-label="Показать записи со статусом"></div>
+      <p class="adm-status" id="bk-status" role="status" aria-live="polite"></p>
+      <ul class="bklist" id="bklist" aria-label="Список записей"></ul>
+    </section>
+
+    <section id="schedule" class="adm-sec" aria-labelledby="sc-t">
+      <h2 id="sc-t" tabindex="-1">Расписание мастеров и выходные</h2>
+      <p class="adm-hint">Нажмите на день — он станет выходным, и окна для записи на сайте пропадут сразу. Нажмите ещё раз — окна вернутся. Число окон посчитано для самой короткой услуги мастера, кружок — это записи на день.</p>
+      <p class="adm-status" id="sc-status" role="status" aria-live="polite"></p>
+      <div class="mlist" id="masters"></div>
+    </section>
+
+    <section id="tg" class="adm-sec" aria-labelledby="tg-t">
+      <h2 id="tg-t" tabindex="-1">Уведомление в Telegram</h2>
+      <p class="adm-hint">Так выглядит сообщение, которое приходит администратору, когда клиент записывается на сайте. В демо оно никуда не отправляется: это картинка по вашей последней записи.</p>
+      <div class="tg" id="tg-box"></div>
+    </section>
+  </div>
+</main>
+
+<aside class="demo-plate" aria-label="Демо-сайт студии Dorvan">
+  <span class="dp-brand">Dorvan</span>
+  <span class="dp-text">Модуль: <b>+$150</b><span class="dp-long"> — можно добавить к любому сайту</span></span>
+  <span class="dp-dot" aria-hidden="true">·</span>
+  <a class="dp-btn" href="https://t.me/dorvan_tj?text=%D0%A5%D0%BE%D1%87%D1%83%20%D0%BC%D0%BE%D0%B4%D1%83%D0%BB%D1%8C%20%C2%AB%D0%90%D0%B4%D0%BC%D0%B8%D0%BD%D0%BA%D0%B0%20%D0%B7%D0%B0%D0%BF%D0%B8%D1%81%D0%B5%D0%B9%20%D0%B2%20%D0%B1%D1%80%D0%B0%D1%83%D0%B7%D0%B5%D1%80%D0%B5%C2%BB%20(%2B%24150)%2C%20%D0%BA%D0%B0%D0%BA%20%D0%B2%20%D0%B4%D0%B5%D0%BC%D0%BE%20%C2%ABIris%C2%BB" target="_blank" rel="noopener noreferrer" data-copy="Хочу модуль «Админка записей в браузере» (+$150), как в демо «Iris»">Хочу такой <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+</aside>
+
+<script src="js/data.js"></script>
+<script src="js/app.js" defer></script>
+<script src="js/admin.js" defer></script>
+</body>
+</html>
