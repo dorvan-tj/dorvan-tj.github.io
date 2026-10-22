@@ -2,7 +2,9 @@
 (() => {
   'use strict';
   const SITE = Object.assign({ telegram: '', channel: '', endpoint: '', available: true }, window.SITE);
-  const D = window.I18N || { en: {}, dyn: { ru: {}, en: {} } };
+  const D = window.I18N || { en: {}, tj: {}, dyn: { ru: {}, en: {}, tj: {} } };
+  const LANGS = ['ru', 'tj', 'en']; // русский — в самой разметке, английский — в i18n.js, таджикский (бета) — в tj.js
+  const langHooks = []; // что обновить при смене языка: подбор, калькулятор, набросок, отзывы
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
   const root = document.documentElement;
@@ -83,10 +85,12 @@
     return o;
   }));
   const dyn = (k) => (D.dyn[lang] && D.dyn[lang][k]) || D.dyn.ru[k] || k;
-  const pick = (key, fallback) => (lang === 'en' && D.en[key] != null ? D.en[key] : fallback);
+  const pick = (key, fallback) => (lang !== 'ru' && D[lang] && D[lang][key] != null ? D[lang][key] : fallback); // нет перевода — остаётся русский текст
 
+  let wantLang = 'ru'; // язык, который выбрал посетитель (во время короткого «затухания» lang ещё прежний)
   function setLang(next, persist) {
-    lang = next === 'en' ? 'en' : 'ru';
+    lang = LANGS.includes(next) ? next : 'ru';
+    wantLang = lang;
     // при старте на русском тексты уже на месте: не переписываем ~200 элементов (каждая запись — перекладка страницы)
     if (lang !== domLang) {
       capture().forEach((o) => {
@@ -98,10 +102,12 @@
     }
     $$('[data-dyn]').forEach((el) => { const v = dyn(el.dataset.dyn); if (el.textContent !== v) el.textContent = v; });
     $$('[data-dyn-label]').forEach((el) => el.setAttribute('aria-label', dyn(el.dataset.dynLabel)));
-    if (autoBtn && msgEl.dataset.auto) msgEl.value = autoPhrase(autoBtn); // автофраза в поле «О проекте» — на новом языке
+    if (autoSpec && msgEl.dataset.auto) msgEl.value = autoPhrase(autoSpec); // автофраза в поле «О проекте» — на новом языке
     syncModsHint();
     if (refUpdate) refUpdate(); // ссылка «Приведи клиента» — на новом языке
-    root.lang = lang;
+    langHooks.forEach((f) => f()); // подбор, калькулятор, набросок и отзывы собираются заново: названия они берут из уже переведённой разметки
+    root.lang = lang === 'tj' ? 'tg' : lang; // код таджикского языка — tg
+    $('#beta').hidden = lang !== 'tj';
     $$('[data-lang]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
     if (persist) { try { localStorage.setItem('dorvan-lang', lang); } catch (e) { /* private mode */ } }
     rail = null; // высота карточек процесса зависит от языка
@@ -113,7 +119,8 @@
   const sub = $('.hero__sub');
   $$('[data-lang]').forEach((b) => b.addEventListener('click', () => switchLang(b.dataset.lang)));
   function switchLang(next) {
-    if (next === lang) return;
+    if (next === wantLang) return;
+    wantLang = next;
     if (reduce) return setLang(next, true);
     const els = $$('[data-i18n],[data-i18n-html],[data-dyn],.pager__title').filter((el) => {
       if (el === sub) return false;
@@ -121,7 +128,7 @@
     });
     els.forEach((el) => el.classList.add('i18n-fade', 'i18n-out'));
     setTimeout(() => {
-      setLang(next, true);
+      setLang(wantLang, true);
       requestAnimationFrame(() => {
         els.forEach((el) => el.classList.remove('i18n-out'));
         setTimeout(() => els.forEach((el) => el.classList.remove('i18n-fade')), 200);
@@ -143,6 +150,8 @@
   links.forEach((a) => { const id = a.getAttribute('href').slice(1); if (!byId[id]) byId[id] = a; });
   byId.referral = byId.faq; // «Приведи клиента» стоит прямо перед вопросами
   byId.modules = byId.packs = byId.existing = byId.features = byId.prices; // модули, пакеты, готовые сайты и «фишки» — продолжение блока цен: пункт «Цены» остаётся подсвеченным
+  byId.quiz = byId.calculator = byId.risk = byId.prices; // подбор, калькулятор и «Без риска» стоят рядом с ценами
+  byId.reviews = byId.work; // отзывы — сразу после работ
   if ('IntersectionObserver' in window) {
     const spy = new IntersectionObserver((es) => es.forEach((e) => {
       const a = e.isIntersecting && byId[e.target.id];
@@ -150,7 +159,7 @@
       links.forEach((l) => { l.classList.remove('is-active'); l.removeAttribute('aria-current'); });
       a.classList.add('is-active'); a.setAttribute('aria-current', 'location');
     }), { rootMargin: '-40% 0px -55% 0px' });
-    ['top', 'about', 'services', 'prices', 'modules', 'packs', 'existing', 'features', 'work', 'process', 'referral', 'faq', 'contact'].forEach((id) => { const s = document.getElementById(id); if (s) spy.observe(s); });
+    ['top', 'about', 'services', 'quiz', 'prices', 'modules', 'packs', 'calculator', 'risk', 'existing', 'features', 'work', 'reviews', 'process', 'referral', 'faq', 'contact'].forEach((id) => { const s = document.getElementById(id); if (s) spy.observe(s); });
   }
 
   /* ---------- прокрутка: плотность шапки и прогресс чтения ---------- */
@@ -328,6 +337,7 @@
   // акция «Первые 10 клиентов»: число мест — только в js/config.js (clientsLeft). Есть число — «осталось N из 10»; 0 и меньше — акция закончилась:
   // плашка, подарки в ступенях, бонус в форме и вопрос про бонусы скрываются; числа нет — счётчик просто не показываем
   const left = SITE.clientsLeft === undefined || SITE.clientsLeft === '' ? NaN : Number(SITE.clientsLeft);
+  const promoOn = !(Number.isFinite(left) && left <= 0); // акция идёт (числа нет — считаем, что идёт: ничего не выдумываем и не прячем)
   if (Number.isFinite(left)) {
     $$('[data-left]').forEach((b) => { b.textContent = String(left); b.parentElement.hidden = left <= 0; });
     if (left <= 0) $$('[data-promo]').forEach((el) => { el.hidden = true; });
@@ -414,27 +424,35 @@
   /* ---------- услуги, ступени цены и пакеты -> бриф ---------- */
   // Автофраза «Хочу сайт «Вау» за $100» / «Хочу пакет «Магазин» за $250»: название берётся из карточки, поэтому при смене языка фраза собирается заново (пока человек не начал писать своё)
   let refUpdate = null; // обновляет ссылку блока «Приведи клиента» при смене языка (назначается ниже)
-  let autoBtn = null; let budAuto = false; // кнопка, поставившая автофразу; бюджет в форме выбран кнопкой, а не человеком
-  const autoPhrase = (b) => {
+  let autoSpec = null; let budAuto = false; // autoSpec — что поставило автофразу (ступень, пакет, подбор или калькулятор); бюджет в форме выбран кнопкой, а не человеком
+  // spec автофразы: { key — ключ шаблона, name() — название на текущем языке, price, tail() — хвост фразы или пусто }
+  const autoPhrase = (s) => dyn(s.key).replace('{n}', () => s.name()).replace('{p}', () => s.price) + (s.tail ? s.tail() : '');
+  const specOf = (b) => { // из кнопки ступени или пакета; у кнопки услуги цены нет — автофразы нет
+    if (!b.dataset.price) return null;
     const isPack = Boolean(b.dataset.pack);
-    const name = $(isPack ? '.pack__name' : '.tierpanel__name', b.closest(isPack ? '.pack' : '.tierpanel')).textContent;
-    return dyn(b.dataset.msg || (isPack ? 'pack.msg' : 'tier.msg')).replace('{n}', name).replace('{p}', b.dataset.price);
+    const nameEl = $(isPack ? '.pack__name' : '.tierpanel__name', b.closest(isPack ? '.pack' : '.tierpanel'));
+    return { key: b.dataset.msg || (isPack ? 'pack.msg' : 'tier.msg'), name: () => nameEl.textContent, price: b.dataset.price };
   };
-  $$('[data-pick]').forEach((b) => b.addEventListener('click', () => {
-    const r = $('input[name="type"][value="' + b.dataset.pick + '"]');
+  // Переносит выбор в форму и прокручивает к ней: o = { type, budget, pack, spec, mods, bonus }.
+  // mods и bonus — массивы ключей: отмеченные в форме модули и бонусы заменяются ими; нет полей — их не трогаем
+  function applyOrder(o) {
+    const r = $('input[name="type"][value="' + o.type + '"]');
     if (r) { r.checked = true; $('#err-type').textContent = ''; typeChips.classList.remove('is-invalid'); }
-    const bud = b.dataset.budget && $('input[name="budget"][value="' + b.dataset.budget + '"]');
+    const bud = o.budget && $('input[name="budget"][value="' + o.budget + '"]');
     if (bud) { bud.checked = true; budAuto = true; } // бюджет выбирается сам: у ступени и у пакета в кнопке записана своя вилка
     else if (budAuto) { $('input[name="budget"][value="b0"]').checked = true; budAuto = false; } // кнопка услуги: вилка от прежней ступени или пакета больше не подходит
-    const pack = $('input[name="pack"][value="' + (b.dataset.pack || '') + '"]'); // пакет остаётся выбранным только после кнопки пакета: любая другая кнопка его снимает
+    const pack = $('input[name="pack"][value="' + (o.pack || '') + '"]'); // пакет остаётся выбранным только после кнопки пакета: любая другая кнопка его снимает
     if (pack) pack.checked = true;
+    if (o.mods) $$('input[name="mods"]', form).forEach((m) => { m.checked = o.mods.includes(m.value); });
+    if (o.bonus) $$('input[name="bonus"]', form).forEach((m) => { m.checked = o.bonus.includes(m.value); });
     syncModsHint();
-    if (b.dataset.price) {
-      if (!msgEl.value.trim() || msgEl.dataset.auto) { msgEl.value = autoPhrase(b); msgEl.dataset.auto = '1'; autoBtn = b; msgEl.removeAttribute('aria-invalid'); $('#err-msg').textContent = ''; }
-    } else if (msgEl.dataset.auto) { msgEl.value = ''; delete msgEl.dataset.auto; autoBtn = null; } // кнопка услуги без цены: прежняя фраза про ступень или пакет не подходит
+    if (o.spec) {
+      if (!msgEl.value.trim() || msgEl.dataset.auto) { msgEl.value = autoPhrase(o.spec); msgEl.dataset.auto = '1'; autoSpec = o.spec; msgEl.removeAttribute('aria-invalid'); $('#err-msg').textContent = ''; }
+    } else if (msgEl.dataset.auto) { msgEl.value = ''; delete msgEl.dataset.auto; autoSpec = null; } // кнопка услуги без цены: прежняя фраза про ступень или пакет не подходит
     $('#contact').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
     setTimeout(() => $('#f-msg').focus({ preventScroll: true }), reduce ? 0 : 700);
-  }));
+  }
+  $$('[data-pick]').forEach((b) => b.addEventListener('click', () => applyOrder({ type: b.dataset.pick, budget: b.dataset.budget, pack: b.dataset.pack, spec: specOf(b) })));
   $$('input[name="budget"]').forEach((r) => r.addEventListener('change', () => { budAuto = false; })); // сам поставил бюджет — кнопки услуг его не трогают
 
   /* ---------- бриф ---------- */
@@ -576,7 +594,7 @@
     setTimeout(() => { span.textContent = dyn('btn.copy'); }, 1800);
   });
   $('#sent-edit').addEventListener('click', () => {
-    if (state && state.mode === 'ok') { form.reset(); syncModsHint(); budAuto = false; autoBtn = null; delete msgEl.dataset.auto; } // reset не шлёт события: подсказку и «автовыбор» сбрасываем сами
+    if (state && state.mode === 'ok') { form.reset(); syncModsHint(); budAuto = false; autoSpec = null; delete msgEl.dataset.auto; } // reset не шлёт события: подсказку и «автовыбор» сбрасываем сами
     clearErrors();
     sent.hidden = true; form.hidden = false; msgEl.focus();
     if (!reduce && form.animate) form.animate([{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }], { duration: 420, easing: 'cubic-bezier(.22,.9,.3,1)' });
@@ -621,10 +639,261 @@
     });
   }
 
+  /* ---------- бесплатный набросок: ссылка и название → чат с готовым текстом ---------- */
+  const skForm = $('#sketchform');
+  if (skForm) {
+    const skLink = $('#sk-link'); const skBiz = $('#sk-biz'); const skErr = $('#err-sk'); const skDone = $('#sk-done'); const skBox = $('#sk-text');
+    const skText = () => {
+      const biz = skBiz.value.trim(); const link = skLink.value.trim();
+      return [dyn('sk.head'), ...(biz ? [dyn('sk.biz.l') + ': ' + biz] : []), ...(link ? [dyn('sk.link.l') + ': ' + link] : [])].join('\n');
+    };
+    const skUrl = () => 'https://t.me/' + (tg || 'dorvan_tj') + '?text=' + encodeURIComponent(skText());
+    const skOk = () => skBiz.value.trim().length >= 2 || skLink.value.trim().length >= 3; // достаточно одного из двух полей
+    const skClear = () => { skErr.textContent = ''; skLink.removeAttribute('aria-invalid'); skBiz.removeAttribute('aria-invalid'); };
+    langHooks.push(() => { // ошибка, готовый текст и ссылка — на текущем языке
+      if (skErr.textContent) skErr.textContent = dyn('sk.err');
+      if (!skDone.hidden) { skBox.value = skText(); $('#sk-open').href = skUrl(); }
+    });
+    skForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (!skOk()) {
+        skErr.textContent = dyn('sk.err'); skLink.setAttribute('aria-invalid', 'true'); skBiz.setAttribute('aria-invalid', 'true');
+        shake(skLink); shake(skBiz); skLink.focus(); return;
+      }
+      skClear();
+      skBox.value = skText(); $('#sk-open').href = skUrl();
+      skForm.hidden = true; skDone.hidden = false;
+      $('#sk-done-t').focus({ preventScroll: true });
+      window.open(skUrl(), '_blank', 'noopener');
+    });
+    [skLink, skBiz].forEach((i) => i.addEventListener('input', () => { if (skOk()) skClear(); }));
+    $('#sk-copy').addEventListener('click', async () => {
+      const span = $('#sk-copy [data-dyn]');
+      await copyText(skBox.value, skBox);
+      span.textContent = dyn('btn.copied');
+      setTimeout(() => { span.textContent = dyn('btn.copy'); }, 1800);
+    });
+    $('#sk-edit').addEventListener('click', () => { skDone.hidden = true; skForm.hidden = false; skLink.focus(); });
+  }
+  // кнопки «Хочу бесплатный набросок» (главный экран, «Без риска»): страница сама прокручивается к блоку; с мышью курсор ещё и встаёт в первое поле
+  // (на телефоне — нет: поле в фокусе открыло бы клавиатуру и закрыло форму)
+  $$('[data-sketch]').forEach((a) => a.addEventListener('click', () => setTimeout(() => {
+    const target = skForm && !skForm.hidden ? (fine ? $('#sk-link') : null) : $('#sk-done-t');
+    if (target) target.focus({ preventScroll: true });
+  }, reduce ? 0 : 700)));
+
+  /* ---------- подбор за 30 секунд и калькулятор ---------- */
+  // Числа (цены, подарки, пакеты, примеры по нишам) — из JSON в разметке: его пишет gen_prices.py из тех же данных, что и сами блоки цен.
+  // Названия берутся из самой разметки каждый раз заново, поэтому они всегда на текущем языке.
+  let CALC = null;
+  try { const cd = $('#calc-data'); CALC = cd ? JSON.parse(cd.textContent) : null; } catch (err) { /* без данных подбор и калькулятор просто не оживают */ }
+  if (CALC) {
+    const fmt = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' '); // 1 050 — неразрывный пробел
+    const sum = (a) => a.reduce((s, x) => s + x, 0);
+    const nameOfTier = (p) => $('#tier-' + p + ' .tierpanel__name').textContent;
+    const nameOfMod = (k) => $('input[name="cmods"][value="' + k + '"]').nextElementSibling.firstElementChild.textContent;
+    const nameOfBonus = (k) => $('input[name="cbonus"][value="' + k + '"]').nextElementSibling.textContent;
+    const nameOfPack = (k) => $('#pack-' + k + ' .pack__name').textContent;
+    const quoted = (s) => dyn('q.name').replace('{n}', () => s); // «Вау» по-русски и по-таджикски, “Wow” по-английски
+    const tierSpec = (p) => ({ key: $('#tier-' + p + ' [data-pick]').dataset.msg || 'tier.msg', name: () => nameOfTier(p), price: String(p) });
+    const scrollToEl = (el) => el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+
+    /* --- калькулятор: ступень + модули + бонус → итог в долларах и примерно в сомони --- */
+    const calcEl = $('#calculator');
+    const rate = Number(SITE.somoniRate) > 0 ? Number(SITE.somoniRate) : 0; // курс — одна цифра в js/config.js; нет курса — сомони не показываем
+    const cTier = () => Number($('input[name="ctier"]:checked', calcEl).value);
+    const cMods = $$('input[name="cmods"]', calcEl); const cBonus = $$('input[name="cbonus"]', calcEl);
+    let calcCur = null; // последний расчёт: по нему работают кнопки «Заказать»
+    // выбор совпал с пакетом: та же ступень и ровно те же модули (у ступени $500 пакет — это сама ступень)
+    const packFor = (tier, mods) => (CALC.tiers[tier].incl.length ? null : CALC.packs.find((p) => p.base === tier && p.mods.length === mods.length && p.mods.every((k) => mods.includes(k))) || null);
+    function calcBonusLock() { // бонусов — не больше, чем даёт ступень; остальные пока недоступны
+      const t = CALC.tiers[cTier()]; const n = cBonus.filter((b) => b.checked).length;
+      cBonus.forEach((b) => { b.disabled = !b.checked && n >= t.bonus; });
+      $('#calc-bonus-hint').textContent = dyn('calc.bonus.' + t.bonus);
+    }
+    function calcTierChanged() { // что уже входит в ступень (у $500 — записи в Telegram и бот для клиентов) — отмечено и недоступно: второй раз его не прибавляем
+      const t = CALC.tiers[cTier()];
+      cMods.forEach((m) => {
+        const inc = t.incl.includes(m.value);
+        if (inc) { if (!m.disabled) m.dataset.was = m.checked ? '1' : ''; m.checked = true; } else if (m.disabled) m.checked = m.dataset.was === '1'; // ушли со ступени с «входит» — возвращаем то, что было отмечено до неё
+        m.disabled = inc; m.nextElementSibling.lastElementChild.hidden = !inc;
+      });
+      let n = 0; cBonus.forEach((b) => { if (b.checked && ++n > t.bonus) b.checked = false; });
+      calcBonusLock();
+    }
+    function calcRender() {
+      const tier = cTier(); const t = CALC.tiers[tier];
+      const mods = cMods.filter((m) => m.checked && !t.incl.includes(m.value)).map((m) => m.value);
+      const bonus = promoOn ? cBonus.filter((b) => b.checked).map((b) => b.value) : [];
+      const gift = promoOn ? mods.filter((k) => t.gift.includes(k)) : []; // эти модули первым клиентам достаются в подарок
+      const free = '🎁 ' + dyn('calc.free');
+      const lines = $('#calc-lines'); lines.textContent = '';
+      const row = (name, right, isGift) => {
+        const li = document.createElement('li'); if (isGift) li.className = 'is-gift';
+        const a = document.createElement('span'); a.textContent = name;
+        const b = document.createElement('span'); b.className = 'calc__p';
+        if (Array.isArray(right)) { const s = document.createElement('s'); s.textContent = right[0]; const em = document.createElement('em'); em.textContent = right[1]; b.append(s, ' ', em); } else b.textContent = right;
+        li.append(a, b); lines.appendChild(li);
+      };
+      row(dyn('calc.line.tier').replace('{n}', () => nameOfTier(tier)), '$' + tier);
+      t.incl.forEach((k) => row(nameOfMod(k), $('.chip__inc', calcEl).textContent));
+      mods.forEach((k) => (gift.includes(k) ? row(nameOfMod(k), ['+$' + CALC.mods[k], free], true) : row(nameOfMod(k), '+$' + CALC.mods[k])));
+      if (promoOn && t.support) row(dyn('calc.support.' + t.support), free, true);
+      bonus.forEach((k) => row(dyn('calc.bonus.line').replace('{b}', () => nameOfBonus(k)), free, true));
+      const total0 = tier + sum(mods.map((k) => CALC.mods[k])) - sum(gift.map((k) => CALC.mods[k]));
+      const pack = packFor(tier, mods);
+      const usePack = Boolean(pack) && pack.now <= total0; // пакет показываем, когда он не дороже (а в акции модули в подарок часто делают его невыгодным — тогда честно не предлагаем)
+      const total = usePack ? pack.now : total0;
+      $('#calc-gift').hidden = !(promoOn && (gift.length || t.support || bonus.length));
+      $('#calc-pack').hidden = !usePack; $('#calc-pack-order').hidden = !usePack;
+      if (usePack) {
+        const more = pack.extra.map((i) => $('#pack-' + pack.k + ' [data-i18n="pk.' + pack.k + '.' + i + '"]').textContent);
+        $('#cp-t').textContent = dyn('calc.pack.t').replace('{n}', () => nameOfPack(pack.k));
+        $('#cp-more').textContent = more.length ? dyn('calc.pack.more').replace('{x}', () => more.join(', ')) : ''; $('#cp-more').hidden = !more.length;
+        $('#cp-was').textContent = '$' + pack.was; $('#cp-now').textContent = '$' + pack.now; $('#cp-save').textContent = '$' + (pack.was - pack.now);
+      }
+      $('#calc-sum').textContent = '$' + fmt(total);
+      $('#calc-tjs-row').hidden = !rate;
+      if (rate) $('#calc-tjs').textContent = '≈ ' + fmt(Math.round(total * rate / 10) * 10); // примерно: до десятков сомони
+      $('#calc-mini').textContent = '$' + fmt(total); // короткий итог для телефона: держится у верхнего края, пока выбираете
+      $('#calc-mini-tjs').textContent = rate ? $('#calc-tjs').textContent + ' ' + $('[data-i18n="calc.tjs"]', calcEl).textContent : '';
+      $('#calc-rate').textContent = rate ? dyn('calc.rate').replace('{r}', () => String(rate).replace('.', lang === 'en' ? '.' : ',')) : '';
+      calcCur = { tier, t, mods, bonus, total0, pack: usePack ? pack : null };
+    }
+    const syncPriceTier = (v) => { const pr = $('input[name="tier"][value="' + v + '"]'); if (pr && !pr.checked) { pr.checked = true; showTier(v); } }; // выбранная ступень одна на всю страницу
+    function calcSet(sel) { // {tier, mods, bonus}: сюда переносит выбор подбор
+      cMods.forEach((m) => { m.disabled = false; m.checked = sel.mods.includes(m.value); });
+      cBonus.forEach((b) => { b.disabled = false; b.checked = sel.bonus.includes(b.value); });
+      $('input[name="ctier"][value="' + sel.tier + '"]', calcEl).checked = true;
+      calcTierChanged(); calcRender(); syncPriceTier(sel.tier);
+    }
+    $$('input[name="ctier"]', calcEl).forEach((r) => r.addEventListener('change', () => { calcTierChanged(); calcRender(); syncPriceTier(r.value); }));
+    cMods.forEach((m) => m.addEventListener('change', calcRender));
+    cBonus.forEach((b) => b.addEventListener('change', () => { calcBonusLock(); calcRender(); }));
+    $$('input[name="tier"]').forEach((r) => r.addEventListener('change', () => { // выбрали ступень в блоке цен — калькулятор считает её же
+      const c = $('input[name="ctier"][value="' + r.value + '"]', calcEl);
+      if (c && !c.checked) { c.checked = true; calcTierChanged(); calcRender(); }
+    }));
+    $('#calc-order').addEventListener('click', () => {
+      const c = calcCur;
+      applyOrder({ type: 'site', budget: c.t.bud, pack: '', mods: c.mods, bonus: c.bonus, spec: Object.assign(tierSpec(c.tier), { tail: () => dyn('calc.msg').replace('{t}', () => String(c.total0)) }) });
+    });
+    $('#calc-pack-order').addEventListener('click', () => {
+      const c = calcCur; const p = c.pack; // состав пакета уже включает эти модули: в форме их отдельно не отмечаем
+      applyOrder({ type: 'site', budget: p.bud, pack: p.k, mods: [], bonus: c.bonus, spec: { key: 'pack.msg', name: () => nameOfPack(p.k), price: String(p.now) } });
+    });
+    langHooks.push(() => { calcBonusLock(); calcRender(); }); // подсказка про бонусы и все строки расчёта — на новом языке
+    $('input[name="ctier"]:checked', calcEl).dispatchEvent(new Event('change')); // первый расчёт
+
+    /* --- подбор: 4 вопроса → ступень, 1–2 модуля, бонус, пример, «Заказать это» --- */
+    const quizEl = $('#quiz');
+    const QKEYS = ['biz', 'need', 'brand', 'bud']; // что спрашивает каждый из четырёх вопросов
+    const QCAP = { b1: 50, b2: 150, b3: 400, b4: Infinity, b0: 400 }; // потолок суммы «ступень + модули» по бюджету; «не знаю» — как у $150–400
+    const qSteps = $$('.quiz__q', quizEl); const qRes = $('#quiz-res'); const qTop = $('#quiz-top'); const qBack = $('#quiz-back');
+    let qStep = 1; let qAns = {}; let qPick = null; let qLock = 0;
+    function qCompute(a) {
+      const logo = a.brand === 'both' || a.brand === 'logo'; const insta = a.brand === 'both' || a.brand === 'insta';
+      const wantsBooking = a.need === 'book' || a.need === 'order';
+      let tier; let up = false; // up — запись или каталог нужны, а бюджет меньше «Запись / заказ»: честно говорим, что даст меньший бюджет
+      if (wantsBooking && (a.bud === 'b3' || a.bud === 'b0')) tier = 350;
+      else if (wantsBooking && a.bud === 'b4') tier = a.need === 'book' ? 500 : 350;
+      else if (wantsBooking) { tier = a.bud === 'b2' ? (logo ? 100 : 70) : (insta ? 40 : 20); up = true; }
+      else if (a.bud === 'b1') tier = insta ? 40 : 20;
+      else if (a.bud === 'b2') tier = logo ? 100 : 70;
+      else if (a.bud === 'b0') tier = 100;
+      else tier = 200;
+      const t = CALC.tiers[tier];
+      const wish = tier === 500 ? ['bookadmin']
+        : a.need === 'book' ? (tier >= 350 ? ['tgbook', 'clientbot'] : ['tgbook', 'bot'])
+        : a.need === 'order' ? ['table', 'bot']
+        : a.biz === 'food' ? ['otash', 'bot'] : a.biz === 'shop' ? ['table', 'bot'] : ['bot'];
+      const mods = []; let cost = tier;
+      wish.forEach((k) => { if (mods.length < 2 && !t.incl.includes(k) && cost + CALC.mods[k] <= QCAP[a.bud]) { mods.push(k); cost += CALC.mods[k]; } });
+      // бонусы по смыслу: нет логотипа — логотип, нет Instagram — оформление; дальше по нише; «Карточка в 2ГИС» уже входит в сайт со ступени «Вау»
+      const rank = [...(logo ? [] : ['logo']), ...(insta ? [] : ['insta']), ...(a.biz === 'food' ? ['menu'] : []), 'qr', ...(tier < 100 ? ['2gis'] : []), 'menu', 'insta', 'logo', '2gis'];
+      const bonus = [...new Set(rank)].slice(0, t.bonus);
+      // пример вашей ниши: с ближайшей ступени (при равенстве — с меньшей); если он сделан на другой ступени, под ним об этом подпись
+      const dTier = (d) => parseInt(d, 10); // «100-restaurant» → 100
+      const demo = (CALC.niches[a.biz] || t.demos).slice().sort((x, y) => (Math.abs(dTier(x) - tier) - Math.abs(dTier(y) - tier)) || (dTier(x) - dTier(y)))[0];
+      return { tier, mods, bonus, demo, up };
+    }
+    function qRender() { // результат на текущем языке
+      const r = qPick;
+      $('#qr-name').textContent = quoted(nameOfTier(r.tier)); $('#qr-price').textContent = '$' + r.tier;
+      $('#qr-time').textContent = $('#tier-' + r.tier + ' .tierpanel__time b').textContent;
+      $('#qr-lead').textContent = $('#tier-' + r.tier + ' .tierpanel__lead').textContent;
+      const up = $('#qr-up'); up.hidden = !r.up;
+      if (r.up) up.textContent = (r.tier < 70 ? dyn('quiz.up.low') : dyn('quiz.up')).replace('{n}', () => nameOfTier(350)).replace('{p}', '350'); // «Запись / заказ» — самая дешёвая ступень с записью и каталогом; ниже $70 формы заявки нет
+      $('#qr-mods-row').hidden = !r.mods.length;
+      // модули из подарка акции показываем так же, как в калькуляторе: бесплатными
+      $('#qr-mods').textContent = r.mods.map((k) => nameOfMod(k) + (promoOn && CALC.tiers[r.tier].gift.includes(k) ? ' 🎁 ' + dyn('calc.free') : ' +$' + CALC.mods[k])).join(', ');
+      $('#qr-bonus-row').hidden = !promoOn || !r.bonus.length;
+      $('#qr-bonus').textContent = r.bonus.map(nameOfBonus).join(', ');
+      const dTier = parseInt(r.demo, 10);
+      const card = $('#tier-' + dTier + ' .demo[href="demos/' + r.demo + '/"]'); // карточка примера лежит в панели его ступени
+      $('#qr-ex').hidden = !card;
+      if (card) { $('#qr-ex-a').href = card.getAttribute('href'); $('#qr-ex-n').textContent = $('.demo__t', card).textContent; $('#qr-ex-c').textContent = $('.demo__c', card).textContent; }
+      const note = $('#qr-ex-note'); note.hidden = !card || dTier === r.tier;
+      if (!note.hidden) note.textContent = dyn('quiz.ex.note').replace('{n}', () => nameOfTier(dTier)).replace('{p}', String(dTier));
+    }
+    function qShow(n, focus) {
+      qStep = n; qPick = null;
+      qSteps.forEach((f, i) => { f.hidden = i + 1 !== n; });
+      qRes.hidden = true; qTop.hidden = false;
+      $('#quiz-n').textContent = String(n); $('#quiz-bar').style.transform = 'scaleX(' + (n / qSteps.length).toFixed(3) + ')';
+      qBack.hidden = n === 1;
+      $$('.qopt', qSteps[n - 1]).forEach((b) => b.setAttribute('aria-pressed', String(qAns[QKEYS[n - 1]] === b.dataset.v)));
+      qLock = Date.now() + 350; // двойной щелчок не должен пролистать сразу два вопроса
+      if (focus) { $('legend', qSteps[n - 1]).focus({ preventScroll: true }); $('#quiz-box').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'nearest' }); }
+    }
+    function qFinish() {
+      qPick = qCompute(qAns);
+      qSteps.forEach((f) => { f.hidden = true; }); qTop.hidden = true; qRes.hidden = false;
+      qRender(); qLock = Date.now() + 350;
+      $('#quiz-res-t').focus({ preventScroll: true }); $('#quiz-box').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'nearest' });
+    }
+    quizEl.addEventListener('click', (e) => {
+      const o = e.target.closest('.qopt'); if (!o || Date.now() < qLock) return;
+      qAns[QKEYS[qStep - 1]] = o.dataset.v;
+      if (qStep < qSteps.length) qShow(qStep + 1, true); else qFinish();
+    });
+    qBack.addEventListener('click', () => qShow(qStep - 1, true));
+    $('#qr-again').addEventListener('click', () => { qAns = {}; qShow(1, true); });
+    $('#qr-order').addEventListener('click', () => {
+      const r = qPick;
+      applyOrder({ type: 'site', budget: CALC.tiers[r.tier].bud, pack: '', mods: r.mods, bonus: promoOn ? r.bonus : [], spec: tierSpec(r.tier) });
+    });
+    $('#qr-calc').addEventListener('click', () => { calcSet({ tier: qPick.tier, mods: qPick.mods, bonus: promoOn ? qPick.bonus : [] }); scrollToEl(calcEl); $('#calc-h').focus({ preventScroll: true }); });
+    langHooks.push(() => { if (qPick) qRender(); });
+  }
+
+  /* ---------- отзывы: настоящие — из js/reviews.js; пусто — честная карточка «Мы новая студия» и место под первый отзыв ---------- */
+  const rvGrid = $('#rv-grid');
+  if (rvGrid) {
+    const url = (u) => (/^https?:\/\//i.test(String(u || '')) ? String(u) : ''); // только обычные ссылки
+    const list = (Array.isArray(window.REVIEWS) ? window.REVIEWS : []).filter((r) => r && r.name && (r.text || url(r.video))); // имя и (текст или рабочая ссылка на видео)
+    const make = (tag, cls, text) => { const el = document.createElement(tag); if (cls) el.className = cls; if (text) el.textContent = text; return el; };
+    const slot = $('#rv-slot');
+    list.forEach((r) => {
+      const card = make('article', 'card rv');
+      if (r.text) { const q = make('blockquote'); q.appendChild(make('p', '', r.text)); card.appendChild(q); }
+      const who = make('footer', 'rv__who'); who.appendChild(make('b', '', r.name)); if (r.business) who.appendChild(make('span', '', r.business)); card.appendChild(who);
+      const acts = make('div', 'rv__acts');
+      [['video', 'rv.video'], ['site', 'rv.site']].forEach(([f, k]) => {
+        if (!url(r[f])) return;
+        const a = make('a', 'btn btn--ghost'); a.href = url(r[f]); a.target = '_blank'; a.rel = 'noopener noreferrer';
+        const s = make('span'); s.dataset.dyn = k; s.textContent = dyn(k); a.appendChild(s); acts.appendChild(a);
+      });
+      if (acts.children.length) card.appendChild(acts);
+      rvGrid.insertBefore(card, slot);
+    });
+    if (list.length) slot.hidden = true; // место под отзыв нужно, пока настоящих отзывов нет
+  }
+
   /* ---------- старт ---------- */
   $('#year').textContent = new Date().getFullYear();
   let saved = ''; try { saved = localStorage.getItem('dorvan-lang') || ''; } catch (e) { /* private mode */ }
-  setLang((new URLSearchParams(location.search).get('lang') || saved) === 'en' ? 'en' : 'ru', false);
+  setLang(new URLSearchParams(location.search).get('lang') || saved, false); // неизвестное значение — русский
   if (window.scrollY > 0) requestAnimationFrame(onScrollFrame); // открыли не с верха (восстановление прокрутки, якорь)
   // аврора — в простое после загрузки, анимации, привязанные к прокрутке, — с первой прокруткой (раньше они не видны):
   // первая отрисовка не ждёт ни больших градиентов, ни таймлайнов

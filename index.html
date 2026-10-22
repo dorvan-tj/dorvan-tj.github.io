@@ -54,6 +54,7 @@
   <symbol id="i-megaphone" viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></symbol>
   <symbol id="i-slides" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12.5" rx="2.5"/><path d="M12 16.5V20M8.5 20h7"/><path d="m7 12.5 3-3.2 2.4 2.2L17 8"/></symbol>
   <symbol id="i-insta" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.2 6.8h.01"/></symbol>
+  <symbol id="i-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M14.6 9.3c-.4-.9-1.4-1.4-2.6-1.4-1.5 0-2.7.8-2.7 2 0 2.9 5.4 1.6 5.4 4.2 0 1.2-1.2 2.1-2.8 2.1-1.3 0-2.4-.6-2.8-1.6"/><path d="M12 6.6v1.3M12 16.2v1.3"/></symbol>
 </svg>
 
 <a class="skip" href="#main" data-i18n="skip">К содержимому</a>
@@ -100,6 +101,7 @@
     <div class="nav__right">
       <div class="lang" role="group" aria-label="Language">
         <button type="button" data-lang="ru" aria-pressed="true">RU</button>
+        <button type="button" data-lang="tj" aria-pressed="false" aria-label="TJ — таджикский язык (бета)" data-i18n-attr="aria-label:lang.tj.label">TJ<span class="lang__beta" aria-hidden="true" data-i18n="lang.beta">бета</span></button>
         <button type="button" data-lang="en" aria-pressed="false">EN</button>
       </div>
       <a class="btn btn--ghost nav__cta" href="#contact"><span data-i18n="nav.cta">Обсудить проект</span><svg class="ico" aria-hidden="true"><use href="#i-arrow-ur"/></svg></a>
@@ -112,6 +114,9 @@
 
 <main id="main" class="wrap">
 
+  <!-- плашка «бета»: видна только в таджикской версии, пока перевод не проверен владельцем -->
+  <p class="beta" id="beta" role="note" hidden data-i18n="beta.t">Таджикская версия сайта — бета: тексты ещё проверяются. Заметили ошибку — напишите мне.</p>
+
   <!-- ===== hero ===== -->
   <section class="panel glass hero" id="top" aria-labelledby="hero-h">
     <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
@@ -122,7 +127,7 @@
       <p class="hero__lead" data-i18n="hero.lead">Делаю сайты, Telegram-ботов и презентации для малого бизнеса в Душанбе. Цены от $20, сроки от 1 дня, а примеры работ можно открыть и посмотреть вживую.</p>
       <div class="hero__cta">
         <a class="btn btn--dark" href="#prices"><span data-i18n="hero.cta1">Сколько стоит сайт</span><svg class="ico" aria-hidden="true"><use href="#i-arrow-ur"/></svg></a>
-        <a class="btn btn--ghost" href="#contact"><span data-i18n="hero.cta2">Оставить заявку</span><svg class="ico" aria-hidden="true"><use href="#i-send"/></svg></a>
+        <a class="btn btn--ghost" href="#sketch" data-sketch><span data-i18n="hero.cta2">Хочу бесплатный набросок</span><svg class="ico" aria-hidden="true"><use href="#i-pen"/></svg></a>
       </div>
     </div>
 
@@ -148,6 +153,47 @@
       </div>
       <div class="orb-mini glass" aria-hidden="true"><svg class="ico"><use href="#i-sparkle"/></svg></div>
      </div>
+    </div>
+  </section>
+
+  <!-- ===== бесплатный набросок ===== -->
+  <section class="panel glass sketch" id="sketch" aria-labelledby="sketch-h">
+    <div class="sketch__info" data-reveal>
+      <span class="label" data-i18n="sk.label">Бесплатно</span>
+      <h2 class="h2" id="sketch-h" data-i18n="sk.title">Ваш сайт за 24&nbsp;часа — бесплатно</h2>
+      <p class="sketch__lead" data-i18n="sk.lead">Пришлю набросок первого экрана вашего сайта. Не понравится — ничего не платите.</p>
+      <ol class="sketch__steps">
+        <li data-i18n="sk.s1">Вы присылаете ссылку на Instagram или 2ГИС и название бизнеса.</li>
+        <li data-i18n="sk.s2">В течение 24 часов я присылаю набросок первого экрана в Telegram.</li>
+        <li data-i18n="sk.s3">Понравился — работаем дальше. Нет — вы ничего не платите.</li>
+      </ol>
+    </div>
+    <div class="card sketchform" data-reveal style="--d:120ms">
+      <form id="sketchform" novalidate>
+        <h3 data-i18n="sk.form.t">Получить набросок</h3>
+        <div class="field">
+          <label for="sk-link" data-i18n="sk.link">Ссылка на ваш Instagram или 2ГИС</label>
+          <input class="input" id="sk-link" name="link" type="text" maxlength="200" inputmode="url" autocomplete="off" placeholder="instagram.com/ваш_аккаунт" data-i18n-attr="placeholder:sk.link.ph" aria-describedby="err-sk">
+        </div>
+        <div class="field">
+          <label for="sk-biz" data-i18n="sk.biz">Название бизнеса</label>
+          <input class="input" id="sk-biz" name="biz" type="text" maxlength="80" autocomplete="organization" placeholder="Например, кафе «Миндаль»" data-i18n-attr="placeholder:sk.biz.ph" aria-describedby="err-sk">
+          <p class="err" id="err-sk" role="alert"></p>
+        </div>
+        <button type="submit" class="btn btn--dark"><span data-i18n="sk.go">Хочу набросок</span><svg class="ico" aria-hidden="true"><use href="#i-pen"/></svg></button>
+        <p class="sketch__note" data-i18n="sk.note">Откроется Telegram с готовым текстом — останется нажать «Отправить».</p>
+      </form>
+      <div class="sent" id="sk-done" hidden aria-live="polite">
+        <span class="sent__ic"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg></span>
+        <h3 id="sk-done-t" tabindex="-1" data-i18n="sk.done.t">Осталось отправить сообщение</h3>
+        <p data-i18n="sk.done.p">Я открыл Telegram с готовым текстом — нажмите «Отправить». Если окно не открылось, скопируйте текст и пришлите мне в чат.</p>
+        <textarea class="input" id="sk-text" readonly rows="4" aria-label="Сообщение для Telegram" data-i18n-attr="aria-label:sk.text.label"></textarea>
+        <div class="sent__act">
+          <a class="btn btn--dark" id="sk-open" href="#sketch" target="_blank" rel="noopener noreferrer"><span data-dyn="btn.open">Открыть Telegram</span><svg class="ico" aria-hidden="true"><use href="#i-send"/></svg></a>
+          <button type="button" class="btn btn--ghost" id="sk-copy"><svg class="ico" aria-hidden="true"><use href="#i-copy"/></svg><span data-dyn="btn.copy">Скопировать</span></button>
+          <button type="button" class="btn btn--ghost" id="sk-edit"><span data-i18n="sk.edit">Изменить данные</span></button>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -226,6 +272,79 @@
     </ul>
   </section>
   <!-- perks:end -->
+
+  <!-- quiz:start -->
+  <!-- ===== подбор за 30 секунд ===== -->
+  <section class="panel glass quiz" id="quiz" aria-labelledby="quiz-h">
+    <div class="sec-head" data-reveal>
+      <div><span class="label" data-i18n="quiz.label">Подбор</span><h2 class="h2" id="quiz-h" data-i18n="quiz.title">Подбор за 30 секунд</h2></div>
+      <p class="hint" data-i18n="quiz.hint">4 вопроса — и подскажу ступень, модули и живой пример</p>
+    </div>
+    <div class="card quiz__box" id="quiz-box" data-reveal>
+      <div class="quiz__top" id="quiz-top">
+        <p class="quiz__step" id="quiz-step"><span data-i18n="quiz.step">Вопрос</span> <b id="quiz-n">1</b> <span data-i18n="quiz.of">из 4</span></p>
+        <span class="quiz__bar" aria-hidden="true"><i id="quiz-bar"></i></span>
+        <button type="button" class="quiz__back" id="quiz-back" hidden data-i18n="quiz.back">← Назад</button>
+      </div>
+      <fieldset class="quiz__q" data-q="1">
+        <legend class="quiz__legend" id="quiz-q1" tabindex="-1" data-i18n="quiz.1.q">Какой у вас бизнес?</legend>
+        <div class="quiz__opts quiz__opts--wide">
+          <button type="button" class="qopt" data-v="food" aria-pressed="false"><span data-i18n="quiz.1.food">Ресторан, кафе, кондитерская</span></button>
+          <button type="button" class="qopt" data-v="beauty" aria-pressed="false"><span data-i18n="quiz.1.beauty">Салон красоты, барбершоп, косметология</span></button>
+          <button type="button" class="qopt" data-v="health" aria-pressed="false"><span data-i18n="quiz.1.health">Клиника, стоматология, врач</span></button>
+          <button type="button" class="qopt" data-v="shop" aria-pressed="false"><span data-i18n="quiz.1.shop">Магазин, мебель, товары</span></button>
+          <button type="button" class="qopt" data-v="service" aria-pressed="false"><span data-i18n="quiz.1.service">Другие услуги: автосервис, репетитор, фотограф, тренер…</span></button>
+        </div>
+      </fieldset>
+      <fieldset class="quiz__q" data-q="2" hidden>
+        <legend class="quiz__legend" id="quiz-q2" tabindex="-1" data-i18n="quiz.2.q">Нужны ли онлайн-запись или заказ на сайте?</legend>
+        <div class="quiz__opts">
+          <button type="button" class="qopt" data-v="book" aria-pressed="false"><span data-i18n="quiz.2.book">Да, клиенты должны записываться онлайн</span></button>
+          <button type="button" class="qopt" data-v="order" aria-pressed="false"><span data-i18n="quiz.2.order">Да, нужны каталог и заказ</span></button>
+          <button type="button" class="qopt" data-v="none" aria-pressed="false"><span data-i18n="quiz.2.none">Нет, достаточно, чтобы написали или позвонили</span></button>
+        </div>
+      </fieldset>
+      <fieldset class="quiz__q" data-q="3" hidden>
+        <legend class="quiz__legend" id="quiz-q3" tabindex="-1" data-i18n="quiz.3.q">Есть ли у вас логотип и Instagram?</legend>
+        <div class="quiz__opts quiz__opts--wide">
+          <button type="button" class="qopt" data-v="both" aria-pressed="false"><span data-i18n="quiz.3.both">Есть и логотип, и Instagram</span></button>
+          <button type="button" class="qopt" data-v="insta" aria-pressed="false"><span data-i18n="quiz.3.insta">Есть только Instagram</span></button>
+          <button type="button" class="qopt" data-v="logo" aria-pressed="false"><span data-i18n="quiz.3.logo">Есть только логотип</span></button>
+          <button type="button" class="qopt" data-v="none" aria-pressed="false"><span data-i18n="quiz.3.none">Пока нет ни того, ни другого</span></button>
+        </div>
+      </fieldset>
+      <fieldset class="quiz__q" data-q="4" hidden>
+        <legend class="quiz__legend" id="quiz-q4" tabindex="-1" data-i18n="quiz.4.q">Какой у вас бюджет?</legend>
+        <div class="quiz__opts quiz__opts--wide">
+          <button type="button" class="qopt" data-v="b1" aria-pressed="false"><span data-i18n="quiz.4.b1">до $50</span></button>
+          <button type="button" class="qopt" data-v="b2" aria-pressed="false"><span data-i18n="quiz.4.b2">$50–150</span></button>
+          <button type="button" class="qopt" data-v="b3" aria-pressed="false"><span data-i18n="quiz.4.b3">$150–400</span></button>
+          <button type="button" class="qopt" data-v="b4" aria-pressed="false"><span data-i18n="quiz.4.b4">от $400</span></button>
+          <button type="button" class="qopt" data-v="b0" aria-pressed="false"><span data-i18n="quiz.4.b0">Пока не знаю</span></button>
+        </div>
+      </fieldset>
+      <div class="quiz__res" id="quiz-res" role="region" aria-labelledby="quiz-res-t" hidden>
+        <p class="quiz__kicker" data-i18n="quiz.res.k">Вам подойдёт</p>
+        <h3 class="quiz__tier" id="quiz-res-t" tabindex="-1"><span id="qr-name"></span> <span class="quiz__price" id="qr-price"></span></h3>
+        <p class="tierpanel__time"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg><span><span data-i18n="prices.time">Срок:</span> <b id="qr-time"></b></span></p>
+        <p class="quiz__lead" id="qr-lead"></p>
+        <p class="quiz__up" id="qr-up" hidden></p>
+        <dl class="quiz__rows">
+          <div id="qr-mods-row"><dt data-i18n="prices.addon">Можно добавить:</dt><dd id="qr-mods"></dd></div>
+          <div id="qr-bonus-row"><dt data-i18n="quiz.res.bonus">🎁 Бонус на выбор:</dt><dd id="qr-bonus"></dd></div>
+        </dl>
+        <div class="qex" id="qr-ex"><p class="tierpanel__cap" data-i18n="quiz.res.ex">Живой пример</p>
+          <a class="qex__a" id="qr-ex-a" href="#quiz" target="_blank" rel="noopener noreferrer"><span class="qex__t"><b id="qr-ex-n"></b><small id="qr-ex-c"></small></span><span class="demo__go"><span data-i18n="prices.open">Открыть пример</span><svg class="ico" aria-hidden="true"><use href="#i-arrow-ur"/></svg></span></a>
+          <p class="qex__note" id="qr-ex-note" hidden></p></div>
+        <div class="quiz__act">
+          <button type="button" class="btn btn--dark" id="qr-order"><span data-i18n="order.this">Заказать это</span><svg class="ico" aria-hidden="true"><use href="#i-arrow-ur"/></svg></button>
+          <button type="button" class="btn btn--ghost" id="qr-calc"><span data-i18n="quiz.calc">Посчитать в калькуляторе</span></button>
+          <button type="button" class="btn btn--ghost" id="qr-again"><span data-i18n="quiz.again">Пройти заново</span></button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- quiz:end -->
 
   <!-- prices:start -->
   <!-- ===== цены ===== -->
@@ -475,6 +594,7 @@
       </ul>
     </div>
     <p class="prices__note" data-i18n="prices.note">В цену входят 2 круга правок. Домен (обычно $10–20 в год) оформляется на вас и оплачивается отдельно. Тексты, фото и логотип — от вас; написать тексты могу за $10–20. Срок считается с момента, когда получены предоплата и все материалы.</p>
+    <p class="prices__calc"><a class="addon__all" href="#calculator" data-i18n="prices.calc">Посчитать итог с модулями</a></p>
   </section>
   <!-- prices:end -->
 
@@ -582,6 +702,91 @@
     </ul>
   </section>
   <!-- packs:end -->
+
+  <!-- calc:start -->
+  <!-- ===== калькулятор ===== -->
+  <section class="panel glass calc" id="calculator" aria-labelledby="calc-h">
+    <div class="sec-head" data-reveal>
+      <div><span class="label" data-i18n="calc.label">Калькулятор</span><h2 class="h2" id="calc-h" tabindex="-1" data-i18n="calc.title">Посчитайте свой сайт</h2></div>
+      <p class="hint" data-i18n="calc.hint">Выберите ступень и модули — увидите итог</p>
+    </div>
+    <div class="calc__grid">
+      <div class="card calc__ctl" data-reveal>
+        <p class="calc__mini" aria-hidden="true"><span><span data-i18n="calc.total">Итого</span> <b id="calc-mini"></b></span><small id="calc-mini-tjs"></small></p>
+        <fieldset class="field">
+          <legend data-i18n="calc.tier">Ступень</legend>
+          <div class="chips" id="calc-tiers">
+            <label class="chip"><input type="radio" name="ctier" value="20"><span><i data-i18n="t20.n">Старт</i> <i class="chip__p">$20</i></span></label>
+            <label class="chip"><input type="radio" name="ctier" value="40"><span><i data-i18n="t40.n">Визитка</i> <i class="chip__p">$40</i></span></label>
+            <label class="chip"><input type="radio" name="ctier" value="70"><span><i data-i18n="t70.n">Визитка+</i> <i class="chip__p">$70</i></span></label>
+            <label class="chip"><input type="radio" name="ctier" value="100" checked><span><i data-i18n="t100.n">Вау</i> <i class="chip__p">$100</i></span></label>
+            <label class="chip"><input type="radio" name="ctier" value="200"><span><i data-i18n="t200.n">Вау+</i> <i class="chip__p">$200</i></span></label>
+            <label class="chip"><input type="radio" name="ctier" value="350"><span><i data-i18n="t350.n">Запись / заказ</i> <i class="chip__p">$350</i></span></label>
+            <label class="chip"><input type="radio" name="ctier" value="500"><span><i data-i18n="t500.n">Запись под ключ</i> <i class="chip__p">$500</i></span></label>
+          </div>
+        </fieldset>
+        <fieldset class="field">
+          <legend data-i18n="form.mods">Модули (можно несколько)</legend>
+          <div class="chips" id="calc-mods">
+            <label class="chip"><input type="checkbox" name="cmods" value="bot"><span><i data-i18n="m.bot.t">Бот заявок</i> <i class="chip__p">+$20</i><i class="chip__inc" hidden data-i18n="calc.incl">входит</i></span></label>
+            <label class="chip"><input type="checkbox" name="cmods" value="otash"><span><i data-i18n="m.otash.t">Админка через бота</i> <i class="chip__p">+$50</i><i class="chip__inc" hidden data-i18n="calc.incl">входит</i></span></label>
+            <label class="chip"><input type="checkbox" name="cmods" value="tgbook"><span><i data-i18n="m.tgbook.t">Записи в Telegram с кнопками</i> <i class="chip__p">+$50</i><i class="chip__inc" hidden data-i18n="calc.incl">входит</i></span></label>
+            <label class="chip"><input type="checkbox" name="cmods" value="table"><span><i data-i18n="m.table.t">Админка-таблица</i> <i class="chip__p">+$80</i><i class="chip__inc" hidden data-i18n="calc.incl">входит</i></span></label>
+            <label class="chip"><input type="checkbox" name="cmods" value="clientbot"><span><i data-i18n="m.clientbot.t">Бот для клиентов</i> <i class="chip__p">+$120</i><i class="chip__inc" hidden data-i18n="calc.incl">входит</i></span></label>
+            <label class="chip"><input type="checkbox" name="cmods" value="bookadmin"><span><i data-i18n="m.bookadmin.t">Админка записей в браузере</i> <i class="chip__p">+$150</i><i class="chip__inc" hidden data-i18n="calc.incl">входит</i></span></label>
+          </div>
+        </fieldset>
+        <fieldset class="field" data-promo id="calc-bonus-box">
+          <legend data-i18n="form.bonus">Бонус на выбор</legend>
+          <div class="chips" id="calc-bonus">
+            <label class="chip"><input type="checkbox" name="cbonus" value="2gis"><span data-i18n="bn.2gis">Карточка в 2ГИС</span></label>
+            <label class="chip"><input type="checkbox" name="cbonus" value="insta"><span data-i18n="bn.insta">Оформление Instagram</span></label>
+            <label class="chip"><input type="checkbox" name="cbonus" value="qr"><span data-i18n="bn.qr">QR-код с табличкой</span></label>
+            <label class="chip"><input type="checkbox" name="cbonus" value="logo"><span data-i18n="bn.logo">Простой логотип</span></label>
+            <label class="chip"><input type="checkbox" name="cbonus" value="menu"><span data-i18n="bn.menu">Меню или прайс для печати</span></label>
+          </div>
+          <p class="field__hint" id="calc-bonus-hint" aria-live="polite"></p>
+        </fieldset>
+      </div>
+      <div class="card calc__out" id="calc-out" data-reveal style="--d:120ms">
+        <h3 data-i18n="calc.out.t">Ваш расчёт</h3>
+        <ul class="calc__lines" id="calc-lines"></ul>
+        <p class="calc__gift" id="calc-gift" hidden data-i18n="calc.gift.note">🎁 По акции «Первые 10 клиентов» — в обмен на отзыв и разрешение показать работу.</p>
+        <div class="calc__pack" id="calc-pack" hidden>
+          <p class="calc__pack-t" id="cp-t"></p>
+          <p class="calc__pack-more" id="cp-more"></p>
+          <p class="calc__pack-sum"><span class="pack__was"><s id="cp-was"></s> <span data-i18n="packs.sep">по отдельности</span></span> <b class="pack__new" id="cp-now"></b> <span class="pack__save"><span data-i18n="packs.save">Экономия</span> <span id="cp-save"></span></span></p>
+        </div>
+        <div class="calc__total"><span data-i18n="calc.total">Итого</span><output id="calc-sum" aria-live="polite" aria-atomic="true"></output></div>
+        <p class="calc__tjs" id="calc-tjs-row"><b id="calc-tjs"></b> <span data-i18n="calc.tjs">сомони</span></p>
+        <p class="calc__note"><span data-i18n="calc.approx">примерно, точная сумма — в коммерческом предложении</span> <span id="calc-rate"></span></p>
+        <div class="calc__act">
+          <button type="button" class="btn btn--dark" id="calc-order"><span data-i18n="order.this">Заказать это</span><svg class="ico" aria-hidden="true"><use href="#i-arrow-ur"/></svg></button>
+          <button type="button" class="btn btn--ghost" id="calc-pack-order" hidden><span data-i18n="packs.order">Заказать пакет</span><svg class="ico" aria-hidden="true"><use href="#i-arrow-ur"/></svg></button>
+        </div>
+      </div>
+    </div>
+    <script type="application/json" id="calc-data">{"tiers":{"20":{"bud":"b1","bonus":1,"support":0,"gift":[],"incl":[],"demos":["20-salon","20-auto","20-tutor"]},"40":{"bud":"b1","bonus":1,"support":0,"gift":[],"incl":[],"demos":["40-cafe","40-barber","40-photo"]},"70":{"bud":"b2","bonus":1,"support":0,"gift":["bot"],"incl":[],"demos":["70-template/dental","70-template/bakery","70-template/fitness"]},"100":{"bud":"b2","bonus":2,"support":2,"gift":["bot","otash"],"incl":[],"demos":["100-cosmetology","100-restaurant"]},"200":{"bud":"b3","bonus":2,"support":3,"gift":["bot","otash","table"],"incl":[],"demos":["200-mebel"]},"350":{"bud":"b3","bonus":2,"support":3,"gift":["bot","otash","table","tgbook"],"incl":[],"demos":["350-salon"]},"500":{"bud":"b4","bonus":2,"support":3,"gift":["bot","otash","table","tgbook"],"incl":["tgbook","clientbot"],"demos":["350-salon","500-bot"]}},"mods":{"bot":20,"otash":50,"tgbook":50,"table":80,"clientbot":120,"bookadmin":150},"packs":[{"k":"start","base":70,"mods":["bot"],"was":120,"now":90,"bud":"b2","extra":[3,4]},{"k":"rest","base":100,"mods":["otash","bot"],"was":190,"now":150,"bud":"b2","extra":[4]},{"k":"shop","base":200,"mods":["table","bot"],"was":300,"now":250,"bud":"b3","extra":[]},{"k":"book","base":350,"mods":["tgbook","clientbot"],"was":530,"now":500,"bud":"b4","extra":[4]}],"niches":{"food":["100-restaurant","40-cafe","70-template/bakery"],"beauty":["350-salon","100-cosmetology","40-barber","20-salon"],"health":["70-template/dental","100-cosmetology","350-salon"],"shop":["200-mebel","70-template/bakery"],"service":["20-auto","20-tutor","40-photo","70-template/fitness"]},"bonus":["2gis","insta","qr","logo","menu"]}</script>
+  </section>
+  <!-- calc:end -->
+
+  <!-- risk:start -->
+  <!-- ===== без риска ===== -->
+  <section class="panel glass risk" id="risk" aria-labelledby="risk-h">
+    <div class="sec-head" data-reveal>
+      <div><span class="label" data-i18n="risk.label">Гарантии</span><h2 class="h2" id="risk-h" data-i18n="risk.title">Без риска</h2></div>
+      <p class="hint" data-i18n="risk.hint">Что вы получаете до оплаты и после неё</p>
+    </div>
+    <ul class="risk__grid">
+      <li class="card riskc" data-reveal><span class="riskc__ic"><svg class="ico" aria-hidden="true"><use href="#i-sparkle"/></svg></span><h3 data-i18n="risk.1.t">Набросок — бесплатно</h3><p data-i18n="risk.1.d">Первый экран вашего сайта вы увидите до оплаты.</p></li>
+      <li class="card riskc" data-reveal style="--d:80ms"><span class="riskc__ic"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg></span><h3 data-i18n="risk.2.t">Не понравился — не платите</h3><p data-i18n="risk.2.d">Если набросок не подошёл, вы ничего не платите.</p></li>
+      <li class="card riskc" data-reveal style="--d:160ms"><span class="riskc__ic"><svg class="ico" aria-hidden="true"><use href="#i-shield"/></svg></span><h3 data-i18n="risk.3.t">Предоплату верну</h3><p data-i18n="risk.3.d">Передумали до начала дизайна — верну предоплату.</p></li>
+      <li class="card riskc" data-reveal><span class="riskc__ic"><svg class="ico" aria-hidden="true"><use href="#i-pen"/></svg></span><h3 data-i18n="risk.4.t">2 круга правок</h3><p data-i18n="risk.4.d">Входят в цену: посмотрели, сказали, что поправить, — я поправил.</p></li>
+      <li class="card riskc" data-reveal style="--d:80ms"><span class="riskc__ic"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg></span><h3 data-i18n="risk.5.t">Гарантия 30 дней</h3><p data-i18n="risk.5.d">Если после запуска что-то сломалось по моей вине — чиню бесплатно.</p></li>
+    </ul>
+    <div class="risk__cta" data-reveal><a class="btn btn--dark" href="#sketch" data-sketch><span data-i18n="hero.cta2">Хочу бесплатный набросок</span><svg class="ico" aria-hidden="true"><use href="#i-arrow-ur"/></svg></a></div>
+  </section>
+  <!-- risk:end -->
 
   <!-- existing:start -->
   <!-- ===== если сайт уже есть ===== -->
@@ -716,19 +921,46 @@
     </div>
   </section>
 
-  <!-- ===== process ===== -->
+  <!-- ===== отзывы: настоящие отзывы лежат в js/reviews.js, выдуманных здесь не бывает ===== -->
+  <section class="panel glass reviews" id="reviews" aria-labelledby="reviews-h">
+    <div class="sec-head" data-reveal>
+      <div><span class="label" data-i18n="rv.label">Отзывы</span><h2 class="h2" id="reviews-h" data-i18n="rv.title">Что говорят клиенты</h2></div>
+      <p class="hint" data-i18n="rv.hint">Только настоящие отзывы — выдуманных здесь не будет</p>
+    </div>
+    <div class="reviews__grid" id="rv-grid">
+      <article class="card rv rv--new" data-promo data-reveal>
+        <span class="rv__ic"><svg class="ico" aria-hidden="true"><use href="#i-sparkle"/></svg></span>
+        <h3 data-i18n="rv.new.t">Dorvan — новая студия, поэтому первым 10 клиентам — бонусы</h3>
+        <p data-i18n="rv.new.d">Первые клиенты получают больше, а я — честный отзыв и разрешение показать работу в портфолио. Так на этой странице появятся настоящие отзывы.</p>
+        <p class="rv__left" hidden><span data-i18n="promo.left.a">Осталось</span> <b data-left></b> <span data-i18n="promo.left.b">из 10</span></p>
+        <a class="btn btn--ghost" href="#promo"><span data-i18n="rv.new.cta">Что получают первые 10</span><svg class="ico" aria-hidden="true"><use href="#i-arrow-ur"/></svg></a>
+      </article>
+      <article class="card rv rv--slot" id="rv-slot" data-reveal style="--d:120ms">
+        <h3 data-i18n="rv.slot.t">Здесь будет первый отзыв</h3>
+        <p data-i18n="rv.slot.d">Имя клиента, его бизнес, текст или видео и ссылка на его сайт. Выдуманных отзывов не будет — только настоящие.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- process:start -->
+  <!-- ===== как будем работать ===== -->
   <section class="panel glass process" id="process" aria-labelledby="process-h">
     <div class="sec-head" data-reveal>
-      <div><span class="label" data-i18n="process.label">Как я работаю</span><h2 class="h2" id="process-h" data-i18n="process.title">Процесс работы</h2></div>
+      <div><span class="label" data-i18n="process.label">Схема работы</span><h2 class="h2" id="process-h" data-i18n="process.title">Как будем работать</h2></div>
+      <p class="hint" data-i18n="process.hint">Семь шагов, у каждого — свой срок</p>
     </div>
     <ol class="steps">
-      <li class="card step" data-reveal><div class="step__top"><span class="step__n">01</span><span class="step__ic"><svg class="ico" aria-hidden="true"><use href="#i-search"/></svg></span></div><h3 data-i18n="process.1.t">Бриф</h3><p data-i18n="process.1.d">Разбираем задачу, аудиторию и бюджет. Фиксируем объём и сроки.</p></li>
-      <li class="card step" data-reveal style="--d:80ms"><div class="step__top"><span class="step__n">02</span><span class="step__ic"><svg class="ico" aria-hidden="true"><use href="#i-pen"/></svg></span></div><h3 data-i18n="process.2.t">Концепт</h3><p data-i18n="process.2.d">Структура, стиль и вид главных экранов — до начала работы над сайтом.</p></li>
-      <li class="card step" data-reveal style="--d:160ms"><div class="step__top"><span class="step__n">03</span><span class="step__ic"><svg class="ico" aria-hidden="true"><use href="#i-code"/></svg></span></div><h3 data-i18n="process.3.t">Разработка</h3><p data-i18n="process.3.d">Собираю сайт по шагам и показываю промежуточные версии по ссылке.</p></li>
-      <li class="card step" data-reveal style="--d:240ms"><div class="step__top"><span class="step__n">04</span><span class="step__ic"><svg class="ico" aria-hidden="true"><use href="#i-shield"/></svg></span></div><h3 data-i18n="process.4.t">Проверка</h3><p data-i18n="process.4.d">Проверяю на телефоне и компьютере, скорость и удобство. Исправляю найденное.</p></li>
-      <li class="card step" data-reveal style="--d:320ms"><div class="step__top"><span class="step__n">05</span><span class="step__ic"><svg class="ico" aria-hidden="true"><use href="#i-flag"/></svg></span></div><h3 data-i18n="process.5.t">Релиз и поддержка</h3><p data-i18n="process.5.d">Публикую сайт, передаю доступы и файлы, помогаю после запуска.</p></li>
+      <li class="card step" data-reveal><div class="step__top"><span class="step__n">01</span><span class="step__ic"><svg class="ico" aria-hidden="true"><use href="#i-search"/></svg></span></div><h3 data-i18n="process.1.t">Бриф</h3><p data-i18n="process.1.d">Вы пишете, что нужно, — хватит пары предложений. Я отвечаю и задаю уточняющие вопросы.</p><p class="step__time"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg><span data-i18n="process.1.s">Ответ — в течение суток</span></p></li>
+      <li class="card step" data-reveal style="--d:80ms"><div class="step__top"><span class="step__n">02</span><span class="step__ic"><svg class="ico" aria-hidden="true"><use href="#i-pen"/></svg></span></div><h3 data-i18n="process.2.t">Бесплатный набросок</h3><p data-i18n="process.2.d">Делаю набросок первого экрана и присылаю в Telegram. Не понравился — вы ничего не платите.</p><p class="step__time"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg><span data-i18n="process.2.s">24 часа</span></p></li>
+      <li class="card step" data-reveal style="--d:160ms"><div class="step__top"><span class="step__n">03</span><span class="step__ic"><svg class="ico" aria-hidden="true"><use href="#i-coin"/></svg></span></div><h3 data-i18n="process.3.t">Предоплата 50%</h3><p data-i18n="process.3.d">Набросок понравился — вы вносите половину цены, и я начинаю дизайн. Передумали до начала дизайна — верну предоплату.</p><p class="step__time"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg><span data-i18n="process.3.s">После вашего «да»</span></p></li>
+      <li class="card step" data-reveal style="--d:240ms"><div class="step__top"><span class="step__n">04</span><span class="step__ic"><svg class="ico" aria-hidden="true"><use href="#i-code"/></svg></span></div><h3 data-i18n="process.4.t">Сайт</h3><p data-i18n="process.4.d">Делаю дизайн и собираю сайт, показываю промежуточные версии по ссылке.</p><p class="step__time"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg><span data-i18n="process.4.s">От 1–2 дней до 3–4 недель — по ступени</span></p></li>
+      <li class="card step" data-reveal style="--d:320ms"><div class="step__top"><span class="step__n">05</span><span class="step__ic"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg></span></div><h3 data-i18n="process.5.t">2 круга правок</h3><p data-i18n="process.5.d">Вы смотрите сайт и говорите, что поправить. Два круга правок входят в цену.</p><p class="step__time"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg><span data-i18n="process.5.s">В срок ступени</span></p></li>
+      <li class="card step" data-reveal style="--d:400ms"><div class="step__top"><span class="step__n">06</span><span class="step__ic"><svg class="ico" aria-hidden="true"><use href="#i-coin"/></svg></span></div><h3 data-i18n="process.6.t">Оплата остатка</h3><p data-i18n="process.6.d">Работу приняли — оплачиваете вторую половину. Файлы и доступы передаю после полной оплаты.</p><p class="step__time"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg><span data-i18n="process.6.s">После приёмки</span></p></li>
+      <li class="card step" data-reveal style="--d:480ms"><div class="step__top"><span class="step__n">07</span><span class="step__ic"><svg class="ico" aria-hidden="true"><use href="#i-flag"/></svg></span></div><h3 data-i18n="process.7.t">Запуск и объяснение</h3><p data-i18n="process.7.d">Подключаю сайт к вашему домену, даю инструкцию и 15 минут объясняю. 30 дней чиню бесплатно, если сломалось по моей вине.</p><p class="step__time"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg><span data-i18n="process.7.s">Сразу после оплаты остатка</span></p></li>
     </ol>
+    <p class="prices__note" data-i18n="process.note">Срок отсчитывается с момента, когда получены предоплата и все материалы.</p>
   </section>
+  <!-- process:end -->
 
   <!-- referral:start -->
   <!-- ===== приведи клиента ===== -->
@@ -1129,6 +1361,8 @@
 
 <script src="js/config.js"></script>
 <script src="js/i18n.js" defer></script>
+<script src="js/tj.js" defer></script>
+<script src="js/reviews.js" defer></script>
 <script src="js/main.js" defer></script>
 </body>
 </html>
