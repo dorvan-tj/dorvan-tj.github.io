@@ -30,7 +30,7 @@ window.I18N = {
     'about.s2': 'price tiers: from $20 to $500',
     'about.s3': 'person, no middlemen',
     'about.p1': 'I build websites, Telegram bots and presentations for small businesses and students in Dushanbe — from the first sketch to launch. There is no chain of managers: you write directly to the person building your site, so decisions are quick and nothing gets lost in translation.',
-    'about.p2': 'Every example below is a fictional company but a real, working website: you can open it on your phone and press the buttons. That way you see in advance what you get for your money.',
+    'about.p2': 'Every example site is a fictional company but a real, working website: you can open it on your phone and press the buttons. That way you see in advance what you get for your money.',
     'about.cta': 'How I work',
 
     'services.label': 'What I do', 'services.title': 'Services I offer',
@@ -162,15 +162,26 @@ window.I18N = {
     'fx.shop.t': 'Shop', 'fx.shop.1': 'Catalogue', 'fx.shop.2': 'Cart → order in Telegram', 'fx.shop.3': 'Product builder',
     /* gen:end */
 
-    'work.label': 'Earlier projects', 'work.title': 'Other work',
-    'work.hint': 'Open a project to see the details',
-    'work.badge.real': 'Real product', 'work.badge.concept': 'Concept', 'work.badge.sample': 'Sample',
-    'work.noverim.cat': 'App · Admin panel · Landing',
-    'work.melty.cat': 'Website · Cake builder',
-    'work.aura.cat': 'Landing page · Premium clinic',
-    'work.clinic.cat': 'Landing page · Calculator · 3D tooth',
+    /* Noverim: реальный продукт */
+    'nv.label': 'Real product', 'nv.title': 'Noverim — an app I built myself',
+    'nv.sub': 'Helps medical students learn anatomy: a 3D model of the body you can rotate, study notes on 180+ topics and self-assessment tests.',
+    'nv.1': '3D atlas: rotate the body and organs and view them from every side',
+    'nv.2': 'Notes and tests work even offline',
+    'nv.3': 'Sign in with Google and Telegram, your progress is saved',
+    'nv.4': 'Its own control panel: new topics are added without a programmer',
+    'nv.line': 'If I built this for myself, I will certainly build your site or bot.',
+    'nv.btn': 'More about Noverim', 'nv.note': 'Being prepared for release on Google Play',
+
+    /* все работы (карточки — в js/works.js, их строки в самой записи) */
+    'work.label': 'Portfolio', 'work.title': 'All work',
+    'work.hint': 'Open any example — these are live sites you can scroll and click',
+    'work.filter': 'Filter the work',
+    'work.f.all': 'All', 'work.f.site': 'Websites', 'work.f.app': 'Apps', 'work.f.bot': 'Bots', 'work.f.deck': 'Presentations',
+    'work.more': 'Show all work',
+    'work.cap': 'Concept — an example with a fictional business. Client work will appear here first.',
+    'work.empty': 'Nothing here yet — but you can order this kind of work. Message me on Telegram <a href="https://t.me/dorvan_tj" target="_blank" rel="noopener noreferrer">@dorvan_tj</a>',
+    'work.badge.concept': 'Concept',
     'work.deck.title': 'Periods of Childhood',
-    'work.deck.cat': 'Presentation · 20 slides',
 
     /* бесплатный набросок (блок сразу после главного экрана) */
     'sk.label': 'Free', 'sk.title': 'Your website in 24 hours — for free',
@@ -246,16 +257,16 @@ window.I18N = {
     'footer.top': 'Back to top',
 
     'case.close': 'Close', 'case.did': 'What was done', 'case.cta': 'I want something similar',
-    'case.demo': 'Open the demo', 'case.gallery': 'Gallery',
+    'case.gallery': 'Gallery',
     'case.concept': 'Concept · brand, addresses, prices and reviews are fictional',
 
     'case.noverim.status': 'Real product · preparing for Google Play release',
     'case.noverim.sub': '3D anatomy atlas, study notes and tests for medical students',
     'case.noverim.g1': 'App screens', 'case.noverim.g2': 'Landing page and promo graphics',
-    'case.noverim.a1': 'Home screen: start of the osteology course, progress and stats', 'case.noverim.a2': 'Anatomy chapters and the 3D atlas entry',
-    'case.noverim.a3': 'A study note', 'case.noverim.a4': 'A 3D body model with planes and axes',
-    'case.noverim.a5': 'Tests screen', 'case.noverim.a6': 'Profile',
-    'case.noverim.a7': 'Noverim landing page: hero', 'case.noverim.a8': 'Noverim landing page: app screens', 'case.noverim.a9': 'Promo graphic for Google Play',
+    'case.noverim.a1': 'Home: continue a topic, progress in anatomy and recent topics', 'case.noverim.a2': 'Anatomy: nine chapters with study progress and the entry to the 3D atlas',
+    'case.noverim.a3': "Osteology: the chapter's sections with study progress", 'case.noverim.a4': 'The study note “Planes and axes of the body” with its contents',
+    'case.noverim.a5': 'A 3D body model with planes and axes', 'case.noverim.a6': "Review: today's goal and weak spots",
+    'case.noverim.a7': 'Noverim landing page: hero', 'case.noverim.a8': 'Promo graphic for Google Play',
     'case.noverim.1': 'An Android app: study notes across 9 chapters of anatomy (180+ topics), tests, learning progress, works offline.',
     'case.noverim.2': 'A 3D atlas: body models load on demand and are protected against copying.',
     'case.noverim.3': 'Google and Telegram sign-in, a database and daily encrypted backups.',
@@ -263,27 +274,12 @@ window.I18N = {
     'case.noverim.5': 'A control panel for content and orders, plus a separate landing page for the app.',
     'case.noverim.note': 'The project is private: details and a walkthrough on request.',
 
-    'case.melty.sub': 'A bakery website — a portfolio concept',
-    'case.melty.a1': 'Melty Bakery: hero', 'case.melty.a2': 'Melty Bakery: categories', 'case.melty.a3': 'Melty Bakery: dessert catalogue', 'case.melty.a4': 'Melty Bakery: bestsellers and new items',
-    'case.melty.1': 'A "poured glaze" idea: the glaze colour you pick recolours the whole site (5 themes), and the drips become section dividers.',
-    'case.melty.2': 'A cake builder: shape, glaze and decoration update in real time.',
-    'case.melty.3': 'Catalogue, cart and delivery estimate — a demo ordering flow.',
-    'case.melty.4': 'Works on phones and computers; colours checked for readability in every theme.',
-
     'case.aura.sub': 'A dental clinic landing page — a concept',
     'case.aura.a1': 'AURA Dental Studio: hero', 'case.aura.a2': 'AURA Dental Studio: advantages', 'case.aura.a3': 'AURA Dental Studio: price list with filters', 'case.aura.a4': 'AURA Dental Studio: treatment steps',
     'case.aura.1': 'A calm, premium look: a deep-green palette and a Playfair Display + Inter type pair.',
     'case.aura.2': 'A transparent price list with filters by specialty, treatment steps, doctors, reviews and an FAQ.',
     'case.aura.3': 'A booking form, a floating call button and a mobile menu.',
     'case.aura.4': 'Easy to use by keyboard and on a phone: a skip link, visible focus states, a responsive layout.',
-
-    'case.clinic.sub': 'A dental landing page with a cost calculator — a concept',
-    'case.clinic.a1': 'Velora Clinic: hero', 'case.clinic.a2': 'Velora Clinic: services',
-    'case.clinic.a3': 'Velora Clinic: cost calculator with selected services', 'case.clinic.a4': 'Velora Clinic: contacts and booking form',
-    'case.clinic.1': 'A restrained premium look: a light palette with deep blue and a signature 3D tooth — rendered ahead of time, so the site stays light.',
-    'case.clinic.2': 'A cost calculator: the selected services recalculate the price range with a smooth counter, and the total is announced to screen readers.',
-    'case.clinic.3': 'Services, specialists, reviews and a booking form with field validation (no back end in the concept).',
-    'case.clinic.4': 'Smooth animations that respect the “reduce motion” setting, a skip link and markup for search engines and link previews.',
 
     'case.deck.status': 'Sample · a study deck, slides in Russian',
     'case.deck.sub': 'Paediatric propaedeutics: physical development and anthropometry',
@@ -339,7 +335,7 @@ window.I18N = {
       'quiz.up.low': 'Полноценные онлайн-запись и каталог с корзиной начинаются со ступени «{n}» (${p}). На ваш бюджет — вариант попроще: клиенты пишут вам в Telegram одной кнопкой.',
       'quiz.ex.note': 'Ближайший пример вашей ниши: он сделан на ступени «{n}» (${p}).',
       'gal.prev': 'Предыдущий кадр', 'gal.next': 'Следующий кадр',
-      'case.prev': 'Предыдущий проект', 'case.next': 'Следующий проект', 'case.more': 'Другие проекты'
+      'wk.concept': 'Концепт', 'wk.client': 'Работа для клиента', 'wk.level': 'Уровень {p}', 'wk.level.from': 'Уровень от {p}', 'wk.open': 'Открыть', 'wk.shown': 'Показано: {a} из {b}'
     },
     en: {
       'btn.open': 'Open Telegram', 'btn.copy': 'Copy', 'btn.copied': 'Copied', 'btn.edit': 'Edit brief', 'btn.new': 'New brief',
@@ -380,7 +376,7 @@ window.I18N = {
       'quiz.up.low': 'Full online booking and a catalogue with a cart start at the “{n}” tier (${p}). For your budget — a simpler option: clients message you in Telegram with one button.',
       'quiz.ex.note': 'The closest example in your niche: it was built on the “{n}” tier (${p}).',
       'gal.prev': 'Previous image', 'gal.next': 'Next image',
-      'case.prev': 'Previous project', 'case.next': 'Next project', 'case.more': 'More projects'
+      'wk.concept': 'Concept', 'wk.client': 'Client work', 'wk.level': 'Tier {p}', 'wk.level.from': 'Tier from {p}', 'wk.open': 'Open', 'wk.shown': 'Showing {a} of {b}'
     }
   }
 };

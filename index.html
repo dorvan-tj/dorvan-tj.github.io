@@ -210,8 +210,34 @@
     </div>
     <div class="about__r" data-reveal style="--d:120ms">
       <p data-i18n="about.p1">Я делаю сайты, Telegram-ботов и презентации для малого бизнеса и студентов в Душанбе — от первого эскиза до запуска. Нет цепочки менеджеров: вы пишете напрямую тому, кто делает сайт, поэтому решения быстрые, а договорённости не теряются.</p>
-      <p data-i18n="about.p2">Все примеры ниже — вымышленные компании, но настоящие сайты: их можно открыть на телефоне и нажать на кнопки. Так вы заранее видите, что получите за свои деньги.</p>
+      <p data-i18n="about.p2">Все примеры сайтов — вымышленные компании, но настоящие сайты: их можно открыть на телефоне и нажать на кнопки. Так вы заранее видите, что получите за свои деньги.</p>
       <a class="btn btn--ghost" href="#process"><span data-i18n="about.cta">Как я работаю</span><svg class="ico" aria-hidden="true"><use href="#i-arrow-ur"/></svg></a>
+    </div>
+  </section>
+
+  <!-- ===== Noverim: реальный продукт (подробности — в окне #case-noverim) ===== -->
+  <section class="panel glass nv" id="noverim" aria-labelledby="nv-h" data-work>
+    <div class="nv__copy" data-reveal>
+      <span class="nv__badge"><svg class="ico" aria-hidden="true"><use href="#i-shield"/></svg><span data-i18n="nv.label">Реальный продукт</span></span>
+      <h2 class="h2" id="nv-h" data-i18n="nv.title">Noverim — приложение, которое я сделал сам</h2>
+      <p class="nv__lead" data-i18n="nv.sub">Помогает студентам-медикам учить анатомию: 3D-модель тела, которую можно крутить, конспекты по 180+ темам и тесты для самопроверки.</p>
+      <ul class="ticks nv__list">
+        <li data-i18n="nv.1">3D-атлас: тело и органы можно вращать и рассматривать со всех сторон</li>
+        <li data-i18n="nv.2">Конспекты и тесты работают даже без интернета</li>
+        <li data-i18n="nv.3">Вход через Google и Telegram, прогресс сохраняется</li>
+        <li data-i18n="nv.4">Своя панель управления: новые темы добавляются без программиста</li>
+      </ul>
+      <p class="nv__line" data-i18n="nv.line">Если я сделал такое для себя — ваш сайт или бот точно сделаю.</p>
+      <div class="nv__act">
+        <button type="button" class="btn btn--dark" data-case="noverim" aria-haspopup="dialog"><span data-i18n="nv.btn">Подробнее о Noverim</span><svg class="ico" aria-hidden="true"><use href="#i-arrow-ur"/></svg></button>
+        <small class="nv__note" data-i18n="nv.note">Готовится к публикации в Google Play</small>
+      </div>
+    </div>
+    <div class="nv__shots" role="region" aria-label="Экраны приложения" data-i18n-attr="aria-label:case.noverim.g1" data-reveal style="--d:120ms">
+      <figure class="nv__ph"><img src="assets/works/nv-home.webp" width="540" height="1169" alt="Главная: продолжить тему, прогресс по анатомии и последние темы" data-i18n-attr="alt:case.noverim.a1" loading="lazy" decoding="async"></figure>
+      <figure class="nv__ph"><img src="assets/works/nv-atlas.webp" width="540" height="1169" alt="3D-модель тела с плоскостями и осями" data-i18n-attr="alt:case.noverim.a5" loading="lazy" decoding="async"></figure>
+      <figure class="nv__ph"><img src="assets/works/nv-sections.webp" width="540" height="1169" alt="Остеология: разделы главы с прогрессом изучения" data-i18n-attr="alt:case.noverim.a3" loading="lazy" decoding="async"></figure>
+      <figure class="nv__ph"><img src="assets/works/nv-review.webp" width="540" height="1169" alt="Повторение: цель дня и слабые места" data-i18n-attr="alt:case.noverim.a6" loading="lazy" decoding="async"></figure>
     </div>
   </section>
 
@@ -858,67 +884,25 @@
   </section>
   <!-- features:end -->
 
-  <!-- ===== work ===== -->
+  <!-- ===== все работы: карточки собираются скриптом из js/works.js (одна запись = одна карточка) ===== -->
   <section class="panel glass work" id="work" aria-labelledby="work-h">
     <div class="sec-head" data-reveal>
-      <div><span class="label" data-i18n="work.label">Раньше делал</span><h2 class="h2" id="work-h" data-i18n="work.title">Другие работы</h2></div>
-      <p class="hint" data-i18n="work.hint">Откройте проект, чтобы увидеть подробности</p>
+      <div><span class="label" data-i18n="work.label">Портфолио</span><h2 class="h2" id="work-h" data-i18n="work.title">Все работы</h2></div>
+      <p class="hint" data-i18n="work.hint">Откройте любой пример — это живые сайты, их можно листать и нажимать</p>
     </div>
-    <div class="work__grid">
-      <button type="button" class="card work-card" data-case="noverim" aria-haspopup="dialog" data-reveal>
-        <span class="thumb thumb--nv" aria-hidden="true">
-          <span class="ph ph--l"><img src="assets/works/nv-home.webp" width="540" height="1167" alt="" loading="lazy" decoding="async"></span>
-          <span class="ph ph--r"><img src="assets/works/nv-3d-free-model.webp" width="540" height="960" alt="" loading="lazy" decoding="async"></span>
-          <span class="tag glass" data-i18n="work.badge.real">Реальный продукт</span>
-        </span>
-        <span class="work-card__meta">
-          <span><span class="work-card__title">Noverim</span><span class="work-card__cat" data-i18n="work.noverim.cat">Приложение · Админка · Лендинг</span></span>
-          <span class="round" aria-hidden="true"><svg class="ico"><use href="#i-arrow-ur"/></svg></span>
-        </span>
-      </button>
-      <button type="button" class="card work-card" data-case="melty" aria-haspopup="dialog" data-reveal style="--d:100ms">
-        <span class="thumb thumb--mb" aria-hidden="true">
-          <span class="shot"><span class="shot__bar"><i></i><i></i><i></i></span><img src="assets/works/melty-1.webp" width="1280" height="800" alt="" loading="lazy" decoding="async"></span>
-          <span class="tag glass" data-i18n="work.badge.concept">Концепт</span>
-        </span>
-        <span class="work-card__meta">
-          <span><span class="work-card__title">Melty Bakery</span><span class="work-card__cat" data-i18n="work.melty.cat">Сайт · Конструктор торта</span></span>
-          <span class="round" aria-hidden="true"><svg class="ico"><use href="#i-arrow-ur"/></svg></span>
-        </span>
-      </button>
-      <button type="button" class="card work-card" data-case="aura" aria-haspopup="dialog" data-reveal style="--d:200ms">
-        <span class="thumb thumb--au" aria-hidden="true">
-          <span class="shot"><span class="shot__bar"><i></i><i></i><i></i></span><img src="assets/works/aura-1.webp" width="1280" height="800" alt="" loading="lazy" decoding="async"></span>
-          <span class="tag glass" data-i18n="work.badge.concept">Концепт</span>
-        </span>
-        <span class="work-card__meta">
-          <span><span class="work-card__title">AURA Dental Studio</span><span class="work-card__cat" data-i18n="work.aura.cat">Лендинг · Премиум-клиника</span></span>
-          <span class="round" aria-hidden="true"><svg class="ico"><use href="#i-arrow-ur"/></svg></span>
-        </span>
-      </button>
-      <button type="button" class="card work-card" data-case="clinic" aria-haspopup="dialog" data-reveal style="--d:300ms">
-        <span class="thumb thumb--gc" aria-hidden="true">
-          <span class="shot"><span class="shot__bar"><i></i><i></i><i></i></span><img src="assets/works/clinic-1.webp" width="1280" height="800" alt="" loading="lazy" decoding="async"></span>
-          <span class="tag glass" data-i18n="work.badge.concept">Концепт</span>
-        </span>
-        <span class="work-card__meta">
-          <span><span class="work-card__title">Velora Clinic</span><span class="work-card__cat" data-i18n="work.clinic.cat">Лендинг · Калькулятор · 3D-зуб</span></span>
-          <span class="round" aria-hidden="true"><svg class="ico"><use href="#i-arrow-ur"/></svg></span>
-        </span>
-      </button>
-      <button type="button" class="card work-card" data-case="deck" aria-haspopup="dialog" data-reveal style="--d:400ms">
-        <span class="thumb thumb--dk" aria-hidden="true">
-          <span class="sl sl--1"><img src="assets/works/deck-3.webp" width="1280" height="720" alt="" loading="lazy" decoding="async"></span>
-          <span class="sl sl--2"><img src="assets/works/deck-5.webp" width="1280" height="720" alt="" loading="lazy" decoding="async"></span>
-          <span class="sl sl--3"><img src="assets/works/deck-1.webp" width="1280" height="720" alt="" loading="lazy" decoding="async"></span>
-          <span class="tag glass" data-i18n="work.badge.sample">Образец</span>
-        </span>
-        <span class="work-card__meta">
-          <span><span class="work-card__title" data-i18n="work.deck.title">Периоды детства</span><span class="work-card__cat" data-i18n="work.deck.cat">Презентация · 20 слайдов</span></span>
-          <span class="round" aria-hidden="true"><svg class="ico"><use href="#i-arrow-ur"/></svg></span>
-        </span>
-      </button>
+    <div class="wk-filters" role="group" aria-label="Фильтр работ" data-i18n-attr="aria-label:work.filter" hidden>
+      <button type="button" data-f="all" aria-pressed="true" data-i18n="work.f.all">Все</button>
+      <button type="button" data-f="site" aria-pressed="false" data-i18n="work.f.site">Сайты</button>
+      <button type="button" data-f="app" aria-pressed="false" data-i18n="work.f.app">Приложения</button>
+      <button type="button" data-f="bot" aria-pressed="false" data-i18n="work.f.bot">Боты</button>
+      <button type="button" data-f="deck" aria-pressed="false" data-i18n="work.f.deck">Презентации</button>
     </div>
+    <ul class="wk-grid" id="wk-grid"></ul>
+    <noscript><p class="wk-empty card">Чтобы увидеть работы, включите JavaScript. Примеры сайтов также есть в блоке «Сколько стоит сайт».</p></noscript>
+    <p class="wk-empty card" id="wk-empty" hidden data-i18n-html="work.empty">Здесь пока пусто — но такую работу можно заказать. Напишите в Telegram <a href="https://t.me/dorvan_tj" target="_blank" rel="noopener noreferrer">@dorvan_tj</a></p>
+    <div class="wk-more" id="wk-more" hidden><button type="button" class="btn btn--ghost"><span data-i18n="work.more">Показать все работы</span><svg class="ico" aria-hidden="true"><use href="#i-plus"/></svg></button></div>
+    <p class="wk-cap" data-i18n="work.cap">Концепт — пример с вымышленным бизнесом. Работы для клиентов появятся здесь первыми.</p>
+    <p class="sr" id="wk-live" aria-live="polite"></p>
   </section>
 
   <!-- ===== отзывы: настоящие отзывы лежат в js/reviews.js, выдуманных здесь не бывает ===== -->
@@ -1182,18 +1166,17 @@
       <div class="case__media">
         <p class="case__cap" data-i18n="case.noverim.g1">Экраны приложения</p>
         <div class="strip strip--phones" tabindex="0" role="region" aria-label="Экраны приложения" data-i18n-attr="aria-label:case.noverim.g1">
-          <img src="assets/works/nv-home.webp" width="540" height="1167" alt="Главный экран: начало изучения остеологии, прогресс и статистика" data-i18n-attr="alt:case.noverim.a1" loading="lazy" decoding="async">
-          <img src="assets/works/nv-subjects-chapters.webp" width="540" height="960" alt="Главы анатомии и вход в 3D-атлас" data-i18n-attr="alt:case.noverim.a2" loading="lazy" decoding="async">
-          <img src="assets/works/nv-note.webp" width="540" height="960" alt="Конспект по теме" data-i18n-attr="alt:case.noverim.a3" loading="lazy" decoding="async">
-          <img src="assets/works/nv-3d-free-model.webp" width="540" height="960" alt="3D-модель тела с плоскостями и осями" data-i18n-attr="alt:case.noverim.a4" loading="lazy" decoding="async">
-          <img src="assets/works/nv-my-tests.webp" width="540" height="960" alt="Экран тестов" data-i18n-attr="alt:case.noverim.a5" loading="lazy" decoding="async">
-          <img src="assets/works/nv-profile.webp" width="540" height="960" alt="Профиль" data-i18n-attr="alt:case.noverim.a6" loading="lazy" decoding="async">
+          <img src="assets/works/nv-home.webp" width="540" height="1169" alt="Главная: продолжить тему, прогресс по анатомии и последние темы" data-i18n-attr="alt:case.noverim.a1" loading="lazy" decoding="async">
+          <img src="assets/works/nv-chapters.webp" width="540" height="1169" alt="Анатомия: девять глав с прогрессом изучения и вход в 3D-атлас" data-i18n-attr="alt:case.noverim.a2" loading="lazy" decoding="async">
+          <img src="assets/works/nv-sections.webp" width="540" height="1169" alt="Остеология: разделы главы с прогрессом изучения" data-i18n-attr="alt:case.noverim.a3" loading="lazy" decoding="async">
+          <img src="assets/works/nv-note.webp" width="540" height="1169" alt="Конспект «Плоскости и оси тела» с оглавлением" data-i18n-attr="alt:case.noverim.a4" loading="lazy" decoding="async">
+          <img src="assets/works/nv-atlas.webp" width="540" height="1169" alt="3D-модель тела с плоскостями и осями" data-i18n-attr="alt:case.noverim.a5" loading="lazy" decoding="async">
+          <img src="assets/works/nv-review.webp" width="540" height="1169" alt="Повторение: цель дня и слабые места" data-i18n-attr="alt:case.noverim.a6" loading="lazy" decoding="async">
         </div>
         <p class="case__cap" data-i18n="case.noverim.g2">Лендинг и промо-графика</p>
         <div class="strip strip--wide" tabindex="0" role="region" aria-label="Лендинг и промо-графика" data-i18n-attr="aria-label:case.noverim.g2">
           <img src="assets/works/nv-landing-1.webp" width="1280" height="800" alt="Лендинг Noverim: главный экран" data-i18n-attr="alt:case.noverim.a7" loading="lazy" decoding="async">
-          <img src="assets/works/nv-landing-2.webp" width="1280" height="800" alt="Лендинг Noverim: экраны приложения" data-i18n-attr="alt:case.noverim.a8" loading="lazy" decoding="async">
-          <img src="assets/works/nv-feature.webp" width="1024" height="500" alt="Промо-графика для Google Play" data-i18n-attr="alt:case.noverim.a9" loading="lazy" decoding="async">
+          <img src="assets/works/nv-feature.webp" width="1024" height="500" alt="Промо-графика для Google Play" data-i18n-attr="alt:case.noverim.a8" loading="lazy" decoding="async">
         </div>
       </div>
       <div class="case__info">
@@ -1207,43 +1190,6 @@
         </ul>
         <p class="case__note" data-i18n="case.noverim.note">Проект закрытый: подробности и демонстрация — по запросу.</p>
         <div class="case__actions"><a class="btn btn--dark" href="#contact" data-close><span data-i18n="case.cta">Хочу похожий проект</span><svg class="ico" aria-hidden="true"><use href="#i-arrow-r"/></svg></a></div>
-      </div>
-    </div>
-  </div>
-</dialog>
-
-<dialog class="case" id="case-melty" aria-labelledby="case-melty-t">
-  <div class="case__box">
-    <header class="case__head">
-      <div>
-        <span class="badge" data-i18n="case.concept">Концепт · бренд, адреса, цены и отзывы вымышлены</span>
-        <h2 id="case-melty-t">Melty Bakery</h2>
-        <p class="case__sub" data-i18n="case.melty.sub">Сайт кондитерской — концепт для портфолио</p>
-      </div>
-      <button type="button" class="round" data-close aria-label="Закрыть" data-i18n-attr="aria-label:case.close"><svg class="ico" aria-hidden="true"><use href="#i-x"/></svg></button>
-    </header>
-    <div class="case__body">
-      <div class="case__media">
-        <p class="case__cap" data-i18n="case.gallery">Галерея</p>
-        <div class="strip strip--wide" tabindex="0" role="region" aria-label="Галерея" data-i18n-attr="aria-label:case.gallery">
-          <img src="assets/works/melty-1.webp" width="1280" height="800" alt="Melty Bakery: главный экран" data-i18n-attr="alt:case.melty.a1" loading="lazy" decoding="async">
-          <img src="assets/works/melty-2.webp" width="1280" height="800" alt="Melty Bakery: категории" data-i18n-attr="alt:case.melty.a2" loading="lazy" decoding="async">
-          <img src="assets/works/melty-3.webp" width="1280" height="800" alt="Melty Bakery: каталог десертов" data-i18n-attr="alt:case.melty.a3" loading="lazy" decoding="async">
-          <img src="assets/works/melty-4.webp" width="1280" height="800" alt="Melty Bakery: хиты и новинки" data-i18n-attr="alt:case.melty.a4" loading="lazy" decoding="async">
-        </div>
-      </div>
-      <div class="case__info">
-        <h3 data-i18n="case.did">Что сделано</h3>
-        <ul class="ticks">
-          <li data-i18n="case.melty.1">Идея «залитой глазури»: выбранный цвет глазури перекрашивает весь сайт (5 тем), а капли становятся разделителями секций.</li>
-          <li data-i18n="case.melty.2">Конструктор торта: форма, глазурь и декор собираются в реальном времени.</li>
-          <li data-i18n="case.melty.3">Каталог, корзина и расчёт доставки — демо-сценарий заказа.</li>
-          <li data-i18n="case.melty.4">Работает на телефоне и компьютере, цвета проверены на читаемость во всех темах.</li>
-        </ul>
-        <div class="case__actions">
-          <a class="btn btn--dark" href="melty-bakery/" target="_blank" rel="noopener noreferrer"><span data-i18n="case.demo">Открыть демо</span><svg class="ico" aria-hidden="true"><use href="#i-arrow-ur"/></svg></a>
-          <a class="btn btn--ghost" href="#contact" data-close><span data-i18n="case.cta">Хочу похожий проект</span></a>
-        </div>
       </div>
     </div>
   </div>
@@ -1278,43 +1224,6 @@
           <li data-i18n="case.aura.4">Удобно с клавиатуры и на телефоне: ссылка «к содержимому», видимая подсветка, адаптивная вёрстка.</li>
         </ul>
         <div class="case__actions"><a class="btn btn--dark" href="#contact" data-close><span data-i18n="case.cta">Хочу похожий проект</span><svg class="ico" aria-hidden="true"><use href="#i-arrow-r"/></svg></a></div>
-      </div>
-    </div>
-  </div>
-</dialog>
-
-<dialog class="case" id="case-clinic" aria-labelledby="case-clinic-t">
-  <div class="case__box">
-    <header class="case__head">
-      <div>
-        <span class="badge" data-i18n="case.concept">Концепт · бренд, адреса, цены и отзывы вымышлены</span>
-        <h2 id="case-clinic-t">Velora Clinic</h2>
-        <p class="case__sub" data-i18n="case.clinic.sub">Лендинг стоматологии с калькулятором стоимости — концепт</p>
-      </div>
-      <button type="button" class="round" data-close aria-label="Закрыть" data-i18n-attr="aria-label:case.close"><svg class="ico" aria-hidden="true"><use href="#i-x"/></svg></button>
-    </header>
-    <div class="case__body">
-      <div class="case__media">
-        <p class="case__cap" data-i18n="case.gallery">Галерея</p>
-        <div class="strip strip--wide" tabindex="0" role="region" aria-label="Галерея" data-i18n-attr="aria-label:case.gallery">
-          <img src="assets/works/clinic-1.webp" width="1280" height="800" alt="Velora Clinic: главный экран" data-i18n-attr="alt:case.clinic.a1" loading="lazy" decoding="async">
-          <img src="assets/works/clinic-2.webp" width="1280" height="800" alt="Velora Clinic: услуги" data-i18n-attr="alt:case.clinic.a2" loading="lazy" decoding="async">
-          <img src="assets/works/clinic-3.webp" width="1280" height="800" alt="Velora Clinic: калькулятор стоимости с выбранными услугами" data-i18n-attr="alt:case.clinic.a3" loading="lazy" decoding="async">
-          <img src="assets/works/clinic-4.webp" width="1280" height="800" alt="Velora Clinic: контакты и форма записи" data-i18n-attr="alt:case.clinic.a4" loading="lazy" decoding="async">
-        </div>
-      </div>
-      <div class="case__info">
-        <h3 data-i18n="case.did">Что сделано</h3>
-        <ul class="ticks">
-          <li data-i18n="case.clinic.1">Сдержанная премиальная подача: светлая палитра с глубоким синим и фирменный 3D-зуб — он отрисован заранее, поэтому сайт остаётся лёгким.</li>
-          <li data-i18n="case.clinic.2">Калькулятор стоимости: выбранные услуги пересчитывают вилку цен с плавным счётчиком, итог озвучивается скринридерам.</li>
-          <li data-i18n="case.clinic.3">Услуги, специалисты, отзывы и форма записи с проверкой полей (в концепте без серверной части).</li>
-          <li data-i18n="case.clinic.4">Плавные анимации с учётом настройки «уменьшить движение», ссылка «к содержимому» и разметка для поисковиков и превью ссылок.</li>
-        </ul>
-        <div class="case__actions">
-          <a class="btn btn--dark" href="velora-clinic/" target="_blank" rel="noopener noreferrer"><span data-i18n="case.demo">Открыть демо</span><svg class="ico" aria-hidden="true"><use href="#i-arrow-ur"/></svg></a>
-          <a class="btn btn--ghost" href="#contact" data-close><span data-i18n="case.cta">Хочу похожий проект</span></a>
-        </div>
       </div>
     </div>
   </div>
@@ -1363,6 +1272,7 @@
 <script src="js/i18n.js" defer></script>
 <script src="js/tj.js" defer></script>
 <script src="js/reviews.js" defer></script>
+<script src="js/works.js" defer></script>
 <script src="js/main.js" defer></script>
 </body>
 </html>

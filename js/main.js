@@ -13,8 +13,7 @@
   const tg = String(SITE.telegram || '').replace(/^@/, '').trim();
   const viaApi = Boolean(SITE.endpoint);
 
-  /* ---------- кейсы: галереи с кнопками и счётчиком, соседние проекты внизу окна — собираются при первом открытии окна ---------- */
-  const caseCards = $$('[data-case]');
+  /* ---------- кейсы: галереи с кнопками и счётчиком — собираются при первом открытии окна ---------- */
   function buildGallery(s) {
     const g = document.createElement('div'); g.className = 'gal';
     s.before(g); g.appendChild(s);
@@ -36,34 +35,10 @@
     s.addEventListener('scroll', () => { if (!q) q = requestAnimationFrame(() => { q = 0; g.upd(); }); }, { passive: true });
     imgs.forEach((im) => im.addEventListener('load', g.upd));
   }
-  function buildPager(d) {
-    const i = caseCards.findIndex((c) => 'case-' + c.dataset.case === d.id);
-    const nav = document.createElement('nav'); nav.className = 'case__pager'; nav.dataset.dynLabel = 'case.more';
-    [[-1, 'prev'], [1, 'next']].forEach(([k, dir]) => {
-      const other = caseCards[(i + k + caseCards.length) % caseCards.length];
-      const b = document.createElement('button'); b.type = 'button';
-      b.className = 'pager__a pager__a--' + dir; b.dataset.goto = other.dataset.case; b.dataset.dir = dir;
-      const tone = Array.from(other.querySelector('.thumb').classList).find((c) => c.indexOf('thumb--') === 0) || '';
-      b.innerHTML = '<span class="pager__img ' + tone + '" aria-hidden="true"></span><span class="pager__t"><small data-dyn="case.' + dir + '"></small></span>';
-      // адрес ставится только при открытии/наведении (warmCase): копия картинки вне документа начала бы грузиться сразу
-      const im = document.createElement('img'); im.alt = ''; im.loading = 'lazy'; im.decoding = 'async';
-      im.dataset.src = other.querySelector('.thumb img').getAttribute('src');
-      b.firstChild.appendChild(im);
-      const src = other.querySelector('.work-card__title'); const t = src.cloneNode(true); t.className = 'pager__title';
-      b.lastChild.appendChild(t);
-      // переводимое название: если русские оригиналы уже сняты, добавляем копию к ним (с русским текстом источника)
-      const o = orig && t.hasAttribute('data-i18n') && orig.find((x) => x.el === src);
-      if (o) orig.push({ el: t, t: o.t });
-      onIntent(b, () => warmCase(b.dataset.goto));
-      nav.appendChild(b);
-    });
-    $('.case__box', d).appendChild(nav);
-  }
   function buildCase(d) {
     if (d.dataset.built) return;
     d.dataset.built = '1';
     $$('.strip', d).forEach(buildGallery);
-    buildPager(d);
     $$('[data-dyn]', d).forEach((el) => { el.textContent = dyn(el.dataset.dyn); });
     $$('[data-dyn-label]', d).forEach((el) => el.setAttribute('aria-label', dyn(el.dataset.dynLabel)));
   }
@@ -122,7 +97,7 @@
     if (next === wantLang) return;
     wantLang = next;
     if (reduce) return setLang(next, true);
-    const els = $$('[data-i18n],[data-i18n-html],[data-dyn],.pager__title').filter((el) => {
+    const els = $$('[data-i18n],[data-i18n-html],[data-dyn],.wk__body,.wk__foot,.wk .tag').filter((el) => {
       if (el === sub) return false;
       const r = el.getBoundingClientRect(); return r.width > 0 && r.bottom > 0 && r.top < innerHeight;
     });
@@ -148,6 +123,7 @@
   const links = $$('.nav__links a');
   const byId = {};
   links.forEach((a) => { const id = a.getAttribute('href').slice(1); if (!byId[id]) byId[id] = a; });
+  byId.noverim = byId.about; // Noverim стоит сразу после «Обо мне»
   byId.referral = byId.faq; // «Приведи клиента» стоит прямо перед вопросами
   byId.modules = byId.packs = byId.existing = byId.features = byId.prices; // модули, пакеты, готовые сайты и «фишки» — продолжение блока цен: пункт «Цены» остаётся подсвеченным
   byId.quiz = byId.calculator = byId.risk = byId.prices; // подбор, калькулятор и «Без риска» стоят рядом с ценами
@@ -159,7 +135,7 @@
       links.forEach((l) => { l.classList.remove('is-active'); l.removeAttribute('aria-current'); });
       a.classList.add('is-active'); a.setAttribute('aria-current', 'location');
     }), { rootMargin: '-40% 0px -55% 0px' });
-    ['top', 'about', 'services', 'quiz', 'prices', 'modules', 'packs', 'calculator', 'risk', 'existing', 'features', 'work', 'reviews', 'process', 'referral', 'faq', 'contact'].forEach((id) => { const s = document.getElementById(id); if (s) spy.observe(s); });
+    ['top', 'about', 'noverim', 'services', 'quiz', 'prices', 'modules', 'packs', 'calculator', 'risk', 'existing', 'features', 'work', 'reviews', 'process', 'referral', 'faq', 'contact'].forEach((id) => { const s = document.getElementById(id); if (s) spy.observe(s); });
   }
 
   /* ---------- прокрутка: плотность шапки и прогресс чтения ---------- */
@@ -193,8 +169,91 @@
     $$('[data-reveal]').forEach((el) => el.classList.add('is-in', 'is-done'));
   }
 
-  /* ---------- «Обо мне»: число проектов считается по карточкам на странице (примеры сайтов + другие работы) — оно не разойдётся с тем, что видно ---------- */
-  const pc = $('[data-projects]'); if (pc) pc.textContent = String(new Set($$('.demo').map((a) => a.getAttribute('href'))).size + $$('.work-card').length); // пример на двух ступенях считается один раз
+  /* ---------- «Все работы»: карточки собираются из js/works.js (одна запись = одна карточка); работы для клиентов всегда первыми ---------- */
+  const WK_FIRST = 8; // сколько карточек видно, пока не нажали «Показать все работы»
+  const wkGrid = $('#wk-grid'); const wkMore = $('#wk-more'); const wkEmpty = $('#wk-empty'); const wkLiveEl = $('#wk-live');
+  const wkCards = []; // { w — запись из works.js, el — <li>, f — элементы с текстом }
+  const wkState = { f: 'all', all: false, said: false }; // фильтр, «показать все», писали ли уже «показано N из M» для программ чтения с экрана
+  let wkCount = [0, 0]; // [показано, подходит под фильтр]
+  const wkTx = (v) => (v && typeof v === 'object' ? v[lang] || v.ru : v) || ''; // строка или { ru, en, tj }: на текущем языке, нет перевода — русский
+  const wkUrl = (u) => { u = String(u || '').trim(); try { const p = new URL(u, location.href).protocol; return p === 'http:' || p === 'https:' || p === location.protocol ? u : ''; } catch (e) { return ''; } }; // только обычные ссылки и пути внутри сайта: браузер сам разбирает адрес, поэтому javascript:, data: и их хитрые записи отсекаются
+  const wkEl = (tag, cls) => { const el = document.createElement(tag); if (cls) el.className = cls; return el; };
+  if (wkGrid) {
+    const skip = (w, why) => { console.warn('[dorvan] js/works.js: запись «' + (w && w.id) + '» пропущена: ' + why); return false; }; // кто добавляет запись, видит причину в консоли
+    const list = (Array.isArray(window.WORKS) ? window.WORKS : []).filter((w) => {
+      if (!w || !w.id || !w.cat) return skip(w, 'нужны id и cat');
+      if (!wkUrl(w.img)) return skip(w, 'нет картинки img');
+      if (!wkTx(w.name)) return skip(w, 'нет названия name.ru');
+      if (!(wkUrl(w.url) || (w.dialog && document.getElementById('case-' + w.dialog)))) return skip(w, 'нет рабочей ссылки url или окна dialog');
+      return true;
+    });
+    list.sort((a, b) => (b.kind === 'client') - (a.kind === 'client')); // сортировка устойчивая: работы для клиентов — первыми, остальные — как записаны в файле
+    list.forEach((w) => {
+      const link = wkUrl(w.url);
+      const card = wkEl(link ? 'a' : 'button', 'wk card'); // есть живой сайт — ссылка в новой вкладке, нет — окно проекта на этой странице
+      if (link) { card.href = link; card.target = '_blank'; card.rel = 'noopener noreferrer'; } else { card.type = 'button'; card.dataset.case = w.dialog; card.setAttribute('aria-haspopup', 'dialog'); }
+      card.dataset.kind = w.kind === 'client' ? 'client' : 'concept';
+      const pic = wkEl('span', 'demo__pic'); const img = wkEl('img');
+      img.src = wkUrl(w.img); img.width = 800; img.height = 500; img.alt = ''; img.loading = 'lazy'; img.decoding = 'async';
+      const f = { tag: wkEl('span', 'tag glass'), name: wkEl('span', 'wk__t'), niche: wkEl('span', 'wk__n'), line: wkEl('span', 'wk__d'), quote: wkEl('span', 'wk__q'), lvl: wkEl('span', 'badge'), go: wkEl('span') };
+      pic.append(img, f.tag);
+      const body = wkEl('span', 'wk__body'); body.append(f.name, f.niche, f.line, f.quote);
+      const go = wkEl('span', 'demo__go'); go.append(f.go); go.insertAdjacentHTML('beforeend', '<svg class="ico" aria-hidden="true"><use href="#i-arrow-ur"/></svg>');
+      const foot = wkEl('span', 'wk__foot'); foot.append(f.lvl, go);
+      card.append(pic, body, foot);
+      const li = wkEl('li', 'wk-item'); li.append(card); wkGrid.append(li);
+      wkCards.push({ w, el: li, f });
+    });
+  }
+  const wkQuote = (w) => { // короткая цитата отзыва (если он есть) с подписью
+    const q = wkTx(w.quote); if (!q) return '';
+    const [o, c] = lang === 'en' ? ['“', '”'] : ['«', '»'];
+    return o + q + c + (w.by ? ' — ' + w.by : '');
+  };
+  function wkLive() { wkLiveEl.textContent = wkCount[1] ? dyn('wk.shown').replace('{a}', () => wkCount[0]).replace('{b}', () => wkCount[1]) : wkEmpty.textContent.trim(); } // пустой фильтр: программа чтения зачитывает «Здесь пока пусто…»
+  function wkFill() { // тексты карточек на текущем языке (при смене языка вызывается заново)
+    wkCards.forEach(({ w, f }) => {
+      f.tag.textContent = dyn(w.kind === 'client' ? 'wk.client' : 'wk.concept');
+      f.name.textContent = wkTx(w.name); f.niche.textContent = wkTx(w.niche); f.line.textContent = wkTx(w.line);
+      f.quote.textContent = wkQuote(w); f.quote.hidden = !f.quote.textContent;
+      f.lvl.textContent = w.tier ? dyn(w.from ? 'wk.level.from' : 'wk.level').replace('{p}', () => '$' + w.tier) : ''; f.lvl.hidden = !f.lvl.textContent;
+      f.go.textContent = dyn('wk.open');
+    });
+    wkLiveEl.textContent = ''; wkState.said = false; // язык сменился: прежнюю фразу не зачитываем заново, следующее действие скажет её на новом языке
+  }
+  function wkApply(animate, from = 0) { // что показать: подходящие под фильтр; пока не нажали «Показать все работы» — только первые WK_FIRST
+    const vis = wkCards.filter((c) => wkState.f === 'all' || c.w.cat === wkState.f);
+    const cap = wkState.all ? vis.length : WK_FIRST;
+    wkCards.forEach((c) => { const i = vis.indexOf(c); c.el.hidden = i < 0 || i >= cap; });
+    // при «Показать все» проявляются только новые карточки (from — сколько уже было видно)
+    if (animate && !reduce) vis.slice(from, cap).forEach((c, i) => { c.el.style.setProperty('--i', Math.min(i, 8)); c.el.classList.remove('wk-in'); void c.el.offsetWidth; c.el.classList.add('wk-in'); });
+    wkEmpty.hidden = vis.length > 0; // фильтр без работ: «Здесь пока пусто — но такую работу можно заказать»
+    wkMore.hidden = vis.length <= cap;
+    wkCount = [Math.min(cap, vis.length), vis.length];
+  }
+  if (wkGrid) {
+    $$('.wk-filters button').forEach((b) => b.addEventListener('click', () => {
+      wkState.f = b.dataset.f;
+      $$('.wk-filters button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+      wkApply(true); wkState.said = true; wkLive();
+    }));
+    $('button', wkMore).addEventListener('click', () => {
+      const first = wkCards.find((c) => c.el.hidden && (wkState.f === 'all' || c.w.cat === wkState.f)); // первая из карточек, которые сейчас откроются
+      const was = wkCount[0];
+      wkState.all = true; wkApply(true, was); wkState.said = true; wkLive();
+      const a = first && $('.wk', first.el); if (a) a.focus({ preventScroll: true }); // кнопка исчезла — фокус на первую новую карточку
+    });
+    langHooks.push(wkFill);
+    wkApply(false);
+    $('.wk-filters').hidden = !wkCards.length; // фильтры нужны, только когда есть что фильтровать
+  }
+
+  // лента экранов Noverim: пока она прокручивается (телефон), в неё можно попасть с клавиатуры; на компьютере она не прокручивается — лишней остановки Tab нет
+  const nvShots = $('.nv__shots');
+  if (nvShots) { const fit = () => (nvShots.scrollWidth > nvShots.clientWidth + 1 ? nvShots.setAttribute('tabindex', '0') : nvShots.removeAttribute('tabindex')); fit(); addEventListener('resize', fit); }
+
+  /* ---------- «Обо мне»: число проектов считается само — все карточки «Всех работ» и блок Noverim; новая запись в js/works.js прибавится без правок ---------- */
+  const pc = $('[data-projects]'); if (pc && wkCards.length) pc.textContent = String(wkCards.length + $$('[data-work]').length);
   /* счётчики 0 → N (числа берутся из разметки) */
   const nums = $$('.stats b');
   if (nums.length && !reduce && 'IntersectionObserver' in window) {
@@ -300,7 +359,7 @@
   /* ---------- микровзаимодействия: подсветка карточек, магнитные кнопки, «волна» нажатия ---------- */
   if (fine) {
     document.addEventListener('pointermove', (e) => {
-      const c = e.target.closest && e.target.closest('.svc,.work-card,.step');
+      const c = e.target.closest && e.target.closest('.svc,.step');
       if (!c) return;
       const r = c.getBoundingClientRect();
       c.style.setProperty('--sx', Math.round(e.clientX - r.left) + 'px'); c.style.setProperty('--sy', Math.round(e.clientY - r.top) + 'px');
@@ -361,33 +420,28 @@
   // класс .vt гасит pop окна на всё время, пока оно открыто (снимается в close), иначе pop сыграет второй раз после перехода
   const morph = (dlgs, update, done) => {
     dlgs.forEach((d) => d.classList.add('vt'));
-    document.startViewTransition(update).finished.finally(done);
+    const t = document.startViewTransition(update);
+    t.ready.catch(() => {}); // переход могут пропустить (быстрый второй щелчок, вкладка в фоне) — это не ошибка
+    t.finished.then(done, done);
   };
   const cardOf = (d) => $('[data-case="' + d.id.slice(5) + '"]');
+  const srcOf = (btn) => btn.closest('.wk') || btn; // карточка работы «вырастает» в окно целиком; у кнопки Noverim — сама кнопка
   const show = (d) => { buildCase(d); warmCase(d.id.slice(5)); root.classList.add('ready'); d.showModal(); lock(true); $('.case__box', d).scrollTop = 0; $$('.gal', d).forEach((g) => g.upd()); };
-  function openCase(card) {
-    const d = $('#case-' + card.dataset.case);
+  function openCase(btn) {
+    const d = $('#case-' + btn.dataset.case);
     if (!d || typeof d.showModal !== 'function') return;
     if (!vtOK) return show(d);
-    const box = $('.case__box', d); const h = $('.case__head h2', d); const t = $('.work-card__title', card);
-    name([[card, 'case-box'], [t, 'case-title']]);
-    morph([d], () => { name([[card, ''], [t, ''], [box, 'case-box'], [h, 'case-title']]); show(d); }, () => name([[box, ''], [h, '']]));
+    const src = srcOf(btn); const box = $('.case__box', d); const h = $('.case__head h2', d); const t = $('.wk__t', src);
+    name([[src, 'case-box'], [t, 'case-title']]);
+    morph([d], () => { name([[src, ''], [t, ''], [box, 'case-box'], [h, 'case-title']]); show(d); }, () => name([[box, ''], [h, '']]));
   }
   function closeCase(d, animate) {
     if (!d.open) return;
-    const card = cardOf(d); const r = card && card.getBoundingClientRect();
-    if (!vtOK || !animate || !r || r.bottom < 0 || r.top > innerHeight) return d.close();
-    const box = $('.case__box', d); const h = $('.case__head h2', d); const t = $('.work-card__title', card);
+    const card = cardOf(d); const src = card && srcOf(card); const r = src && src.getBoundingClientRect();
+    if (!vtOK || !animate || !r || !r.width || r.bottom < 0 || r.top > innerHeight) return d.close(); // карточки нет на экране (скрыта фильтром, далеко прокручена) — просто закрываем
+    const box = $('.case__box', d); const h = $('.case__head h2', d); const t = $('.wk__t', src);
     root.dataset.vt = 'close'; name([[box, 'case-box'], [h, 'case-title']]);
-    morph([d], () => { name([[box, ''], [h, ''], [card, 'case-box'], [t, 'case-title']]); d.close(); }, () => { name([[card, ''], [t, '']]); delete root.dataset.vt; });
-  }
-  function switchCase(from, id, dir) {
-    const to = $('#case-' + id); if (!to) return;
-    const run = () => { from.close(); show(to); };
-    if (!vtOK) return run();
-    const a = $('.case__box', from); const b = $('.case__box', to);
-    root.dataset.vt = dir; name([[a, 'case-box']]);
-    morph([from, to], () => { name([[a, ''], [b, 'case-box']]); run(); }, () => { name([[b, '']]); delete root.dataset.vt; });
+    morph([d], () => { name([[box, ''], [h, ''], [src, 'case-box'], [t, 'case-title']]); d.close(); }, () => { name([[src, ''], [t, '']]); delete root.dataset.vt; });
   }
   // картинки кейса подгружаем заранее (наведение, фокус, касание): окно открывается уже с кадрами, переход не ждёт декодирования
   const warmCase = (id) => $$('#case-' + id + ' img').forEach((im) => {
@@ -395,11 +449,9 @@
     im.loading = 'eager';
   });
   const onIntent = (el, fn) => ['pointerenter', 'focus', 'touchstart'].forEach((t) => el.addEventListener(t, fn, { once: true, passive: true }));
-  caseCards.forEach((b) => { b.addEventListener('click', () => openCase(b)); onIntent(b, () => warmCase(b.dataset.case)); });
+  $$('[data-case]').forEach((b) => { b.addEventListener('click', () => openCase(b)); onIntent(b, () => warmCase(b.dataset.case)); }); // кнопка Noverim и карточки работ без живого сайта (их собрал скрипт выше)
   $$('dialog.case').forEach((d) => {
     d.addEventListener('click', (e) => {
-      const go = e.target.closest('[data-goto]');
-      if (go) return switchCase(d, go.dataset.goto, go.dataset.dir);
       // фон и крестик — с анимацией; кнопки, ведущие к брифу, закрывают сразу (дальше прокрутка)
       if (e.target === d) closeCase(d, true);
       else if (e.target.closest('[data-close]')) closeCase(d, Boolean(e.target.closest('.round')));
@@ -407,9 +459,8 @@
     d.addEventListener('cancel', (e) => { if (e.cancelable && vtOK) { e.preventDefault(); closeCase(d, true); } });
     d.addEventListener('close', () => {
       d.classList.remove('vt');
-      if ($('dialog.case[open]')) return; // переход к соседнему кейсу
       lock(false);
-      // фокус — на карточку того кейса, который закрыли (после переходов между кейсами браузер вернул бы его на первый)
+      // фокус — на кнопку, которой открыли окно
       const card = cardOf(d);
       if (card && document.activeElement !== card) card.focus({ preventScroll: true });
     });
