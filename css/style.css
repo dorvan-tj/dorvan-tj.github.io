@@ -743,7 +743,52 @@ html[data-vt=prev]::view-transition-new(case-box){animation:vt-in-l .42s var(--e
 .chip--sub input:checked+span small{color:rgba(255,255,255,.78)}
 .chip__p{font-style:normal;font-weight:700;font-variant-numeric:tabular-nums;color:var(--acc-ink)}
 .chip input:checked+span .chip__p{color:#CFC6FF}
-@media (max-width:960px){.mods__grid{grid-template-columns:repeat(2,1fr)}.packs__grid{grid-template-columns:1fr}}
+/* акция «Первые 10 клиентов»: плашка над ценами, подарок в панели ступени, «Запуск без забот» */
+.promo{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 24px;margin:0 0 clamp(14px,2vw,22px);padding:clamp(16px,2.2vw,22px) clamp(18px,2.6vw,28px);background:linear-gradient(180deg,#FFF7DF,#FFEFC4);border:1px solid #FFE1A0;box-shadow:0 1px 0 #fff inset,0 18px 36px -24px rgba(200,130,0,.55)}
+.promo__main{flex:1 1 360px;min-width:0}
+.promo__p{font-size:16px;line-height:1.5;color:#2B2000}
+.promo__p b{font-weight:700}
+.promo__ic{margin-right:2px;font-size:20px}
+.promo__bonus{margin-top:6px;font-size:14px;line-height:1.5;color:#6B4A00}
+.promo__bonus b{font-weight:650}
+.promo__hint{margin-top:4px;font-size:13px;line-height:1.45;color:#6B4A00}
+.promo__left{flex:none;display:inline-flex;align-items:baseline;gap:6px;padding:8px 18px;border-radius:999px;background:#fff;font-size:15px;font-weight:650;color:#5A3A00;box-shadow:0 1px 0 #fff inset,0 8px 18px -12px rgba(180,110,0,.7)}
+.promo__left [data-i18n]:empty{display:none} /* в английской версии перед числом слов нет */
+.promo__left b{font-size:24px;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.tierpanel__bonus{margin-top:18px;display:grid;gap:10px}
+.gift{padding:12px 14px;border-radius:14px;background:#FFF3CF;border:1px solid #FFE1A0;font-size:14px;line-height:1.5;color:#3E2C00}
+.gift__t{font-weight:700;color:#5A3A00}
+.launch-line{display:flex;align-items:flex-start;gap:8px;font-size:13.5px;line-height:1.5;color:var(--ink-2)}
+.launch-line .ico{width:18px;height:18px;margin-top:2px;color:var(--acc-ink)}
+.launch{margin-top:18px;padding:clamp(16px,2.2vw,24px)}
+.launch__head{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.launch__ic{display:grid;place-items:center;flex:none;width:44px;height:44px;border-radius:14px;background:#E4DBFF;color:#4A33C8}
+.launch h3{font-size:clamp(19px,2vw,22px);line-height:1.2;letter-spacing:-.02em;font-weight:680}
+.launch__head p{font-size:13.5px;color:var(--ink-2)}
+.launch__list{grid-template-columns:repeat(2,1fr);gap:10px 28px}
+/* «Если сайт у вас уже есть» */
+.existing{margin-top:clamp(14px,2vw,24px)}
+.ex__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.ex{display:flex;flex-direction:column;gap:6px;padding:clamp(18px,2.2vw,24px)}
+.ex__price{font-size:28px;line-height:1.1;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums;color:var(--acc-ink)}
+.ex__price small{font-size:13px;font-weight:600;letter-spacing:0;color:var(--ink-2)}
+.ex h3{margin-top:6px;font-size:18px;line-height:1.25;letter-spacing:-.02em;font-weight:680}
+.ex p:last-child{font-size:14.5px;line-height:1.5;color:var(--ink-2)}
+.ex__cta{margin-top:20px}
+/* «Приведи клиента» */
+.referral{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(18px,3vw,40px);align-items:start}
+.referral__lead{margin-top:12px;font-size:17px;line-height:1.5;color:var(--ink-2)}
+.referral .ticks{margin-top:18px}
+.referral .ticks li{font-size:15.5px;color:var(--ink)}
+.referral__rules{margin-top:16px;max-width:44em;font-size:12.5px;line-height:1.5;color:var(--ink-3)}
+.refgen{padding:clamp(18px,2.6vw,28px)}
+.refgen h3{margin-bottom:16px;font-size:20px;letter-spacing:-.02em;font-weight:650}
+.refgen__out{margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+.refgen__cap{margin-bottom:8px;font-size:13.5px;line-height:1.45;color:var(--ink-2)}
+.refgen textarea{resize:none;overflow:hidden;font-size:13px;line-height:1.45;overflow-wrap:anywhere}
+.refgen__act{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+@media (max-width:960px){.mods__grid{grid-template-columns:repeat(2,1fr)}.packs__grid{grid-template-columns:1fr}.ex__grid{grid-template-columns:repeat(2,1fr)}.referral{grid-template-columns:1fr}}
+@media (max-width:640px){.ex__grid,.launch__list{grid-template-columns:1fr}.refgen__act .btn{flex:1 1 100%}.promo__left{align-self:flex-start}.refgen .btn,.ex__cta .btn{white-space:normal;padding-block:10px;line-height:1.25}.refgen form .btn,.ex__cta .btn{width:100%}}
 @media (max-width:640px){.mods__grid{grid-template-columns:1fr}.chips--sub{grid-template-columns:repeat(2,1fr)}.pack__acts .btn{flex:1 1 100%;white-space:normal;line-height:1.25}}
 .prices__admin{margin-top:12px;max-width:56em;font-size:13.5px;line-height:1.55;color:var(--ink-2)}
 .prices__support{margin-top:10px;max-width:56em;font-size:14.5px;line-height:1.5;font-weight:600;color:var(--ink)}

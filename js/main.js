@@ -100,6 +100,7 @@
     $$('[data-dyn-label]').forEach((el) => el.setAttribute('aria-label', dyn(el.dataset.dynLabel)));
     if (autoBtn && msgEl.dataset.auto) msgEl.value = autoPhrase(autoBtn); // автофраза в поле «О проекте» — на новом языке
     syncModsHint();
+    if (refUpdate) refUpdate(); // ссылка «Приведи клиента» — на новом языке
     root.lang = lang;
     $$('[data-lang]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
     if (persist) { try { localStorage.setItem('dorvan-lang', lang); } catch (e) { /* private mode */ } }
@@ -140,7 +141,8 @@
   const links = $$('.nav__links a');
   const byId = {};
   links.forEach((a) => { const id = a.getAttribute('href').slice(1); if (!byId[id]) byId[id] = a; });
-  byId.modules = byId.packs = byId.features = byId.prices; // модули, пакеты и «фишки» — продолжение блока цен: пункт «Цены» остаётся подсвеченным
+  byId.referral = byId.faq; // «Приведи клиента» стоит прямо перед вопросами
+  byId.modules = byId.packs = byId.existing = byId.features = byId.prices; // модули, пакеты, готовые сайты и «фишки» — продолжение блока цен: пункт «Цены» остаётся подсвеченным
   if ('IntersectionObserver' in window) {
     const spy = new IntersectionObserver((es) => es.forEach((e) => {
       const a = e.isIntersecting && byId[e.target.id];
@@ -148,7 +150,7 @@
       links.forEach((l) => { l.classList.remove('is-active'); l.removeAttribute('aria-current'); });
       a.classList.add('is-active'); a.setAttribute('aria-current', 'location');
     }), { rootMargin: '-40% 0px -55% 0px' });
-    ['top', 'about', 'services', 'prices', 'modules', 'packs', 'features', 'work', 'process', 'faq', 'contact'].forEach((id) => { const s = document.getElementById(id); if (s) spy.observe(s); });
+    ['top', 'about', 'services', 'prices', 'modules', 'packs', 'existing', 'features', 'work', 'process', 'referral', 'faq', 'contact'].forEach((id) => { const s = document.getElementById(id); if (s) spy.observe(s); });
   }
 
   /* ---------- прокрутка: плотность шапки и прогресс чтения ---------- */
@@ -323,6 +325,13 @@
 
   /* ---------- контакты и доступность из config.js ---------- */
   if (!SITE.available) $('#avail').hidden = true;
+  // акция «Первые 10 клиентов»: число мест — только в js/config.js (clientsLeft). Есть число — «осталось N из 10»; 0 и меньше — акция закончилась:
+  // плашка, подарки в ступенях, бонус в форме и вопрос про бонусы скрываются; числа нет — счётчик просто не показываем
+  const left = SITE.clientsLeft === undefined || SITE.clientsLeft === '' ? NaN : Number(SITE.clientsLeft);
+  if (Number.isFinite(left)) {
+    $$('[data-left]').forEach((b) => { b.textContent = String(left); b.parentElement.hidden = left <= 0; });
+    if (left <= 0) $$('[data-promo]').forEach((el) => { el.hidden = true; });
+  }
   if (tg) {
     const a = $('#tg-link'); a.href = 'https://t.me/' + tg; a.lastElementChild.textContent = 'Telegram · @' + tg;
     $('.nav__tg').href = a.href;
@@ -404,6 +413,7 @@
 
   /* ---------- услуги, ступени цены и пакеты -> бриф ---------- */
   // Автофраза «Хочу сайт «Вау» за $100» / «Хочу пакет «Магазин» за $250»: название берётся из карточки, поэтому при смене языка фраза собирается заново (пока человек не начал писать своё)
+  let refUpdate = null; // обновляет ссылку блока «Приведи клиента» при смене языка (назначается ниже)
   let autoBtn = null; let budAuto = false; // кнопка, поставившая автофразу; бюджет в форме выбран кнопкой, а не человеком
   const autoPhrase = (b) => {
     const isPack = Boolean(b.dataset.pack);
@@ -435,6 +445,8 @@
   const label = (name) => { const r = form.querySelector('input[name="' + name + '"]:checked'); if (!r) return ''; const s = r.nextElementSibling; return (s.querySelector('b') || s).textContent.trim(); };
   const pickedPack = () => (form.elements.pack.value ? label('pack') : ''); // пустое значение — «Без пакета»
   const pickedMods = () => $$('input[name="mods"]:checked', form).map((m) => m.nextElementSibling.textContent.trim());
+  const pickedBonus = () => $$('input[name="bonus"]:checked', form).map((m) => m.nextElementSibling.textContent.trim());
+  const refEl = form.elements.referrer; // «Кто вас пригласил (если есть)»
   // подсказка под модулями: что уже входит в выбранный пакет (отмечать это ещё раз не нужно)
   const modsHint = $('#mods-hint');
   const syncModsHint = () => {
@@ -451,14 +463,16 @@
 
   function buildText() {
     const none = dyn('tpl.none');
-    const pack = pickedPack(); const mods = pickedMods();
+    const pack = pickedPack(); const mods = pickedMods(); const bonus = pickedBonus(); const ref = refEl.value.trim();
     return [
       dyn('tpl.head'), '',
       dyn('tpl.type') + ': ' + (label('type') || none),
       dyn('tpl.budget') + ': ' + (label('budget') || none),
       dyn('tpl.time') + ': ' + (label('time') || none),
-      ...(pack ? [dyn('tpl.pack') + ': ' + pack] : []), // пакет и модули — строками только если выбраны
-      ...(mods.length ? [dyn('tpl.mods') + ': ' + mods.join(', ')] : []), '',
+      ...(pack ? [dyn('tpl.pack') + ': ' + pack] : []), // пакет, модули, бонус и «кто пригласил» — строками только если выбраны или заполнены
+      ...(mods.length ? [dyn('tpl.mods') + ': ' + mods.join(', ')] : []),
+      ...(bonus.length ? [dyn('tpl.bonus') + ': ' + bonus.join(', ')] : []),
+      ...(ref ? [dyn('tpl.ref') + ': ' + ref] : []), '',
       dyn('tpl.msg') + ':', msgEl.value.trim(), '',
       dyn('tpl.contact') + ': ' + (contactEl.value.trim() || none)
     ].join('\n');
@@ -534,7 +548,7 @@
             lang, type: label('type'), typeCode: form.elements.type.value,
             budget: label('budget'), budgetCode: form.elements.budget.value,
             time: label('time'), timeCode: form.elements.time.value,
-            pack: pickedPack(), mods: pickedMods(),
+            pack: pickedPack(), mods: pickedMods(), bonus: pickedBonus(), referrer: refEl.value.trim(),
             message: msgEl.value.trim(), contact: contactEl.value.trim(),
             hp: form.elements.hp.value, t: Math.round(performance.now())
           })
@@ -551,9 +565,13 @@
     btn.disabled = false; btnState('');
   });
 
+  // копирование: системный буфер; если он не ответил за 1,2 с или запрещён — старый способ через выделение текста
+  const copyText = async (text, field) => {
+    try { await Promise.race([navigator.clipboard.writeText(text), new Promise((_, no) => setTimeout(no, 1200))]); } catch (err) { field.select(); document.execCommand('copy'); }
+  };
   $('#sent-copy').addEventListener('click', async () => {
     const ta = $('#sent-msg'); const span = $('#sent-copy [data-dyn]');
-    try { await navigator.clipboard.writeText(ta.value); } catch (err) { ta.select(); document.execCommand('copy'); }
+    await copyText(ta.value, ta);
     span.textContent = dyn('btn.copied');
     setTimeout(() => { span.textContent = dyn('btn.copy'); }, 1800);
   });
@@ -563,6 +581,45 @@
     sent.hidden = true; form.hidden = false; msgEl.focus();
     if (!reduce && form.animate) form.animate([{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }], { duration: 420, easing: 'cubic-bezier(.22,.9,.3,1)' });
   });
+
+  /* ---------- «Приведи клиента»: имя → ссылка на чат с готовым текстом, «Скопировать», «Поделиться» ---------- */
+  const refForm = $('#refgen');
+  if (refForm) {
+    const refName = $('#ref-name'); const refErr = $('#err-ref'); const refOut = $('#ref-out'); const refLink = $('#ref-link');
+    const pct = (c) => '%' + c.charCodeAt(0).toString(16).toUpperCase();
+    // имя подставляется функцией (а не строкой): «$&», «$'» в имени не должны стать шаблоном; скобки и «!» кодируем сами — часть мессенджеров обрывает ссылку на «)»
+    const refUrl = () => 'https://t.me/' + (tg || 'dorvan_tj') + '?text=' + encodeURIComponent(dyn('ref.text').replace('{n}', () => refName.value.trim())).replace(/[!'()*]/g, pct);
+    const grow = () => { refLink.style.height = 'auto'; refLink.style.height = (refLink.scrollHeight + 2) + 'px'; }; // поле растёт по длине ссылки: она видна целиком
+    refUpdate = () => {
+      if (refErr.textContent) refErr.textContent = dyn('err.refname'); // ошибка — на текущем языке
+      if (refOut.hidden) return;
+      if (refName.value.trim().length < 2) { refOut.hidden = true; return; } // имя стёрли — ссылку без имени не показываем
+      refLink.value = refUrl(); grow();
+    };
+    refForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (refName.value.trim().length < 2) {
+        refErr.textContent = dyn('err.refname'); refName.setAttribute('aria-invalid', 'true'); refOut.hidden = true; shake(refName); refName.focus(); return;
+      }
+      refErr.textContent = ''; refName.removeAttribute('aria-invalid');
+      refOut.hidden = false; refLink.value = refUrl(); grow(); refLink.focus(); // фокус на ссылку: скринридер её прочитает, на телефоне поле окажется в кадре
+    });
+    refName.addEventListener('input', () => { // ссылка всегда соответствует имени в поле
+      if (refName.value.trim().length >= 2) { refErr.textContent = ''; refName.removeAttribute('aria-invalid'); }
+      refUpdate();
+    });
+    $('#ref-copy').addEventListener('click', async () => {
+      const span = $('#ref-copy [data-dyn]');
+      await copyText(refLink.value, refLink);
+      span.textContent = dyn('btn.copied');
+      setTimeout(() => { span.textContent = dyn('btn.copy'); }, 1800);
+    });
+    $('#ref-share').addEventListener('click', async () => {
+      const text = dyn('ref.share.text'); const url = refLink.value;
+      if (navigator.share) { try { await navigator.share({ title: dyn('ref.share.title'), text, url }); return; } catch (err) { if (err && err.name === 'AbortError') return; } }
+      window.open('https://t.me/share/url?url=' + encodeURIComponent(url) + '&text=' + encodeURIComponent(text), '_blank', 'noopener'); // нет системного «Поделиться» — окно выбора чата в Telegram
+    });
+  }
 
   /* ---------- старт ---------- */
   $('#year').textContent = new Date().getFullYear();
