@@ -1,6 +1,6 @@
 # Dorvan — сайт-портфолио
 
-Студия сайтов для малого бизнеса в Душанбе. Живой адрес: https://dorvan-tj.github.io/
+Студия сайтов для малого бизнеса в Душанбе. Живой адрес: https://dorvan.pro/
 
 Контакты: Telegram [@dorvan_tj](https://t.me/dorvan_tj), Instagram [@dorvan.tj](https://www.instagram.com/dorvan.tj/).
 
