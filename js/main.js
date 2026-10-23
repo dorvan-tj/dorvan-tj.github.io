@@ -845,13 +845,14 @@
     function qCompute(a) {
       const logo = a.brand === 'both' || a.brand === 'logo'; const insta = a.brand === 'both' || a.brand === 'insta';
       const wantsBooking = a.need === 'book' || a.need === 'order';
+      const food = a.biz === 'food'; // ресторану и кафе нужна админка (цены, меню, стоп-лист): «Вау» с ней — отдельная ступень $150 (= «Вау» $100 + админка $50)
       let tier; let up = false; // up — запись или каталог нужны, а бюджет меньше «Запись / заказ»: честно говорим, что даст меньший бюджет
       if (wantsBooking && (a.bud === 'b3' || a.bud === 'b0')) tier = 350;
       else if (wantsBooking && a.bud === 'b4') tier = a.need === 'book' ? 500 : 350;
       else if (wantsBooking) { tier = a.bud === 'b2' ? (logo ? 100 : 70) : (insta ? 40 : 20); up = true; }
       else if (a.bud === 'b1') tier = insta ? 40 : 20;
-      else if (a.bud === 'b2') tier = logo ? 100 : 70;
-      else if (a.bud === 'b0') tier = 100;
+      else if (a.bud === 'b2') tier = logo ? (food ? 150 : 100) : 70;
+      else if (a.bud === 'b0') tier = food ? 150 : 100;
       else tier = 200;
       const t = CALC.tiers[tier];
       const wish = tier === 500 ? ['bookadmin']

@@ -246,7 +246,7 @@ button.round:active{transform:scale(.92)}
 .perk p{font-size:14.5px;line-height:1.55;color:var(--ink-2)}
 
 /* ---------- prices: ступени цены, что входит, живые примеры ---------- */
-.tiers{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;margin:0;padding:12px 0 0;border:0;min-width:0}
+.tiers{display:grid;grid-template-columns:repeat(8,1fr);gap:10px;margin:0;padding:12px 0 0;border:0;min-width:0}
 .tiers>legend{white-space:normal} /* подпись группы только для скринридеров: не должна растягивать группу на узком экране */
 .tier{position:relative;display:block}
 .tier input{position:absolute;inset:0;z-index:1;opacity:0;cursor:pointer}
