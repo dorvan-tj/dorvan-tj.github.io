@@ -17,6 +17,22 @@
     matchMedia('(min-width:760px)').addEventListener('change', (e) => { if (e.matches) set(false); });
   }
 
+  /* шапка: подсвечиваем раздел, который сейчас на экране («Цены» — вместе с «Почему без риска», «Как работаем» — до подвала) */
+  const links = $$('.nav a[href^="#"]'), zones = links.map((a) => $(a.getAttribute('href'))), foot = $('.ftr');
+  if (links.length && zones.every(Boolean)) {
+    let raf = 0;
+    const spy = () => {
+      raf = 0;
+      const line = innerHeight * 0.4; // «линия чтения»: раздел считается текущим, когда его верх поднялся выше неё
+      let on = -1;
+      zones.forEach((z, i) => { if (z.getBoundingClientRect().top <= line) on = i; });
+      if (foot && foot.getBoundingClientRect().top <= line) on = -1;
+      links.forEach((a, i) => { if (i === on) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current'); });
+    };
+    const ask = () => { if (!raf) raf = requestAnimationFrame(spy); };
+    addEventListener('scroll', ask, { passive: true }); addEventListener('resize', ask); spy();
+  }
+
   /* акция «Первые 10»: число — только в config.js; 0 и меньше — плашка скрывается; числа нет — плашка без счётчика */
   const left = SITE.clientsLeft === '' || SITE.clientsLeft == null ? NaN : Number(SITE.clientsLeft);
   $$('[data-promo]').forEach((p) => {

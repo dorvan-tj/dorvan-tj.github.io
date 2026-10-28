@@ -142,6 +142,17 @@ p{text-wrap:pretty}
   .hero__grid{grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:clamp(16px,3vw,48px)}
   .hero__cap{display:flex}
 }
+/* ---------- шапка на компьютере, от 1024 px (правка 28.10.2026, вариант А; телефон и планшет не затронуты) ---------- */
+@media (min-width:1024px){
+  /* шапка закреплена за окном (fixed), а не «липкая»: у «липкой» браузер при каждом нажатии Tab на её ссылке пытался вернуть страницу к прежнему месту шапки, и страница прыгала вверх */
+  .hdr{position:fixed;left:0;right:0}
+  body{padding-top:calc(10px + var(--hdr))}
+  /* знак слева; ссылки и кнопка одной группой справа. Между словами ссылок 12+8+12 = 32 px, от последней ссылки до кнопки 12+12 = 24 px */
+  .hdr__in{grid-template-columns:1fr auto auto;column-gap:12px}
+  .nav{gap:8px}
+  .nav a{padding:10px 12px}
+  .nav a[aria-current]{color:var(--ink);background:#E4DBFF} /* раздел, который сейчас на экране (js/site.js ставит aria-current) */
+}
 /* ---------- разделы ---------- */
 .sec{padding-block:clamp(44px,6.5vw,92px)}
 .sec__head{max-width:46rem;margin-bottom:clamp(24px,3.4vw,44px)}
