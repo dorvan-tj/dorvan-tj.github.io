@@ -12,7 +12,7 @@
 
   // страница-модуль (админка, бот): вместо цены ступени — «Модуль: +$N — можно добавить к любому сайту»
   var mod = s.getAttribute('data-module'), modName = s.getAttribute('data-module-name');
-  var text = mod ? 'Хочу модуль «' + modName + '» (+$' + mod + '), как в демо «' + name + '»' : 'Хочу сайт за $' + price + ', как «' + name + '»';
+  var text = mod ? 'Хочу модуль «' + modName + '» (+$' + mod + '), как в демо «' + name + '»' : 'Хочу сайт, как «' + name + '»';
   var href = 'https://t.me/dorvan_tj?text=' + encodeURIComponent(text);
 
   var css = '' +
@@ -43,8 +43,8 @@
 
   var plate = document.createElement('a');
   plate.className = 'dk-plate'; plate.href = href; plate.target = '_blank'; plate.rel = 'noopener';
-  plate.setAttribute('aria-label', (mod ? 'Модуль: +$' + mod + ' — можно добавить к любому сайту. Хочу такой модуль' : 'Пример за $' + price + '. Хочу такой сайт') + ' — написать в Telegram');
-  plate.innerHTML = '<small>Dorvan</small><span>' + (mod ? 'Модуль: +$' + mod + '<i class="dk-long"> — можно добавить к любому сайту</i>' : 'Пример за $' + price) + '</span>' +
+  plate.setAttribute('aria-label', (mod ? 'Модуль: +$' + mod + ' — можно добавить к любому сайту. Хочу такой модуль' : 'Концепт. Хочу такой сайт') + ' — написать в Telegram');
+  plate.innerHTML = '<small>Dorvan</small><span>' + (mod ? 'Модуль: +$' + mod + '<i class="dk-long"> — можно добавить к любому сайту</i>' : 'Концепт') + '</span>' +
     '<em>Хочу такой<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></em>';
   document.body.appendChild(plate);
 
