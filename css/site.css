@@ -205,6 +205,7 @@ p{text-wrap:pretty}
 .ex__body small{display:block;margin-top:3px;font-size:13.5px;line-height:1.35;color:var(--ink-2)}
 .ex__body .ico{margin-top:2px;color:var(--acc-ink)}
 @media (hover:hover){.ex a:hover{transform:translateY(-4px);box-shadow:0 1px 0 #fff inset,0 30px 50px -26px rgba(60,45,150,.55)}.ex a:hover img{transform:scale(1.04)}}
+.ex li:nth-child(5):last-child{grid-column:1/-1;justify-self:center;width:calc((100% - 48px)/4)}
 .reel{display:grid;grid-template-columns:minmax(0,270px) 1fr;gap:clamp(20px,4vw,48px);align-items:center;max-width:880px;margin:clamp(20px,3vw,32px) auto 0;padding:clamp(16px,2.4vw,28px);border-radius:var(--r-xl)}
 .reel video{display:block;width:100%;height:auto;aspect-ratio:9/16;border-radius:22px;background:#0D0D16;object-fit:cover;box-shadow:0 24px 50px -24px rgba(40,30,110,.6)}
 .reel h3{font-size:clamp(20px,1vw + 16px,26px);line-height:1.2;letter-spacing:-.02em;font-weight:700}
@@ -268,6 +269,7 @@ form.is-done .field,form.is-done .legal,form.is-done button[type="submit"]{displ
 
 @media (max-width:1023px){
   .prices,.why,.ex{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ex li:nth-child(5):last-child{width:calc(50% - 8px)}
   .how{grid-template-columns:1fr}
   .ftr__top{grid-template-columns:1fr auto}
   .ftr__links{grid-column:1/-1;order:3}
@@ -284,6 +286,7 @@ form.is-done .field,form.is-done .legal,form.is-done button[type="submit"]{displ
   .why li{flex-direction:row;align-items:flex-start;gap:14px;padding:16px}
   .why .ic{width:42px;height:42px;border-radius:14px}
   .ex{gap:12px}
+  .ex li:nth-child(5):last-child{width:calc(50% - 6px)}
   .ex__img{aspect-ratio:4/5}
   .ex__body{flex-direction:column;gap:2px;padding:10px 12px 12px}
   .ex__body .ico{display:none}
