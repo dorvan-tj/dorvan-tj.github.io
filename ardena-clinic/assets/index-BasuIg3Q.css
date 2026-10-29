@@ -3,3 +3,7 @@
 @media (min-width:768px) and (max-width:840px){a[href="#booking"].md\:inline-flex{display:none!important}}
 
 @media (max-width:767px){#nav{transition:transform .3s cubic-bezier(.22,1,.36,1),visibility 0s linear .3s}#nav.translate-x-full{visibility:hidden}#nav.translate-x-0{visibility:visible;transition-delay:0s}}
+
+section[aria-label="Приветствие"]::before{content:"ARDENA";position:absolute;bottom:-4%;left:50%;transform:translate(-50%);font-family:Bricolage Grotesque,sans-serif;font-weight:800;font-size:clamp(90px,18vw,260px);color:#0a2a4d;opacity:.04;white-space:nowrap;pointer-events:none;letter-spacing:-.02em;z-index:0}
+@media (max-width:767px){button[aria-controls="nav"]{position:relative;z-index:56}}
+@media (max-width:767px){header{overflow-x:clip}}
