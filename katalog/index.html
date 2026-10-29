@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Каталог в WhatsApp за один вечер — Dorvan</title>
+<meta name="description" content="Чтобы не отправлять каждому клиенту 15 фото: пять шагов, как собрать каталог в WhatsApp, и пять ошибок, из-за которых по каталогу не покупают.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#ECEAF4">
+<meta name="color-scheme" content="light">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Dorvan">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:url" content="https://dorvan.pro/katalog/">
+<meta property="og:title" content="Каталог в WhatsApp за один вечер">
+<meta property="og:description" content="Чтобы не отправлять каждому клиенту 15 фото: пять шагов, как собрать каталог в WhatsApp, и пять ошибок, из-за которых по каталогу не покупают.">
+<meta property="og:image" content="https://dorvan.pro/assets/katalog/og-katalog.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Каталог в WhatsApp за один вечер. Чтобы не отправлять каждому клиенту 15 фото.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/golos-cyr.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/golos-lat.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../css/site.css">
+<style>
+/* страница-инструкция «Каталог»: поверх общих стилей сайта (../css/site.css). Телефон первым: текст 18 px, колонка с полями 18–20 px, на компьютере колонка 680 px по центру */
+:root{--kg:clamp(18px,4.8vw,20px)}
+body{font-size:18px}
+.skip{font-size:17px}
+.khdr{padding:10px var(--kg) 0}
+.khdr__in{display:flex;align-items:center;width:min(680px,100%);height:56px;margin-inline:auto;padding:0 20px;border-radius:999px}
+.khdr .brand{min-height:44px;padding-right:12px}
+.kat{width:min(680px,calc(100% - 2*var(--kg)));margin-inline:auto;padding:clamp(28px,5vw,44px) 0 clamp(28px,5vw,44px);line-height:1.6;color:var(--ink-2)}
+.kat h1{font-size:clamp(34px,3vw + 22px,50px);line-height:1.06;letter-spacing:-.035em;font-weight:700;color:var(--ink);text-wrap:balance}
+.kat__lead{margin-top:14px;font-size:clamp(21px,1vw + 17px,25px);line-height:1.3;letter-spacing:-.015em;font-weight:650;color:var(--acc-ink)}
+.kat section{margin-top:clamp(38px,5vw,52px)}
+.kat h2{font-size:clamp(26px,1.2vw + 21px,32px);line-height:1.15;letter-spacing:-.025em;font-weight:700;color:var(--ink);text-wrap:balance}
+.st{white-space:nowrap;color:var(--acc-ink)}
+.kat section > * + *{margin-top:16px}
+.kat li{text-wrap:pretty}
+.kat b{font-weight:650;color:var(--ink)}
+.path{color:var(--ink)}
+
+/* список с тире (как в исходном тексте): тире рисуется стилем, список остаётся настоящим */
+.dash{display:grid;gap:10px}
+.dash li{position:relative;padding-left:30px}
+.dash li::before{content:"—";content:"—" / "";position:absolute;left:0;font-weight:700;color:var(--acc-ink)}
+
+/* скриншоты: на телефоне на всю ширину колонки, на компьютере не шире 420 px по центру */
+.kat figure{max-width:420px;margin-top:20px;margin-inline:auto}
+.kat figure + *{margin-top:20px}
+.kat img{width:100%;height:auto;border-radius:22px;background:#fff;box-shadow:0 0 0 1px rgba(40,30,110,.1),0 1px 2px rgba(30,20,90,.05),0 12px 32px -14px rgba(60,45,150,.28)}
+
+/* «Важно» — спокойная плашка */
+.imp{padding:16px 18px 16px 22px;border-radius:18px;background:rgba(255,255,255,.72);border:1px solid #fff;box-shadow:inset 4px 0 0 var(--acc),0 1px 2px rgba(30,20,90,.05),0 12px 32px -18px rgba(60,45,150,.3)}
+.imp b{color:var(--acc-ink)}
+
+/* пять ошибок */
+.errs{display:grid;gap:16px;counter-reset:e}
+.errs li{position:relative;counter-increment:e;min-height:34px;padding-left:48px}
+.errs li::before{content:counter(e);content:counter(e) / "";position:absolute;left:0;top:-1px;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:#E4DBFF;color:#4A33C8;font-size:17px;font-weight:700;line-height:1}
+
+/* призыв в конце */
+.kat .cta{margin-top:26px;padding:20px 16px;border-radius:26px;box-shadow:0 1px 0 rgba(255,255,255,.95) inset,0 24px 50px -26px rgba(90,69,227,.55)}
+.cta p{font-size:20px;line-height:1.5;font-weight:500;color:var(--ink)}
+.kat__btn{width:100%;min-height:60px;margin-top:18px;padding:14px 12px;gap:8px;font-size:18px;line-height:1.2;white-space:normal;text-align:center}
+.sign{padding:0 var(--kg) clamp(32px,6vw,64px);text-align:center}
+.sign a{display:inline-flex;align-items:center;min-height:48px;padding:0 12px;font-weight:650;color:var(--acc-ink);text-decoration:underline;text-underline-offset:3px}
+@media (max-width:379px){.kat__btn .ico{display:none}} /* на узком экране подпись кнопки помещается в одну строку */
+@media (min-width:600px){
+  .kat .cta{padding:28px}
+  .kat__btn{width:auto;min-width:340px;padding:14px 22px;gap:10px}
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-mark" viewBox="0 0 1140 1000"><path fill="currentColor" d="M81.5 9.9A6 6 0 0 1 86 0L640 0A500 500 0 0 1 640 1000L161 1000A6 6 0 0 1 156.5 990.1L341.6 774.1A6 6 0 0 1 346.2 772L640 772A272 272 0 0 0 640 228L271.2 228A6 6 0 0 1 266.6 225.9ZM348.8 365.1A6 6 0 0 1 353.3 363L607 363A6 6 0 0 1 611.5 372.9L75.8 997.9A6 6 0 0 1 71.2 1000L6 1000A6 6 0 0 1 0 994L0 774.2A6 6 0 0 1 1.4 770.3Z"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M21.5 2.5 10.5 13.5"/><path d="M21.5 2.5 14.5 21.5l-4-8-8-4z"/></symbol>
+</svg>
+<div class="bg" aria-hidden="true"></div>
+<a class="skip" href="#main">К содержимому</a>
+
+<header class="khdr">
+  <div class="khdr__in glass">
+    <a class="brand" href="../" aria-label="Dorvan — на главную">
+      <svg class="brand__mark" viewBox="0 0 1140 1000" aria-hidden="true"><use href="#i-mark"/></svg>
+      <b>Dorvan</b>
+    </a>
+  </div>
+</header>
+
+<main id="main" class="kat">
+  <h1>Каталог в WhatsApp за один вечер</h1>
+  <p class="kat__lead">Чтобы не отправлять каждому клиенту 15 фото.</p>
+
+  <section>
+    <h2>Что понадобится</h2>
+    <ul class="dash" role="list">
+      <li>Приложение WhatsApp Business (бесплатное). Если у вас обычный WhatsApp, при переходе можно оставить этот же номер и чаты — приложение предложит это само.</li>
+      <li>Фото товаров, названия и цены.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="st">Шаг 1.</span> Откройте каталог</h2>
+    <p class="path"><b>Инструменты для бизнеса → Каталог</b></p>
+    <figure><img src="../assets/katalog/step1.webp" width="887" height="1090" decoding="async" alt="Пример экрана приложения: раздел «Инструменты для бизнеса», в списке выделен пункт «Каталог»."></figure>
+  </section>
+
+  <section>
+    <h2><span class="st">Шаг 2.</span> Добавьте товар</h2>
+    <p>Нажмите <b>«Добавить новый товар»</b>.</p>
+    <figure><img src="../assets/katalog/step2.webp" width="887" height="1200" loading="lazy" decoding="async" alt="Пример экрана приложения: пустой каталог с надписью «В каталоге пока нет товаров» и кнопкой «Добавить новый товар»."></figure>
+    <p>Заполните:</p>
+    <ul class="dash" role="list">
+      <li><b>Фото:</b> до 10 штук. Первое — самое удачное, его видно в списке.</li>
+      <li><b>Название</b> — как говорит клиент: «Торт Наполеон», а не «Н-2».</li>
+      <li><b>Цена</b> в сомони. Если зависит от веса — цена за 1 кг, и напишите это в описании.</li>
+      <li><b>Описание:</b> что это · состав или размер · за сколько дней заказывать.</li>
+    </ul>
+    <p>Сохраните.</p>
+    <figure><img src="../assets/katalog/step3.webp" width="887" height="1730" loading="lazy" decoding="async" alt="Пример экрана приложения: добавление товара — фото торта «Наполеон», поля «Название», «Цена» и «Описание», кнопка «Сохранить»."></figure>
+    <p class="imp"><b>Важно:</b> новый товар WhatsApp проверяет, обычно до 24 часов. Пока идёт проверка, клиенты могут его не видеть — это нормально.</p>
+  </section>
+
+  <section>
+    <h2><span class="st">Шаг 3.</span> Разложите по разделам</h2>
+    <p>Если товаров больше 10, сделайте разделы: «Торты», «Капкейки», «На заказ».</p>
+  </section>
+
+  <section>
+    <h2><span class="st">Шаг 4.</span> Отправьте каталог</h2>
+    <p>В чате нажмите на скрепку или значок каталога — отправьте весь каталог или один товар. Ссылку на каталог можно поставить в шапку Instagram.</p>
+    <figure><img src="../assets/katalog/step4.webp" width="887" height="1380" loading="lazy" decoding="async" alt="Пример экрана приложения: готовый каталог с четырьмя товарами — торт «Наполеон», медовик, капкейки и торт «Птичье молоко»."></figure>
+  </section>
+
+  <section>
+    <h2><span class="st">Шаг 5.</span> Фото на телефон — за 5 минут</h2>
+    <ul class="dash" role="list">
+      <li>Днём у окна, без вспышки.</li>
+      <li>Фон — белый лист или ровная скатерть.</li>
+      <li>Товар целиком, плюс одно фото крупно (срез, текстура).</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>5 ошибок, из-за которых по каталогу не покупают</h2>
+    <ol class="errs" role="list">
+      <li><b>Нет цены.</b> Человек не хочет спрашивать и уходит туда, где цена видна.</li>
+      <li><b>Тёмные фото.</b> Вкусное на тёмном фото выглядит невкусно.</li>
+      <li><b>Устаревшее наличие.</b> Выбрал, а «этого уже нет» — доверие пропало. Товар, которого нет, скрывайте, а не удаляйте.</li>
+      <li><b>Нет срока.</b> «За сколько дней заказывать?» — первый вопрос. Ответьте заранее.</li>
+      <li><b>Всё одной кучей.</b> 40 товаров без разделов никто не долистает.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Когда каталога в WhatsApp уже мало</h2>
+    <ul class="dash" role="list">
+      <li>Заказ всё равно уточняете вручную: какой вес, на какой день, куда везти.</li>
+      <li>Часть клиентов пишет в Instagram или Telegram, а каталог есть только в WhatsApp.</li>
+      <li>Хочется, чтобы клиент сам оформлял заявку, а вы только подтверждали.</li>
+    </ul>
+    <div class="cta glass">
+      <p>Если узнали себя — сделаю бесплатный набросок первого экрана вашего сайта. Не понравится — вы ничего не платите.</p>
+      <a class="btn btn--dark btn--lg kat__btn" href="https://t.me/DorvanWorkBot?start=katalog" rel="noopener"><svg class="ico" aria-hidden="true"><use href="#i-send"/></svg>Хочу бесплатный набросок</a>
+    </div>
+  </section>
+</main>
+
+<footer class="sign">
+  <a href="https://www.instagram.com/dorvan.tj/" rel="noopener">@dorvan.tj</a>
+</footer>
+</body>
+</html>
