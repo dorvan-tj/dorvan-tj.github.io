@@ -1,10 +1,10 @@
 /* Dorvan — сайт студии. Без сборки. Настройки — js/config.js. */
 (() => {
   'use strict';
-  const SITE = Object.assign({ telegram: 'dorvan_tj', endpoint: '', clientsLeft: '', review: {} }, window.SITE);
+  const SITE = Object.assign({ whatsapp: '992119921803', endpoint: '', clientsLeft: '', review: {} }, window.SITE);
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
-  const tg = String(SITE.telegram || 'dorvan_tj').replace(/^@/, '');
+  const wa = String(SITE.whatsapp || '992119921803').replace(/\D/g, '');
 
   /* меню «три полоски» на телефоне */
   const burger = $('.burger'), menu = $('#menu'), hdr = $('.hdr');
@@ -17,7 +17,28 @@
     matchMedia('(min-width:760px)').addEventListener('change', (e) => { if (e.matches) set(false); });
   }
 
-  /* шапка: подсвечиваем раздел, который сейчас на экране («Цены» — вместе с «Почему без риска», «Как работаем» — до подвала) */
+  /* услуги: переключатель Сайты · Боты · Приложения (стрелки, Home и End — как у обычных вкладок) */
+  const tabs = $$('[role="tab"]');
+  if (tabs.length) {
+    const pick = (t, focus) => {
+      tabs.forEach((x) => {
+        const on = x === t;
+        x.setAttribute('aria-selected', String(on)); x.tabIndex = on ? 0 : -1;
+        $('#' + x.getAttribute('aria-controls')).hidden = !on;
+      });
+      if (focus) t.focus();
+    };
+    tabs.forEach((t, i) => {
+      t.addEventListener('click', () => pick(t));
+      t.addEventListener('keydown', (e) => {
+        const to = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: tabs.length - 1 }[e.key];
+        if (to == null) return;
+        e.preventDefault(); pick(tabs[(to + tabs.length) % tabs.length], true);
+      });
+    });
+  }
+
+  /* шапка: подсвечиваем раздел, который сейчас на экране («Услуги» — вместе с «Почему без риска», «Как работаем» — до подвала) */
   const links = $$('.nav a[href^="#"]'), zones = links.map((a) => $(a.getAttribute('href'))), foot = $('.ftr');
   if (links.length && zones.every(Boolean)) {
     let raf = 0;
@@ -48,11 +69,11 @@
     quote.hidden = false;
   }
 
-  /* заявка: проверка полей → бот студии (Worker) → карточка в Telegram; не вышло — ссылка на чат с готовым текстом */
+  /* заявка: проверка полей → бот студии (Worker) → карточка владельцу в Telegram; не вышло — ссылка на чат WhatsApp с готовым текстом */
   const form = $('#lead');
   if (!form) return;
   const status = $('#lead-status'), btn = $('[type="submit"]', form), label = $('span', btn);
-  const MSG = { name: 'Напишите, как к вам обращаться', what: 'Напишите, что нужно, хотя бы пару слов', contact: 'Укажите телефон или ник в Telegram, например @name' };
+  const MSG = { name: 'Напишите, как к вам обращаться', what: 'Напишите, что нужно, хотя бы пару слов', contact: 'Укажите номер телефона, например +992 90 000 00 00' };
   const norm = (s) => String(s).replace(/\s+/g, ' ').trim();
   const phoneOK = (s) => /^[+\d][\d\s()\-.]*$/.test(s) && (s.match(/\d/g) || []).length >= 7;
   const nick = (s) => { const m = /^(?:https?:\/\/)?(?:t\.me\/|@)?([A-Za-z][A-Za-z0-9_]{4,31})$/.exec(s); return m ? '@' + m[1] : ''; };
@@ -84,7 +105,7 @@
     if (!ok.every(Boolean)) { form.elements[['name', 'what', 'contact'][ok.indexOf(false)]].focus(); return; }
 
     const k = kind(v.what);
-    const chat = 'https://t.me/' + tg + '?text=' + encodeURIComponent('Здравствуйте! Меня зовут ' + v.name + '. Мне нужно: ' + v.what + '. Связь: ' + contact);
+    const chat = 'https://wa.me/' + wa + '?text=' + encodeURIComponent('Здравствуйте! Меня зовут ' + v.name + '. Мне нужно: ' + v.what + '. Связь: ' + contact);
     btn.disabled = true; label.textContent = 'Отправляю…'; status.hidden = true;
     try {
       if (!SITE.endpoint) throw new Error('нет адреса бота');
@@ -95,10 +116,10 @@
       });
       if (!r.ok) throw new Error('HTTP ' + r.status);
       form.classList.add('is-done');
-      say('is-ok', 'Спасибо, ' + v.name + '! Заявка отправлена — ответим в Telegram или по телефону.');
+      say('is-ok', 'Спасибо, ' + v.name + '! Заявка отправлена — ответим в WhatsApp или по телефону.');
     } catch (err) {
       btn.disabled = false; label.textContent = 'Отправить заявку';
-      say('is-err', 'Не получилось отправить заявку.', chat, 'Написать в Telegram с готовым текстом');
+      say('is-err', 'Не получилось отправить заявку.', chat, 'Написать в WhatsApp с готовым текстом');
     }
   });
 })();
