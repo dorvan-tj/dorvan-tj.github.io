@@ -110,7 +110,6 @@ p{text-wrap:pretty}
 .hero__sub .tick{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:#E4DBFF;color:var(--acc-ink)}
 .hero__sub .tick .ico{width:13px;height:13px;stroke-width:2.6}
 .hero__cta{margin-top:clamp(22px,2.4vw,34px);display:flex;align-items:center;gap:18px;flex-wrap:wrap}
-.hero__cta small{font-size:14px;color:var(--ink-3)}
 
 .hero__art{position:relative;justify-self:center;display:grid;place-items:center;width:100%}
 .hero__art::before{content:"";position:absolute;z-index:-1;inset:6% -4% 2%;border-radius:50%;
@@ -138,7 +137,6 @@ p{text-wrap:pretty}
   .dock{display:flex}
   body{padding-bottom:84px}
   .hero__grid{gap:20px}
-  .hero__cta small{display:none}
   .hero__art{height:330px;margin-inline:calc(-1*var(--gut));width:auto;overflow:hidden;-webkit-mask-image:linear-gradient(#000 74%,transparent);mask-image:linear-gradient(#000 74%,transparent)}
   .hero__art::before{inset:0 8% 20%}
   .phone{width:min(256px,68vw);margin-top:8px;align-self:start}
