@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Тексты напоминаний о записи для WhatsApp — Dorvan</title>
+<meta name="description" content="Четыре готовых текста напоминаний о записи для WhatsApp Business: накануне, утром, для листа ожидания и после визита — и как сохранить их быстрым ответом.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#ECEAF4">
+<meta name="color-scheme" content="light">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Dorvan">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:url" content="https://dorvan.pro/zapis/">
+<meta property="og:title" content="Тексты напоминаний о записи для WhatsApp">
+<meta property="og:description" content="Четыре готовых текста напоминаний о записи для WhatsApp Business: накануне, утром, для листа ожидания и после визита — и как сохранить их быстрым ответом.">
+<meta property="og:image" content="https://dorvan.pro/assets/zapis/og-zapis.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Тексты напоминаний о записи для WhatsApp: сообщение «Напоминаю: вы записаны завтра» и ответ «+».">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/golos-cyr.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/golos-lat.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../css/site.css">
+<style>
+/* страница-инструкция «Напоминания о записи»: поверх общих стилей сайта (../css/site.css), вид — как у страницы /katalog/. Телефон первым: текст 18 px, колонка с полями 18–20 px, на компьютере колонка 680 px по центру */
+:root{--kg:clamp(18px,4.8vw,20px)}
+body{font-size:18px}
+.skip{font-size:17px}
+.khdr{padding:10px var(--kg) 0}
+.khdr__in{display:flex;align-items:center;width:min(680px,100%);height:56px;margin-inline:auto;padding:0 20px;border-radius:999px}
+.khdr .brand{min-height:44px;padding-right:12px}
+.kat{width:min(680px,calc(100% - 2*var(--kg)));margin-inline:auto;padding:clamp(28px,5vw,44px) 0 clamp(28px,5vw,44px);line-height:1.6;color:var(--ink-2)}
+.kat h1{font-size:clamp(34px,3vw + 22px,50px);line-height:1.06;letter-spacing:-.035em;font-weight:700;color:var(--ink);text-wrap:balance}
+.kat__lead{margin-top:14px;font-size:clamp(21px,1vw + 17px,25px);line-height:1.3;letter-spacing:-.015em;font-weight:650;color:var(--acc-ink)}
+.kat section{margin-top:clamp(38px,5vw,52px)}
+.kat h2{font-size:clamp(26px,1.2vw + 21px,32px);line-height:1.15;letter-spacing:-.025em;font-weight:700;color:var(--ink);text-wrap:balance}
+.st{white-space:nowrap;color:var(--acc-ink)}
+.kat section > * + *{margin-top:16px}
+.kat li{text-wrap:pretty}
+.kat b{font-weight:650;color:var(--ink)}
+
+/* шаги: номер рисует стиль в кружке, список остаётся настоящим (имя .znum — потому что .steps занят общим стилем сайта) */
+.znum{display:grid;gap:16px;counter-reset:e}
+.znum li{position:relative;counter-increment:e;min-height:34px;padding-left:48px}
+.znum li::before{content:counter(e);content:counter(e) / "";position:absolute;left:0;top:-1px;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:#E4DBFF;color:#4A33C8;font-size:17px;font-weight:700;line-height:1}
+
+/* «Важно» и «Совет» — спокойная плашка */
+.imp{padding:16px 18px 16px 22px;border-radius:18px;background:rgba(255,255,255,.72);border:1px solid #fff;box-shadow:inset 4px 0 0 var(--acc),0 1px 2px rgba(30,20,90,.05),0 12px 32px -18px rgba(60,45,150,.3)}
+.imp b{color:var(--acc-ink)}
+
+/* когда отправлять, и сам текст — в «пузыре» сообщения; нажатие выделяет весь текст сразу, чтобы его было легко скопировать */
+.when{font-size:17px;line-height:1.5}
+.msg{padding:18px 20px;border-radius:6px 24px 24px 24px;background:#fff;color:var(--ink);font-size:19px;line-height:1.55;-webkit-user-select:all;user-select:all;box-shadow:0 0 0 1px rgba(40,30,110,.1),0 1px 2px rgba(30,20,90,.05),0 12px 32px -18px rgba(60,45,150,.3)}
+.ph{font-weight:600;color:var(--acc-ink)}
+.sc{white-space:nowrap} /* ярлык «/завтра» не рвём на «/» и «завтра» */
+
+/* призыв в конце */
+.kat .cta{margin-top:26px;padding:20px 16px;border-radius:26px;box-shadow:0 1px 0 rgba(255,255,255,.95) inset,0 24px 50px -26px rgba(90,69,227,.55)}
+.cta p{font-size:20px;line-height:1.5;font-weight:500;color:var(--ink)}
+.kat__btn{width:100%;min-height:60px;margin-top:18px;padding:14px 12px;gap:8px;font-size:18px;line-height:1.2;white-space:normal;text-align:center}
+.sign{padding:0 var(--kg) clamp(32px,6vw,64px);text-align:center}
+.sign a{display:inline-flex;align-items:center;min-height:48px;padding:0 12px;font-weight:650;color:var(--acc-ink);text-decoration:underline;text-underline-offset:3px}
+@media (max-width:379px){.kat__btn .ico,.kat__btn .wa{display:none}} /* на узком экране подпись кнопки помещается в одну строку */
+@media (min-width:600px){
+  .kat .cta{padding:28px}
+  .kat__btn{width:auto;min-width:340px;padding:14px 22px;gap:10px}
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-mark" viewBox="0 0 1140 1000"><path fill="currentColor" d="M81.5 9.9A6 6 0 0 1 86 0L640 0A500 500 0 0 1 640 1000L161 1000A6 6 0 0 1 156.5 990.1L341.6 774.1A6 6 0 0 1 346.2 772L640 772A272 272 0 0 0 640 228L271.2 228A6 6 0 0 1 266.6 225.9ZM348.8 365.1A6 6 0 0 1 353.3 363L607 363A6 6 0 0 1 611.5 372.9L75.8 997.9A6 6 0 0 1 71.2 1000L6 1000A6 6 0 0 1 0 994L0 774.2A6 6 0 0 1 1.4 770.3Z"/></symbol>
+  <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></symbol>
+</svg>
+<div class="bg" aria-hidden="true"></div>
+<a class="skip" href="#main">К содержимому</a>
+
+<header class="khdr">
+  <div class="khdr__in glass">
+    <a class="brand" href="../" aria-label="Dorvan — на главную">
+      <svg class="brand__mark" viewBox="0 0 1140 1000" aria-hidden="true"><use href="#i-mark"/></svg>
+      <b>Dorvan</b>
+    </a>
+  </div>
+</header>
+
+<main id="main" class="kat">
+  <h1>Тексты напоминаний о записи для WhatsApp</h1>
+  <p class="kat__lead">Четыре коротких текста: сохраните один раз — дальше отправка в два касания.</p>
+
+  <section>
+    <h2>Как сохранить текст быстрым ответом</h2>
+    <p>Нужно приложение WhatsApp Business. Если у вас обычный WhatsApp, при переходе можно оставить этот же номер и чаты — приложение предложит это само.</p>
+    <ol class="znum" role="list">
+      <li>Откройте <b>Инструменты для бизнеса → Быстрые ответы</b>.</li>
+      <li>Нажмите <b>«Добавить»</b>.</li>
+      <li>Вставьте текст одного из шаблонов ниже. Чтобы скопировать, нажмите на текст и удерживайте.</li>
+      <li>В поле «Ярлык» напишите <b>завтра</b> — получится ярлык <b class="sc">/завтра</b>. Сохраните.</li>
+      <li>В чате с клиенткой наберите знак <b class="sc">/</b>: появится список быстрых ответов. Выберите <b class="sc">«/завтра»</b> — текст встанет в строку сообщения. Замените слова в квадратных скобках и отправьте.</li>
+    </ol>
+    <p class="imp"><b>Важно:</b> слова в квадратных скобках — <span class="ph">[имя]</span>, <span class="ph">[время]</span>, <span class="ph">[услуга]</span> — замените своими данными перед отправкой.</p>
+  </section>
+
+  <section>
+    <h2><span class="st">Текст 1.</span> Накануне записи</h2>
+    <p class="when">Отправьте вечером, за день до записи. Ярлык: <b class="sc">/завтра</b></p>
+    <p class="msg">Здравствуйте, <span class="ph">[имя]</span>! Напоминаю: вы записаны завтра на <span class="ph">[время]</span>. Услуга: <span class="ph">[услуга]</span>. Ответьте «+», пожалуйста, если всё в силе. Если планы изменились, напишите — запись можно перенести.</p>
+  </section>
+
+  <section>
+    <h2><span class="st">Текст 2.</span> Если нет ответа к утру</h2>
+    <p class="when">Отправьте утром в день записи. Ярлык: <b class="sc">/утро</b></p>
+    <p class="msg">Доброе утро, <span class="ph">[имя]</span>! Напоминаю про запись сегодня на <span class="ph">[время]</span>. Услуга: <span class="ph">[услуга]</span>. Подскажите, пожалуйста, вы сможете прийти? Если не получится — ничего страшного, просто напишите.</p>
+  </section>
+
+  <section>
+    <h2><span class="st">Текст 3.</span> Время для клиентки из листа ожидания</h2>
+    <p class="when">Отправьте, когда время освободилось. Ярлык: <b class="sc">/освободилось</b></p>
+    <p class="msg">Здравствуйте, <span class="ph">[имя]</span>! Освободилось время сегодня на <span class="ph">[время]</span>. Услуга: <span class="ph">[услуга]</span>. Если вам по-прежнему удобно, ответьте «+» — и запись за вами. Если уже не получится — ничего страшного.</p>
+  </section>
+
+  <section>
+    <h2><span class="st">Текст 4.</span> После визита</h2>
+    <p class="when">Отправьте в тот же вечер или на следующий день. Ярлык: <b class="sc">/спасибо</b></p>
+    <p class="msg"><span class="ph">[имя]</span>, спасибо, что пришли! Надеюсь, вам всё понравилось. Если захотите записаться снова — просто напишите сюда, подберу удобное время. Хорошего вам дня!</p>
+  </section>
+
+  <section>
+    <h2>Если клиентка не ответила</h2>
+    <p class="imp"><b>Совет:</b> кто не ответил до утра — позвоните. Не берёт — предложите время из листа ожидания: для этого есть текст 3.</p>
+    <p>Лист ожидания — обычная заметка в телефоне: имя и удобное время тех, кому вы отказали, потому что время было занято.</p>
+    <div class="cta glass">
+      <p>Если не хотите писать каждой вручную — делаю бота, который сам напоминает за день.</p>
+      <a class="btn btn--dark btn--lg kat__btn" href="https://wa.me/992119921803?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B1%D0%BE%D1%82%D0%B0%2C%20%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D0%B9%20%D1%81%D0%B0%D0%BC%20%D0%BD%D0%B0%D0%BF%D0%BE%D0%BC%D0%B8%D0%BD%D0%B0%D0%B5%D1%82%20%D0%BA%D0%BB%D0%B8%D0%B5%D0%BD%D1%82%D0%B0%D0%BC%20%D0%BE%20%D0%B7%D0%B0%D0%BF%D0%B8%D1%81%D0%B8%20%E2%80%94%20%D0%BF%D0%BE%20%D0%B2%D0%B0%D1%88%D0%B8%D0%BC%20%D1%82%D0%B5%D0%BA%D1%81%D1%82%D0%B0%D0%BC%20%D0%B4%D0%BB%D1%8F%20WhatsApp" rel="noopener"><span class="wa" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg></span>Написать в WhatsApp</a>
+    </div>
+  </section>
+</main>
+
+<footer class="sign">
+  <a href="https://www.instagram.com/dorvan.tj/" rel="noopener">@dorvan.tj</a>
+</footer>
+</body>
+</html>
