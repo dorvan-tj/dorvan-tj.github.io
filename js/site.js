@@ -17,17 +17,23 @@
     matchMedia('(min-width:760px)').addEventListener('change', (e) => { if (e.matches) set(false); });
   }
 
-  /* услуги: переключатель Сайты · Боты · Приложения (стрелки, Home и End — как у обычных вкладок) */
-  const tabs = $$('[role="tab"]');
-  if (tabs.length) {
-    const pick = (t, focus) => {
-      tabs.forEach((x) => {
-        const on = x === t;
-        x.setAttribute('aria-selected', String(on)); x.tabIndex = on ? 0 : -1;
-        $('#' + x.getAttribute('aria-controls')).hidden = !on;
-      });
-      if (focus) t.focus();
+  /* переключатели (услуги, примеры): стрелки, Home и End — как у обычных вкладок; выбранная вкладка всегда видна в строке; без перезагрузки */
+  const calmMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  $$('[data-tabs]').forEach((list) => {
+    const tabs = $$('[role="tab"]', list), panel = document.getElementById(tabs[0].getAttribute('aria-controls')), parts = $$('[data-g]', panel);
+    const into = (t) => { // вкладка целиком в видимой части строки (на телефоне строка прокручивается вбок)
+      const to = t.offsetLeft - (list.clientWidth - t.offsetWidth) / 2;
+      if (list.scrollWidth > list.clientWidth + 1) list.scrollTo({ left: Math.max(0, to), behavior: calmMotion ? 'auto' : 'smooth' });
     };
+    const pick = (t, focus, first) => {
+      const f = t.dataset.f;
+      tabs.forEach((x) => { const on = x === t; x.setAttribute('aria-selected', String(on)); x.tabIndex = on ? 0 : -1; });
+      panel.setAttribute('aria-labelledby', t.id); panel.dataset.view = f;
+      parts.forEach((g) => { g.hidden = !(f === 'all' || g.dataset.g === f); });
+      if (!calmMotion && !first) { panel.classList.remove('is-swap'); void panel.offsetWidth; panel.classList.add('is-swap'); } // панель плавно сменяется (CSS html.motion .is-swap)
+      into(t); if (focus) t.focus();
+    };
+    panel.addEventListener('animationend', (e) => { if (e.target === panel) panel.classList.remove('is-swap'); });
     tabs.forEach((t, i) => {
       t.addEventListener('click', () => pick(t));
       t.addEventListener('keydown', (e) => {
@@ -36,6 +42,39 @@
         e.preventDefault(); pick(tabs[(to + tabs.length) % tabs.length], true);
       });
     });
+  });
+
+  /* калькулятор: галочки → сумма «от $…»; две услуги и больше — скидка 10%; «срочно» +30%; кнопка отправляет готовый текст в WhatsApp.
+     Цены берутся из data-price у вариантов (их пишет gen-services.py из той же таблицы, что и карточки). Проценты применяются по очереди, сумма — в целых долларах */
+  const calc = $('#calc');
+  if (calc) {
+    const form = $('#calc-form'), lines = $('#calc-lines'), empty = $('#calc-empty'), totalRow = $('#calc-total'), sumEl = $('#calc-sum'), live = $('#calc-live'), send = $('#calc-send'), rush = $('#calc-rush');
+    const usd = (n) => '$' + n, row = (cls, name, val) => { const li = document.createElement('li'), b = document.createElement('b'); if (cls) li.className = cls; li.append(name, b); b.textContent = val; return li; };
+    let shown = 0, raf = 0, tid = 0;
+    const count = (to) => { // число в «Итого» плавно догоняет новое значение; запасной таймер ставит точное число, даже если вкладка скрыта и кадры не рисуются
+      cancelAnimationFrame(raf); clearTimeout(tid); const from = shown; shown = to;
+      if (calmMotion || from === to) { sumEl.textContent = 'от ' + usd(to); return; }
+      const t0 = performance.now();
+      const step = (t) => { const k = Math.min(1, (t - t0) / 320); sumEl.textContent = 'от ' + usd(Math.round(from + (to - from) * (1 - Math.pow(1 - k, 3)))); if (k < 1) raf = requestAnimationFrame(step); };
+      raf = requestAnimationFrame(step); tid = setTimeout(() => { cancelAnimationFrame(raf); sumEl.textContent = 'от ' + usd(to); }, 420);
+    };
+    const update = () => {
+      const sel = $$('input[data-price]:checked', form);
+      const sum = sel.reduce((n, i) => n + Number(i.dataset.price), 0);
+      const disc = sel.length >= 2 ? Math.round(sum * 0.1) : 0, after = sum - disc;
+      const extra = rush.checked && sel.length ? Math.round(after * 0.3) : 0, total = after + extra;
+      lines.replaceChildren(...sel.map((i) => row('', i.dataset.name, (i.dataset.from ? 'от ' : '') + usd(i.dataset.price))),
+        ...(disc ? [row('is-disc', 'Скидка за связку −10%', '−' + usd(disc))] : []), ...(extra ? [row('is-rush', 'Срочно (2–3 дня) +30%', '+' + usd(extra))] : []));
+      empty.hidden = sel.length > 0; totalRow.hidden = !sel.length;
+      count(total);
+      live.textContent = sel.length ? 'Итого от ' + total + ' долларов' + (disc ? ', скидка за связку десять процентов' : '') : 'Ничего не выбрано';
+      if (sel.length) {
+        const msg = ['Здравствуйте! Хочу заказать:', ...sel.map((i) => '• ' + i.dataset.name + ' — ' + (i.dataset.from ? 'от ' : '') + usd(i.dataset.price)),
+          ...(disc ? ['Скидка за связку −10%: −' + usd(disc)] : []), ...(extra ? ['Срочно (2–3 дня) +30%: +' + usd(extra)] : []), 'Итого: от ' + usd(total), 'Цена ориентировочная.'].join('\n');
+        send.href = 'https://wa.me/' + wa + '?text=' + encodeURIComponent(msg); send.removeAttribute('aria-disabled');
+      } else { send.removeAttribute('href'); send.setAttribute('aria-disabled', 'true'); }
+    };
+    form.addEventListener('change', update); form.addEventListener('submit', (e) => e.preventDefault()); update();
   }
 
   /* шапка: подсвечиваем раздел, который сейчас на экране («Услуги» — вместе с «Почему без риска», «Как работаем» — до подвала) */

@@ -3,8 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script>(function(d,n,m){d.classList.add('js');if(!m('(prefers-reduced-motion: reduce)').matches){d.classList.add('motion');if(window.CSS&&CSS.supports&&CSS.supports('animation-timeline: view()'))d.classList.add('sv')}var c=n.connection;if(n.deviceMemory<=4||n.hardwareConcurrency<=4||(c&&c.saveData))d.classList.add('lite')})(document.documentElement,navigator,matchMedia)</script>
 <title>Dorvan — сайты и Telegram-боты для малого бизнеса, от $15</title>
-<meta name="description" content="Сайты, Telegram-боты и приложения для малого бизнеса в Душанбе. Сайт от $20 за 1 день, бот от $15. Бесплатный набросок до оплаты, остаток 50% — после приёмки.">
+<meta name="description" content="Сайты, Telegram-боты и приложения для малого бизнеса в Душанбе. Сайт от $20 за 1 день, бот от $15. Предоплата 50%, 2 круга правок, остаток — после приёмки.">
 <meta name="theme-color" content="#ECEAF4">
 <meta name="color-scheme" content="light">
 <link rel="canonical" href="https://dorvan.pro/">
@@ -13,7 +14,7 @@
 <meta property="og:locale" content="ru_RU">
 <meta property="og:url" content="https://dorvan.pro/">
 <meta property="og:title" content="Dorvan — сайты и Telegram-боты для малого бизнеса, от $15">
-<meta property="og:description" content="Сайт от $20 за 1 день, бот от $15. Бесплатный набросок до оплаты, остаток 50% — после приёмки работы.">
+<meta property="og:description" content="Сайт от $20 за 1 день, бот от $15. Предоплата 50%, 2 круга правок, остаток — после приёмки работы.">
 <meta property="og:image" content="https://dorvan.pro/assets/og.jpg">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
@@ -75,12 +76,13 @@
 
   <!-- ===== 1. главный экран ===== -->
   <section class="hero" aria-labelledby="h1">
+    <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
     <div class="wrap hero__grid">
       <div class="hero__copy">
         <h1 id="h1">Сайты и <span class="nw">Telegram-боты</span> для малого бизнеса</h1>
         <p class="hero__sub">
           <b>От $20, готово за 1–4 дня.</b>
-          <span><i class="tick"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg></i>Бесплатный набросок до оплаты</span>
+          <span><i class="tick"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg></i>2 круга правок входят в цену</span>
         </p>
         <div class="hero__cta">
           <a class="btn btn--dark btn--lg" href="https://wa.me/992119921803?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BE%D0%B1%D1%81%D1%83%D0%B4%D0%B8%D1%82%D1%8C%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7" target="_blank" rel="noopener"><span class="wa" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg></span>Написать в WhatsApp</a>
@@ -106,178 +108,350 @@
         <span class="label">Услуги</span>
         <h2 class="h2" id="h-services">Что делаем и сколько это стоит</h2>
       </header>
-      <div class="tabs glass" role="tablist" aria-label="Что вам нужно">
-        <button type="button" class="tab" role="tab" id="tab-sites" aria-selected="true" aria-controls="panel-sites">Сайты</button>
-        <button type="button" class="tab" role="tab" id="tab-bots" aria-selected="false" aria-controls="panel-bots" tabindex="-1">Боты</button>
-        <button type="button" class="tab" role="tab" id="tab-apps" aria-selected="false" aria-controls="panel-apps" tabindex="-1">Приложения</button>
+      <div class="tabs glass" role="tablist" aria-label="Что вам нужно" data-tabs="svc">
+        <button type="button" class="tab" role="tab" id="tab-all" aria-selected="true" aria-controls="svc-panel" data-f="all">Все</button>
+        <button type="button" class="tab" role="tab" id="tab-sites" aria-selected="false" aria-controls="svc-panel" data-f="sites" tabindex="-1">Сайты</button>
+        <button type="button" class="tab" role="tab" id="tab-bots" aria-selected="false" aria-controls="svc-panel" data-f="bots" tabindex="-1">Боты</button>
+        <button type="button" class="tab" role="tab" id="tab-apps" aria-selected="false" aria-controls="svc-panel" data-f="apps" tabindex="-1">Приложения</button>
+        <button type="button" class="tab" role="tab" id="tab-promo" aria-selected="false" aria-controls="svc-panel" data-f="promo" tabindex="-1">Продвижение</button>
+        <button type="button" class="tab" role="tab" id="tab-packs" aria-selected="false" aria-controls="svc-panel" data-f="packs" tabindex="-1">Пакеты</button>
       </div>
-      <div id="panel-sites" role="tabpanel" aria-labelledby="tab-sites">
-        <ul class="prices">
-        <li class="price glass">
-          <h3>Старт</h3>
-          <div class="price__row"><p class="price__sum"><b>$20</b></p><p class="price__term"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>1 день</p></div>
-          <ul class="ticks">
-            <li>Одна страница: главный экран с фото</li>
-            <li>Услуги списком</li>
-            <li>Кнопки связи: WhatsApp и звонок</li>
-            <li>Карта и адрес — вас легко найти</li>
-          </ul>
-          <div class="price__btns">
-            <a class="btn btn--glass" href="demos/20-salon/" target="_blank" rel="noopener" aria-label="Посмотреть пример: Сайт «Старт»">Посмотреть пример</a>
-            <a class="btn btn--dark" href="https://wa.me/992119921803?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%3A%20%D0%A1%D0%B0%D0%B9%D1%82%20%C2%AB%D0%A1%D1%82%D0%B0%D1%80%D1%82%C2%BB" target="_blank" rel="noopener" aria-label="Заказать в WhatsApp: Сайт «Старт»"><span class="wa" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg></span>Заказать</a>
-          </div>
-        </li>
-        <li class="price glass">
-          <h3>Визитка</h3>
-          <div class="price__row"><p class="price__sum"><b>$40</b></p><p class="price__term"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>1–2 дня</p></div>
-          <ul class="ticks">
-            <li>Всё, что в «Старте»</li>
-            <li>Услуги и прайс</li>
-            <li>Галерея работ</li>
-            <li>Часы работы, вопросы и ответы</li>
-            <li>Кнопка звонка всегда на экране</li>
-          </ul>
-          <div class="price__btns">
-            <a class="btn btn--glass" href="demos/40-cafe/" target="_blank" rel="noopener" aria-label="Посмотреть пример: Сайт «Визитка»">Посмотреть пример</a>
-            <a class="btn btn--dark" href="https://wa.me/992119921803?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%3A%20%D0%A1%D0%B0%D0%B9%D1%82%20%C2%AB%D0%92%D0%B8%D0%B7%D0%B8%D1%82%D0%BA%D0%B0%C2%BB" target="_blank" rel="noopener" aria-label="Заказать в WhatsApp: Сайт «Визитка»"><span class="wa" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg></span>Заказать</a>
-          </div>
-        </li>
-        <li class="price glass">
-          <h3>Визитка+</h3>
-          <div class="price__row"><p class="price__sum"><b>$70</b></p><p class="price__term"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>2–3 дня</p></div>
-          <ul class="ticks">
-            <li>Всё, что в «Визитке»</li>
-            <li>Заявки с сайта приходят вам сразу</li>
-            <li>Простая админка через бота: цены и тексты меняете сами</li>
-            <li>Отметка «закрыто сегодня» одним сообщением</li>
-            <li>QR-код на ваш сайт</li>
-          </ul>
-          <div class="price__btns">
-            <a class="btn btn--glass" href="demos/70-template/bakery/" target="_blank" rel="noopener" aria-label="Посмотреть пример: Сайт «Визитка+»">Посмотреть пример</a>
-            <a class="btn btn--dark" href="https://wa.me/992119921803?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%3A%20%D0%A1%D0%B0%D0%B9%D1%82%20%C2%AB%D0%92%D0%B8%D0%B7%D0%B8%D1%82%D0%BA%D0%B0%2B%C2%BB" target="_blank" rel="noopener" aria-label="Заказать в WhatsApp: Сайт «Визитка+»"><span class="wa" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg></span>Заказать</a>
-          </div>
-        </li>
-        <li class="price price--top glass">
-          <span class="price__badge"><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>Рекомендуем</span>
-          <h3>Вау</h3>
-          <div class="price__row"><p class="price__sum"><b>$100</b></p><p class="price__term"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>3–4 дня</p></div>
-          <ul class="ticks">
-            <li>Свой дизайн, 8–10 блоков, картинки ИИ</li>
-            <li>Одна фишка: калькулятор, меню или «до/после»</li>
-            <li>Полная админка: цены, фото, меню, стоп-лист</li>
-            <li>Бот заявок, QR-табличка, карточка 2ГИС, оформление Instagram, превью ссылки</li>
-            <li>1 месяц сопровождения</li>
-          </ul>
-          <div class="price__btns">
-            <a class="btn btn--glass" href="demos/100-restaurant/" target="_blank" rel="noopener" aria-label="Посмотреть пример: Сайт «Вау»">Посмотреть пример</a>
-            <a class="btn btn--dark" href="https://wa.me/992119921803?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%3A%20%D0%A1%D0%B0%D0%B9%D1%82%20%C2%AB%D0%92%D0%B0%D1%83%C2%BB" target="_blank" rel="noopener" aria-label="Заказать в WhatsApp: Сайт «Вау»"><span class="wa" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg></span>Заказать</a>
-          </div>
-        </li>
+      <div class="svc" id="svc-panel" role="tabpanel" aria-labelledby="tab-all" data-view="all">
+<!-- gen:groups:start -->
+      <section class="grp" data-g="sites" aria-labelledby="g-sites">
+        <header class="grp__head"><h3 id="g-sites">Сайты</h3><p>От одной страницы до сайта с админкой.</p></header>
+        <ul class="prices prices--4">
+          <li class="price glass" data-svc="site-start">
+            <h4>Старт</h4>
+            <div class="price__row"><p class="price__sum"><b>$20</b></p><p class="price__term"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>1 день</p></div>
+            <ul class="ticks">
+              <li>Одна страница: главный экран с фото</li>
+              <li>Услуги списком</li>
+              <li>Кнопки связи: WhatsApp и звонок</li>
+              <li>Карта и адрес — вас легко найти</li>
+            </ul>
+            <div class="price__btns">
+              <a class="btn btn--glass" href="demos/20-salon/" target="_blank" rel="noopener" aria-label="Посмотреть пример: Сайт «Старт»">Посмотреть пример</a>
+              <a class="btn btn--dark" href="https://wa.me/992119921803?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%3A%20%D0%A1%D0%B0%D0%B9%D1%82%20%C2%AB%D0%A1%D1%82%D0%B0%D1%80%D1%82%C2%BB" target="_blank" rel="noopener" aria-label="Заказать в WhatsApp: Сайт «Старт»"><span class="wa" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg></span>Заказать</a>
+            </div>
+          </li>
+          <li class="price glass" data-svc="site-vizitka">
+            <h4>Визитка</h4>
+            <div class="price__row"><p class="price__sum"><b>$40</b></p><p class="price__term"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>1–2 дня</p></div>
+            <ul class="ticks">
+              <li>Всё, что в «Старте»</li>
+              <li>Услуги и прайс</li>
+              <li>Галерея работ</li>
+              <li>Часы работы, вопросы и ответы</li>
+              <li>Кнопка звонка всегда на экране</li>
+            </ul>
+            <div class="price__btns">
+              <a class="btn btn--glass" href="demos/40-cafe/" target="_blank" rel="noopener" aria-label="Посмотреть пример: Сайт «Визитка»">Посмотреть пример</a>
+              <a class="btn btn--dark" href="https://wa.me/992119921803?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%3A%20%D0%A1%D0%B0%D0%B9%D1%82%20%C2%AB%D0%92%D0%B8%D0%B7%D0%B8%D1%82%D0%BA%D0%B0%C2%BB" target="_blank" rel="noopener" aria-label="Заказать в WhatsApp: Сайт «Визитка»"><span class="wa" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg></span>Заказать</a>
+            </div>
+          </li>
+          <li class="price glass" data-svc="site-vizitka-plus">
+            <h4>Визитка+</h4>
+            <div class="price__row"><p class="price__sum"><b>$70</b></p><p class="price__term"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>2–3 дня</p></div>
+            <ul class="ticks">
+              <li>Всё, что в «Визитке»</li>
+              <li>Заявки с сайта приходят вам сразу</li>
+              <li>Простая админка через бота: цены и тексты меняете сами</li>
+              <li>Отметка «закрыто сегодня» одним сообщением</li>
+              <li>QR-код на ваш сайт</li>
+            </ul>
+            <div class="price__btns">
+              <a class="btn btn--glass" href="demos/70-template/bakery/" target="_blank" rel="noopener" aria-label="Посмотреть пример: Сайт «Визитка+»">Посмотреть пример</a>
+              <a class="btn btn--dark" href="https://wa.me/992119921803?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%3A%20%D0%A1%D0%B0%D0%B9%D1%82%20%C2%AB%D0%92%D0%B8%D0%B7%D0%B8%D1%82%D0%BA%D0%B0%2B%C2%BB" target="_blank" rel="noopener" aria-label="Заказать в WhatsApp: Сайт «Визитка+»"><span class="wa" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg></span>Заказать</a>
+            </div>
+          </li>
+          <li class="price glass price--top" data-svc="site-wow">
+            <span class="price__badge"><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>Рекомендуем</span>
+            <h4>Вау</h4>
+            <div class="price__row"><p class="price__sum"><b>$100</b></p><p class="price__term"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>3–4 дня</p></div>
+            <ul class="ticks">
+              <li>Свой дизайн, 8–10 блоков, картинки ИИ</li>
+              <li>Одна фишка: калькулятор, меню или «до/после»</li>
+              <li>Полная админка: цены, фото, меню, стоп-лист</li>
+              <li>Бот заявок, QR-табличка, карточка 2ГИС, оформление Instagram, превью ссылки</li>
+              <li>1 месяц сопровождения</li>
+            </ul>
+            <div class="price__btns">
+              <a class="btn btn--glass" href="demos/100-restaurant/" target="_blank" rel="noopener" aria-label="Посмотреть пример: Сайт «Вау»">Посмотреть пример</a>
+              <a class="btn btn--dark" href="https://wa.me/992119921803?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%3A%20%D0%A1%D0%B0%D0%B9%D1%82%20%C2%AB%D0%92%D0%B0%D1%83%C2%BB" target="_blank" rel="noopener" aria-label="Заказать в WhatsApp: Сайт «Вау»"><span class="wa" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg></span>Заказать</a>
+            </div>
+          </li>
         </ul>
-      </div>
-      <div id="panel-bots" role="tabpanel" aria-labelledby="tab-bots" hidden>
-        <ul class="prices">
-        <li class="price glass">
-          <h3>Старт</h3>
-          <div class="price__row"><p class="price__sum"><b>$15</b></p><p class="price__term"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>1 день</p></div>
-          <ul class="ticks">
-            <li>Приветствие и меню из кнопок</li>
-            <li>Ответы на частые вопросы</li>
-            <li>Адрес, часы работы и прайс</li>
-            <li>Кнопка связи с вами</li>
-          </ul>
-          <div class="price__btns">
-            <a class="btn btn--dark" href="https://wa.me/992119921803?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%3A%20%D0%91%D0%BE%D1%82%20%C2%AB%D0%A1%D1%82%D0%B0%D1%80%D1%82%C2%BB" target="_blank" rel="noopener" aria-label="Заказать в WhatsApp: Бот «Старт»"><span class="wa" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg></span>Заказать</a>
-          </div>
-        </li>
-        <li class="price glass">
-          <h3>Заявки</h3>
-          <div class="price__row"><p class="price__sum"><b>$30</b></p><p class="price__term"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>1–2 дня</p></div>
-          <ul class="ticks">
-            <li>Всё, что в «Старте»</li>
-            <li>Бот собирает заявки: имя, телефон, что нужно</li>
-            <li>Каждая заявка сразу приходит вам</li>
-            <li>Клиент видит, что заявка принята</li>
-          </ul>
-          <div class="price__btns">
-            <a class="btn btn--dark" href="https://wa.me/992119921803?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%3A%20%D0%91%D0%BE%D1%82%20%C2%AB%D0%97%D0%B0%D1%8F%D0%B2%D0%BA%D0%B8%C2%BB" target="_blank" rel="noopener" aria-label="Заказать в WhatsApp: Бот «Заявки»"><span class="wa" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg></span>Заказать</a>
-          </div>
-        </li>
-        <li class="price price--top glass">
-          <span class="price__badge"><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>Рекомендуем</span>
-          <h3>Запись</h3>
-          <div class="price__row"><p class="price__sum"><b>$50</b></p><p class="price__term"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>2–4 дня</p></div>
-          <ul class="ticks">
-            <li>Клиент сам выбирает услугу, день и время</li>
-            <li>Вам сразу приходит уведомление о записи</li>
-            <li>Напоминание клиенту за день до визита</li>
-            <li>Перенос и отмена в пару нажатий</li>
-          </ul>
-          <div class="price__btns">
-            <a class="btn btn--glass" href="demos/500-bot/" target="_blank" rel="noopener" aria-label="Посмотреть пример: Бот «Запись»">Посмотреть пример</a>
-            <a class="btn btn--dark" href="https://wa.me/992119921803?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%3A%20%D0%91%D0%BE%D1%82%20%C2%AB%D0%97%D0%B0%D0%BF%D0%B8%D1%81%D1%8C%C2%BB" target="_blank" rel="noopener" aria-label="Заказать в WhatsApp: Бот «Запись»"><span class="wa" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg></span>Заказать</a>
-          </div>
-        </li>
-        <li class="price glass">
-          <h3>Про</h3>
-          <div class="price__row"><p class="price__sum"><b>$90</b></p><p class="price__term"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>5–7 дней</p></div>
-          <ul class="ticks">
-            <li>Всё, что в «Записи»</li>
-            <li>Рассылки клиентам: акции одним сообщением</li>
-            <li>База клиентов: имена, телефоны, визиты</li>
-            <li>Отчёт за неделю: записи, отмены, новые клиенты</li>
-          </ul>
-          <div class="price__btns">
-            <a class="btn btn--glass" href="demos/500-bot/" target="_blank" rel="noopener" aria-label="Посмотреть пример: Бот «Про»">Посмотреть пример</a>
-            <a class="btn btn--dark" href="https://wa.me/992119921803?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%3A%20%D0%91%D0%BE%D1%82%20%C2%AB%D0%9F%D1%80%D0%BE%C2%BB" target="_blank" rel="noopener" aria-label="Заказать в WhatsApp: Бот «Про»"><span class="wa" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg></span>Заказать</a>
-          </div>
-        </li>
+      </section>
+      <section class="grp" data-g="bots" aria-labelledby="g-bots">
+        <header class="grp__head"><h3 id="g-bots">Telegram-боты</h3><p>Принимают заявки и записи и отвечают клиентам, пока вы заняты.</p></header>
+        <ul class="prices prices--5">
+          <li class="price glass" data-svc="bot-leads">
+            <h4>Заявки</h4>
+            <div class="price__row"><p class="price__sum"><b>$15</b></p><p class="price__term"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>1–2 дня</p></div>
+            <ul class="ticks">
+              <li>Бот собирает заявки: имя, телефон, что нужно</li>
+              <li>Каждая заявка сразу приходит вам</li>
+              <li>Клиент видит, что заявка принята</li>
+            </ul>
+            <div class="price__btns">
+              <a class="btn btn--dark" href="https://wa.me/992119921803?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%3A%20%D0%91%D0%BE%D1%82%20%C2%AB%D0%97%D0%B0%D1%8F%D0%B2%D0%BA%D0%B8%C2%BB" target="_blank" rel="noopener" aria-label="Заказать в WhatsApp: Бот «Заявки»"><span class="wa" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg></span>Заказать</a>
+            </div>
+          </li>
+          <li class="price glass" data-svc="bot-menu">
+            <h4>Меню/прайс</h4>
+            <div class="price__row"><p class="price__sum"><b>$15</b></p><p class="price__term"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>1 день</p></div>
+            <ul class="ticks">
+              <li>Приветствие и меню из кнопок</li>
+              <li>Ответы на частые вопросы</li>
+              <li>Адрес, часы работы и прайс</li>
+              <li>Кнопка связи с вами</li>
+            </ul>
+            <div class="price__btns">
+              <a class="btn btn--dark" href="https://wa.me/992119921803?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%3A%20%D0%91%D0%BE%D1%82%20%C2%AB%D0%9C%D0%B5%D0%BD%D1%8E%2F%D0%BF%D1%80%D0%B0%D0%B9%D1%81%C2%BB" target="_blank" rel="noopener" aria-label="Заказать в WhatsApp: Бот «Меню/прайс»"><span class="wa" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg></span>Заказать</a>
+            </div>
+          </li>
+          <li class="price glass price--top" data-svc="bot-booking">
+            <span class="price__badge"><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>Рекомендуем</span>
+            <h4>Запись</h4>
+            <div class="price__row"><p class="price__sum"><b>$30</b></p><p class="price__term"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>2–4 дня</p></div>
+            <ul class="ticks">
+              <li>Клиент сам выбирает услугу, день и время</li>
+              <li>Вам сразу приходит уведомление о записи</li>
+              <li>Напоминание клиенту за день до визита</li>
+              <li>Перенос и отмена в пару нажатий</li>
+            </ul>
+            <div class="price__btns">
+              <a class="btn btn--glass" href="demos/500-bot/" target="_blank" rel="noopener" aria-label="Посмотреть пример: Бот «Запись»">Посмотреть пример</a>
+              <a class="btn btn--dark" href="https://wa.me/992119921803?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%3A%20%D0%91%D0%BE%D1%82%20%C2%AB%D0%97%D0%B0%D0%BF%D0%B8%D1%81%D1%8C%C2%BB" target="_blank" rel="noopener" aria-label="Заказать в WhatsApp: Бот «Запись»"><span class="wa" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg></span>Заказать</a>
+            </div>
+          </li>
+          <li class="price glass" data-svc="bot-orders">
+            <h4>Заказы</h4>
+            <div class="price__row"><p class="price__sum"><b>$30</b></p><p class="price__term"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>2–4 дня</p></div>
+            <ul class="ticks">
+              <li>Каталог в боте: товары или блюда с ценами</li>
+              <li>Клиент собирает заказ и отправляет его</li>
+              <li>Заказ сразу приходит вам</li>
+            </ul>
+            <div class="price__btns">
+              <a class="btn btn--dark" href="https://wa.me/992119921803?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%3A%20%D0%91%D0%BE%D1%82%20%C2%AB%D0%97%D0%B0%D0%BA%D0%B0%D0%B7%D1%8B%C2%BB" target="_blank" rel="noopener" aria-label="Заказать в WhatsApp: Бот «Заказы»"><span class="wa" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg></span>Заказать</a>
+            </div>
+          </li>
+          <li class="price glass" data-svc="bot-pro">
+            <h4>Про</h4>
+            <div class="price__row"><p class="price__sum"><b>$50</b></p><p class="price__term"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>5–7 дней</p></div>
+            <ul class="ticks">
+              <li>Всё из остальных ботов в одном</li>
+              <li>Рассылки клиентам: акции одним сообщением</li>
+              <li>База клиентов: имена, телефоны, визиты</li>
+              <li>Отчёт за неделю: записи, отмены, новые клиенты</li>
+            </ul>
+            <div class="price__btns">
+              <a class="btn btn--glass" href="demos/500-bot/" target="_blank" rel="noopener" aria-label="Посмотреть пример: Бот «Про»">Посмотреть пример</a>
+              <a class="btn btn--dark" href="https://wa.me/992119921803?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%3A%20%D0%91%D0%BE%D1%82%20%C2%AB%D0%9F%D1%80%D0%BE%C2%BB" target="_blank" rel="noopener" aria-label="Заказать в WhatsApp: Бот «Про»"><span class="wa" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg></span>Заказать</a>
+            </div>
+          </li>
         </ul>
-      </div>
-      <div id="panel-apps" role="tabpanel" aria-labelledby="tab-apps" hidden>
+      <p class="grp__note">Делаем ботов для Telegram. Оплату картой в боте, ботов для WhatsApp и «ИИ-консультантов» не берём.</p>
+      </section>
+      <section class="grp" data-g="apps" aria-labelledby="g-apps">
+        <header class="grp__head"><h3 id="g-apps">Приложения</h3><p>Веб-приложение или приложение для Google Play.</p></header>
         <ul class="prices prices--3">
-        <li class="price glass">
-          <h3>Мини-приложение в Telegram</h3>
-          <div class="price__row"><p class="price__sum"><b>$150</b></p><p class="price__term"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>1–1,5 недели</p></div>
-          <ul class="ticks">
-            <li>3–5 экранов внутри Telegram</li>
-            <li>Открывается по ссылке или из бота, ставить ничего не нужно</li>
-            <li>Каталог, запись или заказ — под вашу задачу</li>
-            <li>Заявки и заказы приходят вам сразу</li>
-          </ul>
-          <div class="price__btns">
-            <a class="btn btn--dark" href="https://wa.me/992119921803?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%3A%20%D0%9C%D0%B8%D0%BD%D0%B8-%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%B2%20Telegram" target="_blank" rel="noopener" aria-label="Заказать в WhatsApp: Мини-приложение в Telegram"><span class="wa" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg></span>Заказать</a>
-          </div>
-        </li>
-        <li class="price price--top glass">
-          <span class="price__badge"><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>Рекомендуем</span>
-          <h3>Мини-приложение + админка</h3>
-          <div class="price__row"><p class="price__sum"><b>$250</b></p><p class="price__term"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>2 недели</p></div>
-          <ul class="ticks">
-            <li>Всё, что в мини-приложении</li>
-            <li>Админка: товары или услуги, цены и фото меняете сами</li>
-            <li>Заказы и заявки в одном списке</li>
-            <li>Инструкция, как пользоваться</li>
-          </ul>
-          <div class="price__btns">
-            <a class="btn btn--dark" href="https://wa.me/992119921803?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%3A%20%D0%9C%D0%B8%D0%BD%D0%B8-%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5%20%2B%20%D0%B0%D0%B4%D0%BC%D0%B8%D0%BD%D0%BA%D0%B0" target="_blank" rel="noopener" aria-label="Заказать в WhatsApp: Мини-приложение + админка"><span class="wa" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg></span>Заказать</a>
-          </div>
-        </li>
-        <li class="price glass">
-          <h3>Android</h3>
-          <div class="price__row"><p class="price__sum price__sum--ask"><b>по запросу</b></p></div>
-          <ul class="ticks">
-            <li>Простое приложение: 3–5 экранов</li>
-            <li>Публикация в Google Play — на вашем аккаунте</li>
-            <li>Цена и срок — после разговора о задаче</li>
-          </ul>
-          <div class="price__btns">
-            <a class="btn btn--dark" href="https://wa.me/992119921803?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%3A%20Android-%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5" target="_blank" rel="noopener" aria-label="Заказать в WhatsApp: Android-приложение"><span class="wa" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg></span>Заказать</a>
-          </div>
-        </li>
+          <li class="price glass" data-svc="app-start">
+            <h4>Старт</h4>
+            <p class="price__sub">Веб-приложение</p>
+            <div class="price__row"><p class="price__sum"><b>$100</b></p><p class="price__term"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>1 неделя</p></div>
+            <ul class="ticks">
+              <li>Ставится с вашего сайта на экран телефона</li>
+              <li>Каталог или меню</li>
+              <li>Контакты</li>
+              <li>Заказ в WhatsApp одной кнопкой</li>
+            </ul>
+            <div class="price__btns">
+              <a class="btn btn--dark" href="https://wa.me/992119921803?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%3A%20%D0%92%D0%B5%D0%B1-%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5%20%C2%AB%D0%A1%D1%82%D0%B0%D1%80%D1%82%C2%BB" target="_blank" rel="noopener" aria-label="Заказать в WhatsApp: Веб-приложение «Старт»"><span class="wa" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg></span>Заказать</a>
+            </div>
+          </li>
+          <li class="price glass price--top" data-svc="app-standard">
+            <span class="price__badge"><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>Рекомендуем</span>
+            <h4>Стандарт</h4>
+            <p class="price__sub">Для магазинов</p>
+            <div class="price__row"><p class="price__sum"><b>$150</b></p><p class="price__term"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>2 недели</p></div>
+            <ul class="ticks">
+              <li>Всё из «Старта»</li>
+              <li>Кабинет клиента и история заказов</li>
+              <li>Уведомления</li>
+              <li>Админка для вас</li>
+              <li>Публикация в Google Play: иконка и скриншоты включены</li>
+            </ul>
+            <div class="price__btns">
+              <a class="btn btn--dark" href="https://wa.me/992119921803?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%3A%20%D0%9F%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5%20%C2%AB%D0%A1%D1%82%D0%B0%D0%BD%D0%B4%D0%B0%D1%80%D1%82%C2%BB" target="_blank" rel="noopener" aria-label="Заказать в WhatsApp: Приложение «Стандарт»"><span class="wa" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg></span>Заказать</a>
+            </div>
+          </li>
+          <li class="price glass" data-svc="app-max">
+            <h4>Макс</h4>
+            <p class="price__sub">Все возможности</p>
+            <div class="price__row"><p class="price__sum"><b>$200</b></p><p class="price__term"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>2–3 недели</p></div>
+            <ul class="ticks">
+              <li>Всё из «Стандарта»</li>
+              <li>Запись или корзина — на выбор</li>
+              <li>Бонусы для клиентов</li>
+              <li>Рассылки и статистика</li>
+              <li>Месяц сопровождения</li>
+            </ul>
+            <div class="price__btns">
+              <a class="btn btn--dark" href="https://wa.me/992119921803?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%3A%20%D0%9F%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5%20%C2%AB%D0%9C%D0%B0%D0%BA%D1%81%C2%BB" target="_blank" rel="noopener" aria-label="Заказать в WhatsApp: Приложение «Макс»"><span class="wa" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg></span>Заказать</a>
+            </div>
+          </li>
         </ul>
+      <p class="grp__note">App Store — по запросу. Аккаунты магазинов оплачивает клиент: Google Play — $25 (один раз), Apple — $99 в год.</p>
+      </section>
+      <section class="grp" data-g="promo" aria-labelledby="g-promo">
+        <header class="grp__head"><h3 id="g-promo">Продвижение</h3><p>Чтобы вас находили на картах и отвечали клиентам в Instagram.</p></header>
+        <ul class="prices prices--4">
+          <li class="price glass" data-svc="promo-auto">
+            <h4>Автоответы в Instagram</h4>
+            <div class="price__row"><p class="price__sum"><b>$30</b></p><p class="price__term"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>1–2 дня</p></div>
+            <ul class="ticks">
+              <li>Приветствие, когда вам пишут в директ</li>
+              <li>Ответы на частые вопросы: цена, адрес, часы работы</li>
+              <li>Комментарий с ключевым словом — ссылка или прайс в директ</li>
+            </ul>
+            <div class="price__btns">
+              <a class="btn btn--dark" href="https://wa.me/992119921803?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%3A%20%D0%90%D0%B2%D1%82%D0%BE%D0%BE%D1%82%D0%B2%D0%B5%D1%82%D1%8B%20%D0%B2%20Instagram" target="_blank" rel="noopener" aria-label="Заказать в WhatsApp: Автоответы в Instagram"><span class="wa" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg></span>Заказать</a>
+            </div>
+          </li>
+          <li class="price glass" data-svc="promo-maps">
+            <h4>Карточка в Google Картах и 2ГИС</h4>
+            <div class="price__row"><p class="price__sum"><b>$10</b></p><p class="price__term"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>1 день</p></div>
+            <ul class="ticks">
+              <li>Название, адрес, телефон и часы работы</li>
+              <li>Фото и описание</li>
+              <li>Ссылка на сайт или WhatsApp</li>
+              <li>Подтверждение карточки — вместе с вами</li>
+            </ul>
+            <div class="price__btns">
+              <a class="btn btn--dark" href="https://wa.me/992119921803?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%3A%20%D0%9A%D0%B0%D1%80%D1%82%D0%BE%D1%87%D0%BA%D0%B0%20%D0%B2%20Google%20%D0%9A%D0%B0%D1%80%D1%82%D0%B0%D1%85%20%D0%B8%202%D0%93%D0%98%D0%A1" target="_blank" rel="noopener" aria-label="Заказать в WhatsApp: Карточка в Google Картах и 2ГИС"><span class="wa" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg></span>Заказать</a>
+            </div>
+          </li>
+          <li class="price glass" data-svc="promo-pdf">
+            <h4>Меню, прайс, листовка в PDF</h4>
+            <div class="price__row"><p class="price__sum"><small>от</small> <b>$10</b></p><p class="price__term"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>1–2 дня</p></div>
+            <ul class="ticks">
+              <li>Макет в вашем стиле: логотип, цвета, фото</li>
+              <li>PDF и картинка для WhatsApp и Instagram</li>
+              <li>Готово к печати</li>
+            </ul>
+            <div class="price__btns">
+              <a class="btn btn--dark" href="https://wa.me/992119921803?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%3A%20%D0%9C%D0%B5%D0%BD%D1%8E%2C%20%D0%BF%D1%80%D0%B0%D0%B9%D1%81%2C%20%D0%BB%D0%B8%D1%81%D1%82%D0%BE%D0%B2%D0%BA%D0%B0%20%D0%B2%20PDF" target="_blank" rel="noopener" aria-label="Заказать в WhatsApp: Меню, прайс, листовка в PDF"><span class="wa" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg></span>Заказать</a>
+            </div>
+          </li>
+          <li class="price glass" data-svc="promo-qr">
+            <h4>QR-меню</h4>
+            <div class="price__row"><p class="price__sum"><b>$25</b></p><p class="price__term"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>1–2 дня</p></div>
+            <ul class="ticks">
+              <li>Меню открывается по QR-коду прямо в телефоне</li>
+              <li>QR-код для печати: табличка на стол или стойку</li>
+              <li>Ставить ничего не нужно</li>
+            </ul>
+            <div class="price__btns">
+              <a class="btn btn--dark" href="https://wa.me/992119921803?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%3A%20QR-%D0%BC%D0%B5%D0%BD%D1%8E" target="_blank" rel="noopener" aria-label="Заказать в WhatsApp: QR-меню"><span class="wa" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg></span>Заказать</a>
+            </div>
+          </li>
+        </ul>
+      </section>
+      <section class="grp" data-g="packs" aria-labelledby="g-packs">
+        <header class="grp__head"><h3 id="g-packs">Пакеты</h3><p>Несколько услуг одним заказом.</p></header>
+        <ul class="prices prices--2">
+          <li class="price glass" data-svc="pack-start">
+            <h4>Старт в интернете</h4>
+            <div class="price__row"><p class="price__sum"><b>$60</b></p><p class="price__term"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>2–3 дня</p></div>
+            <ul class="ticks">
+              <li>Карточка в Google Картах и 2ГИС</li>
+              <li>Сайт «Старт»: одна страница с кнопками связи</li>
+              <li>Автоответы в Instagram</li>
+            </ul>
+            <div class="price__btns">
+              <a class="btn btn--dark" href="https://wa.me/992119921803?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%3A%20%D0%9F%D0%B0%D0%BA%D0%B5%D1%82%20%C2%AB%D0%A1%D1%82%D0%B0%D1%80%D1%82%20%D0%B2%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%BD%D0%B5%D1%82%D0%B5%C2%BB" target="_blank" rel="noopener" aria-label="Заказать в WhatsApp: Пакет «Старт в интернете»"><span class="wa" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg></span>Заказать</a>
+            </div>
+          </li>
+          <li class="price glass" data-svc="pack-bundle">
+            <h4>Своя связка</h4>
+            <div class="price__row"><p class="price__sum price__sum--word"><b>−10%</b></p><p class="price__term"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>от 2 услуг</p></div>
+            <ul class="ticks">
+              <li>Любые две услуги и больше — скидка 10% на всё</li>
+              <li>Соберите набор в калькуляторе ниже</li>
+              <li>Срочно, за 2–3 дня, — наценка +30%</li>
+            </ul>
+            <div class="price__btns">
+              <a class="btn btn--dark" href="#calc">Собрать в калькуляторе</a>
+            </div>
+          </li>
+        </ul>
+      </section>
+<!-- gen:groups:end -->
       </div>
-      <p class="note">Срок считается с момента, когда получены материалы. Цены предварительные.</p>
+      <p class="note">Срок считается с момента предоплаты и получения материалов. Цены ориентировочные — точную назовём после короткого разговора о задаче.</p>
+      <ul class="terms" aria-label="Условия работы">
+        <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Предоплата 50%, остаток — после приёмки</li>
+        <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>2 круга правок входят в цену</li>
+        <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Мелкие правки после сдачи — бесплатно: текст, цена, фото, контакт. Сложные — платно, по согласованию</li>
+        <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Срочно, за 2–3 дня, — +30%</li>
+        <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Две услуги и больше вместе — скидка 10%</li>
+      </ul>
+
+      <section class="calc glass" id="calc" aria-labelledby="h-calc">
+        <header class="calc__head">
+          <h3 id="h-calc">Прикиньте стоимость</h3>
+          <p>Отметьте, что нужно, — рядом появится сумма. Две услуги и больше вместе — скидка 10%.</p>
+        </header>
+        <div class="calc__grid">
+          <form class="calc__opts" id="calc-form" novalidate>
+<!-- gen:calc:start -->
+          <fieldset class="opt" data-k="site"><legend>Сайт</legend><div class="opt__row">
+            <label class="chip"><input class="chip__in" type="radio" name="site" value="" checked><span class="chip__b"><span>Не нужен</span></span></label>
+            <label class="chip"><input class="chip__in" type="radio" name="site" value="site-start" data-price="20" data-name="Сайт «Старт»"><span class="chip__b"><span>Старт</span><b>$20</b></span></label>
+            <label class="chip"><input class="chip__in" type="radio" name="site" value="site-vizitka" data-price="40" data-name="Сайт «Визитка»"><span class="chip__b"><span>Визитка</span><b>$40</b></span></label>
+            <label class="chip"><input class="chip__in" type="radio" name="site" value="site-vizitka-plus" data-price="70" data-name="Сайт «Визитка+»"><span class="chip__b"><span>Визитка+</span><b>$70</b></span></label>
+            <label class="chip"><input class="chip__in" type="radio" name="site" value="site-wow" data-price="100" data-name="Сайт «Вау»"><span class="chip__b"><span>Вау</span><b>$100</b></span></label>
+          </div></fieldset>
+          <fieldset class="opt" data-k="bot"><legend>Telegram-бот</legend><div class="opt__row">
+            <label class="chip"><input class="chip__in" type="radio" name="bot" value="" checked><span class="chip__b"><span>Не нужен</span></span></label>
+            <label class="chip"><input class="chip__in" type="radio" name="bot" value="bot-leads" data-price="15" data-name="Бот «Заявки»"><span class="chip__b"><span>Заявки</span><b>$15</b></span></label>
+            <label class="chip"><input class="chip__in" type="radio" name="bot" value="bot-menu" data-price="15" data-name="Бот «Меню/прайс»"><span class="chip__b"><span>Меню/прайс</span><b>$15</b></span></label>
+            <label class="chip"><input class="chip__in" type="radio" name="bot" value="bot-booking" data-price="30" data-name="Бот «Запись»"><span class="chip__b"><span>Запись</span><b>$30</b></span></label>
+            <label class="chip"><input class="chip__in" type="radio" name="bot" value="bot-orders" data-price="30" data-name="Бот «Заказы»"><span class="chip__b"><span>Заказы</span><b>$30</b></span></label>
+            <label class="chip"><input class="chip__in" type="radio" name="bot" value="bot-pro" data-price="50" data-name="Бот «Про»"><span class="chip__b"><span>Про</span><b>$50</b></span></label>
+          </div></fieldset>
+          <fieldset class="opt" data-k="app"><legend>Приложение</legend><div class="opt__row">
+            <label class="chip"><input class="chip__in" type="radio" name="app" value="" checked><span class="chip__b"><span>Не нужно</span></span></label>
+            <label class="chip"><input class="chip__in" type="radio" name="app" value="app-start" data-price="100" data-name="Веб-приложение «Старт»"><span class="chip__b"><span>Старт</span><b>$100</b></span></label>
+            <label class="chip"><input class="chip__in" type="radio" name="app" value="app-standard" data-price="150" data-name="Приложение «Стандарт»"><span class="chip__b"><span>Стандарт</span><b>$150</b></span></label>
+            <label class="chip"><input class="chip__in" type="radio" name="app" value="app-max" data-price="200" data-name="Приложение «Макс»"><span class="chip__b"><span>Макс</span><b>$200</b></span></label>
+          </div></fieldset>
+          <fieldset class="opt" data-k="promo"><legend>Продвижение</legend><div class="opt__row">
+            <label class="chip"><input class="chip__in" type="checkbox" name="promo-auto" value="promo-auto" data-price="30" data-name="Автоответы в Instagram"><span class="chip__b"><span>Автоответы в Instagram</span><b>$30</b></span></label>
+            <label class="chip"><input class="chip__in" type="checkbox" name="promo-maps" value="promo-maps" data-price="10" data-name="Карточка в Google Картах и 2ГИС"><span class="chip__b"><span>Карточка в Google Картах и 2ГИС</span><b>$10</b></span></label>
+            <label class="chip"><input class="chip__in" type="checkbox" name="promo-pdf" value="promo-pdf" data-price="10" data-name="Меню, прайс, листовка в PDF" data-from="1"><span class="chip__b"><span>Меню, прайс, листовка в PDF</span><b>от $10</b></span></label>
+            <label class="chip"><input class="chip__in" type="checkbox" name="promo-qr" value="promo-qr" data-price="25" data-name="QR-меню"><span class="chip__b"><span>QR-меню</span><b>$25</b></span></label>
+          </div></fieldset>
+<!-- gen:calc:end -->
+            <fieldset class="opt" data-k="rush"><legend>Срок</legend><div class="opt__row">
+              <label class="chip"><input class="chip__in" type="checkbox" id="calc-rush" name="rush"><span class="chip__b"><span>Срочно, за 2–3 дня</span><b>+30%</b></span></label>
+            </div></fieldset>
+          </form>
+          <div class="calc__sum" role="group" aria-labelledby="calc-t">
+            <h4 id="calc-t">Ваш набор</h4>
+            <ul class="calc__lines" id="calc-lines"></ul>
+            <p class="calc__empty" id="calc-empty">Отметьте услуги — здесь появится сумма.</p>
+            <p class="calc__total" id="calc-total" hidden><span>Итого</span><b id="calc-sum" aria-hidden="true">от $0</b></p>
+            <p class="sr" id="calc-live" role="status" aria-live="polite"></p>
+            <small class="calc__cap">Цена ориентировочная</small>
+            <a class="btn btn--dark btn--lg btn--wide" id="calc-send" aria-disabled="true" target="_blank" rel="noopener"><span class="wa" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg></span>Отправить в WhatsApp</a>
+          </div>
+        </div>
+      </section>
+
       <div class="other glass">
         <p><b>Нужно что-то другое?</b> Обсудим индивидуально.</p>
         <a class="btn btn--dark" href="https://wa.me/992119921803?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BE%D0%B1%D1%81%D1%83%D0%B4%D0%B8%D1%82%D1%8C%20%D0%B7%D0%B0%D0%B4%D0%B0%D1%87%D1%83%20%D0%B8%D0%BD%D0%B4%D0%B8%D0%B2%D0%B8%D0%B4%D1%83%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE" target="_blank" rel="noopener"><span class="wa" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg></span>Написать в WhatsApp</a>
@@ -294,7 +468,7 @@
         <h2 class="h2" id="h-why">Почему без риска</h2>
       </header>
       <ul class="why">
-        <li class="glass"><i class="ic"><svg class="ico" aria-hidden="true"><use href="#i-pen"/></svg></i><p><b>Сначала бесплатный набросок</b> — платите, только если понравится.</p></li>
+        <li class="glass"><i class="ic"><svg class="ico" aria-hidden="true"><use href="#i-pen"/></svg></i><p><b>2 круга правок</b> входят в цену, а мелкие правки после сдачи — бесплатно.</p></li>
         <li class="glass"><i class="ic"><svg class="ico" aria-hidden="true"><use href="#i-coin"/></svg></i><p><b>Остаток 50%</b> — только после того, как приняли работу.</p></li>
         <li class="glass"><i class="ic"><svg class="ico" aria-hidden="true"><use href="#i-user"/></svg></i><p><b>Сайт и домен</b> оформляются на ваше имя.</p></li>
         <li class="glass"><i class="ic"><svg class="ico" aria-hidden="true"><use href="#i-shield"/></svg></i><p><b>Гарантия 30 дней:</b> если что-то сломалось — чиним бесплатно.</p></li>
@@ -310,36 +484,45 @@
         <h2 class="h2" id="h-ex">Откройте и посмотрите вживую</h2>
         <p class="lead">Melty Bakery — настоящий сайт. Остальные — концепты: названия и данные в них вымышлены.</p>
       </header>
+      <div class="tabs glass" role="tablist" aria-label="Сфера бизнеса" data-tabs="ex">
+        <button type="button" class="tab" role="tab" id="tab-ex-all" aria-selected="true" aria-controls="ex-panel" data-f="all">Все</button>
+        <button type="button" class="tab" role="tab" id="tab-ex-clinic" aria-selected="false" aria-controls="ex-panel" data-f="clinic" tabindex="-1">Клиники</button>
+        <button type="button" class="tab" role="tab" id="tab-ex-beauty" aria-selected="false" aria-controls="ex-panel" data-f="beauty" tabindex="-1">Красота</button>
+        <button type="button" class="tab" role="tab" id="tab-ex-food" aria-selected="false" aria-controls="ex-panel" data-f="food" tabindex="-1">Еда</button>
+        <button type="button" class="tab" role="tab" id="tab-ex-shop" aria-selected="false" aria-controls="ex-panel" data-f="shop" tabindex="-1">Магазины</button>
+      </div>
+      <div id="ex-panel" role="tabpanel" aria-labelledby="tab-ex-all" data-view="all">
       <ul class="ex">
-        <li><a class="glass" href="https://melty-bakery.shop/" target="_blank" rel="noopener">
+        <li data-g="food"><a class="glass" href="https://melty-bakery.shop/" target="_blank" rel="noopener">
           <span class="ex__img"><img src="assets/img/ex-melty.webp" width="480" height="640" loading="lazy" alt="Сайт кондитерской Melty Bakery: нежные десерты ручной работы"></span>
           <span class="ex__body"><span><i class="tag tag--real">Настоящий сайт</i><b>Melty Bakery</b><small>сайт кондитерской</small></span><svg class="ico" aria-hidden="true"><use href="#i-arrow-ur"/></svg></span>
         </a></li>
-        <li><a class="glass" href="pearlia-dental/" target="_blank" rel="noopener">
+        <li data-g="clinic"><a class="glass" href="pearlia-dental/" target="_blank" rel="noopener">
           <span class="ex__img"><img src="assets/img/ex-pearlia.webp" width="480" height="640" loading="lazy" alt="Концепт сайта стоматологии Pearlia: запись онлайн, «до и после», русский и таджикский"></span>
           <span class="ex__body"><span><i class="tag">Концепт</i><b>Pearlia</b><small>стоматология, запись и «до/после»</small></span><svg class="ico" aria-hidden="true"><use href="#i-arrow-ur"/></svg></span>
         </a></li>
-        <li><a class="glass" href="clarus-medcenter/" target="_blank" rel="noopener">
+        <li data-g="clinic"><a class="glass" href="clarus-medcenter/" target="_blank" rel="noopener">
           <span class="ex__img"><img src="assets/img/ex-clarus.webp" width="480" height="640" loading="lazy" alt="Концепт сайта медицинского центра Clarus: врачи, анализы, УЗИ и запись онлайн"></span>
           <span class="ex__body"><span><i class="tag">Концепт</i><b>Clarus</b><small>медцентр: врачи, анализы, УЗИ</small></span><svg class="ico" aria-hidden="true"><use href="#i-arrow-ur"/></svg></span>
         </a></li>
-        <li><a class="glass" href="selene-beauty/" target="_blank" rel="noopener">
+        <li data-g="beauty"><a class="glass" href="selene-beauty/" target="_blank" rel="noopener">
           <span class="ex__img"><img src="assets/img/ex-selene.webp" width="480" height="640" loading="lazy" alt="Концепт сайта клиники эстетической медицины Selene: процедуры, «до и после», запись онлайн"></span>
           <span class="ex__body"><span><i class="tag">Концепт</i><b>Selene</b><small>косметология, запись и «до/после»</small></span><svg class="ico" aria-hidden="true"><use href="#i-arrow-ur"/></svg></span>
         </a></li>
-        <li><a class="glass" href="demos/350-salon/" target="_blank" rel="noopener">
+        <li data-g="beauty"><a class="glass" href="demos/350-salon/" target="_blank" rel="noopener">
           <span class="ex__img"><img src="assets/img/ex-iris.webp" width="480" height="640" loading="lazy" alt="Концепт сайта салона красоты Iris с онлайн-записью"></span>
           <span class="ex__body"><span><i class="tag">Концепт</i><b>Iris</b><small>салон красоты, онлайн-запись</small></span><svg class="ico" aria-hidden="true"><use href="#i-arrow-ur"/></svg></span>
         </a></li>
-        <li><a class="glass" href="demos/200-mebel/" target="_blank" rel="noopener">
+        <li data-g="shop"><a class="glass" href="demos/200-mebel/" target="_blank" rel="noopener">
           <span class="ex__img"><img src="assets/img/ex-nesta.webp" width="480" height="640" loading="lazy" alt="Концепт сайта мебельного магазина Nesta с 3D-конструктором дивана"></span>
           <span class="ex__body"><span><i class="tag">Концепт</i><b>Nesta</b><small>мебель, 3D-конструктор дивана</small></span><svg class="ico" aria-hidden="true"><use href="#i-arrow-ur"/></svg></span>
         </a></li>
-        <li><a class="glass" href="demos/100-restaurant/" target="_blank" rel="noopener">
+        <li data-g="food"><a class="glass" href="demos/100-restaurant/" target="_blank" rel="noopener">
           <span class="ex__img"><img src="assets/img/ex-otash.webp" width="480" height="640" loading="lazy" alt="Концепт сайта ресторана ОТАШ: меню и бронь стола"></span>
           <span class="ex__body"><span><i class="tag">Концепт</i><b>ОТАШ</b><small>ресторан, меню и бронь стола</small></span><svg class="ico" aria-hidden="true"><use href="#i-arrow-ur"/></svg></span>
         </a></li>
       </ul>
+      </div>
 
       <div class="reel glass">
         <video controls preload="none" playsinline width="720" height="1280" poster="assets/img/melty-reel-poster.webp" aria-describedby="reel-d">
@@ -360,14 +543,14 @@
     <div class="wrap how">
       <div class="how__steps">
         <header class="sec__head">
-          <span class="label">Как работаем</span>
-          <h2 class="h2" id="h-how">Четыре шага до готового сайта</h2>
+          <span class="label">Четыре шага</span>
+          <h2 class="h2" id="h-how">Как мы работаем</h2>
         </header>
         <ol class="steps">
-          <li><i>1</i><div><b>Пишете</b><p>В WhatsApp или заявкой рядом — коротко, что нужно.</p></div></li>
-          <li><i>2</i><div><b>Бесплатный набросок</b><p>Вы видите, как будет выглядеть первый экран. Не понравился — ничего не платите.</p></div></li>
-          <li><i>3</i><div><b>50% предоплата</b><p>Если набросок понравился, вносите половину — и работа начинается.</p></div></li>
-          <li><i>4</i><div><b>Готовый сайт</b><p>Принимаете работу и платите остаток 50%.</p></div></li>
+          <li><i>1</i><div><b>Разговор</b><p>Пишете в WhatsApp или оставляете заявку рядом — коротко, что нужно. Обсуждаем задачу и называем точную цену и срок.</p></div></li>
+          <li><i>2</i><div><b>Предоплата 50%</b><p>Договорились о цене и сроке — вносите 50% предоплаты, и мы начинаем работу.</p></div></li>
+          <li><i>3</i><div><b>Концепт и 2 круга правок</b><p>Показываем концепт. Два круга правок входят в цену.</p></div></li>
+          <li><i>4</i><div><b>Сдача</b><p>Принимаете работу и вносите остаток 50%. Мелкие правки потом — бесплатно: текст, цена, фото, контакт.</p></div></li>
         </ol>
       </div>
 
@@ -397,6 +580,26 @@
         </form>
         <p class="or"><span>или</span></p>
         <a class="btn btn--glass btn--wide" href="https://wa.me/992119921803?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BE%D0%B1%D1%81%D1%83%D0%B4%D0%B8%D1%82%D1%8C%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7" target="_blank" rel="noopener"><span class="wa" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg></span>Написать в WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 5б. частые вопросы ===== -->
+  <section class="sec" id="faq" aria-labelledby="h-faq">
+    <div class="wrap faq">
+      <header class="sec__head">
+        <span class="label">Частые вопросы</span>
+        <h2 class="h2" id="h-faq">Коротко о главном</h2>
+        <p class="lead">Не нашли ответ? Напишите нам в WhatsApp — ответим.</p>
+      </header>
+      <div class="faq__list">
+        <details class="faq__i glass"><summary>Сколько это стоит?</summary><div class="faq__a"><p>Сайт — от $20 до $100, Telegram-бот — от $15 до $50, приложение — от $100 до $200, продвижение — от $10. Цены ориентировочные — точную назовём после короткого разговора о задаче.</p></div></details>
+        <details class="faq__i glass"><summary>Как устроена оплата?</summary><div class="faq__a"><p>Предоплата 50% — и мы начинаем работу. Остаток 50% вы вносите после того, как приняли результат.</p></div></details>
+        <details class="faq__i glass"><summary>Сколько правок входит в цену?</summary><div class="faq__a"><p>Два круга правок. После сдачи мелкие правки — текст, цена, фото, контакт — бесплатно. Сложные правки делаем платно, по согласованию.</p></div></details>
+        <details class="faq__i glass"><summary>Как быстро будет готово?</summary><div class="faq__a"><p>Сайт — от 1 до 4 дней в зависимости от тарифа. Срок считается с момента предоплаты и получения материалов: логотипа, текстов, фото, цен. Нужно быстрее — сделаем за 2–3 дня с наценкой +30%.</p></div></details>
+        <details class="faq__i glass"><summary>Есть ли скидка, если нужно несколько услуг?</summary><div class="faq__a"><p>Да. Если заказываете две услуги и больше вместе — скидка 10%. В калькуляторе выше она считается сама.</p></div></details>
+        <details class="faq__i glass"><summary>Что с приложением и магазинами приложений?</summary><div class="faq__a"><p>В тарифы «Стандарт» и «Макс» входит публикация в Google Play: иконка и скриншоты включены. Аккаунты магазинов оплачивает клиент: Google Play — $25 (один раз), Apple — $99 в год. App Store — по запросу.</p></div></details>
       </div>
     </div>
   </section>
@@ -437,5 +640,6 @@
 
 <script src="js/config.js"></script>
 <script src="js/site.js" defer></script>
+<script src="js/motion.js" defer></script>
 </body>
 </html>

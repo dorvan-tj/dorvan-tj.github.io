@@ -169,20 +169,33 @@ p{text-wrap:pretty}
 .h2{margin-top:10px;font-size:clamp(28px,2.4vw + 14px,44px);line-height:1.08;letter-spacing:-.03em;font-weight:700;text-wrap:balance}
 .lead{margin-top:14px;max-width:40rem;font-size:clamp(16px,.4vw + 15px,18px);color:var(--ink-2)}
 
-/* услуги: три переключателя (Сайты · Боты · Приложения) и карточки */
-.tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;width:min(100%,520px);margin:0 auto clamp(22px,3vw,34px);padding:5px;border-radius:999px}
-.tab{min-height:48px;padding:0 8px;border-radius:999px;font-size:16px;font-weight:600;color:var(--ink-2);transition:color .2s,background-color .2s,box-shadow .2s}
-@media (max-width:420px){.tab{padding:0 4px;font-size:15px}}
-@media (max-width:359px){.tab{font-size:13.5px}}
+/* переключатели (услуги и примеры): в одну строку; не помещаются — прокрутка вбок, выбранный всегда виден (js/site.js) */
+.tabs{display:flex;gap:4px;width:fit-content;max-width:100%;margin:0 auto clamp(22px,3vw,34px);padding:5px;border-radius:999px;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;min-height:48px;padding:0 22px;border-radius:999px;font-size:16px;font-weight:600;white-space:nowrap;color:var(--ink-2);transition:color .2s,background-color .2s,box-shadow .2s,transform .2s var(--ease)}
+.tab:focus-visible{outline-offset:-3px}
+.tab:active{transform:scale(.97)}
+@media (max-width:420px){.tab{padding:0 17px;font-size:15px}}
+/* услуги: группы, карточки */
+.svc{display:grid;gap:clamp(30px,4.4vw,52px)}
+/* название группы: на вкладке «Все» видно, на остальных скрыто визуально, но остаётся для чтения с экрана (порядок заголовков h2 → h3 → h4 не рвётся) */
+.grp__head{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.svc[data-view="all"] .grp__head{position:static;width:auto;height:auto;margin:0 0 18px;overflow:visible;clip:auto;white-space:normal}
+.grp__head h3{font-size:clamp(22px,1vw + 18px,28px);line-height:1.15;letter-spacing:-.02em;font-weight:700}
+.grp__head p{margin-top:6px;font-size:16px;color:var(--ink-2)}
+.grp__note{max-width:46rem;margin:16px auto 0;text-align:center;font-size:14px;line-height:1.5;color:var(--ink-3)}
 .tab[aria-selected="true"]{color:#fff;background:linear-gradient(180deg,#1D1C2E,#0D0D16);box-shadow:0 1px 0 rgba(255,255,255,.14) inset,0 8px 22px -10px rgba(16,16,26,.55)}
 @media (hover:hover){.tab[aria-selected="false"]:hover{color:var(--ink);background:rgba(255,255,255,.8)}}
 .prices{display:flex;flex-wrap:wrap;justify-content:center;gap:14px}
 .prices>li{flex:0 0 calc((100% - 42px)/4);min-width:0}
-@media (min-width:1024px){.prices--3>li{flex-basis:calc((100% - 28px)/3)}} /* приложения: три карточки, а не четыре */
+@media (min-width:1024px){.prices--3>li,.prices--5>li{flex-basis:calc((100% - 28px)/3)}} /* приложения — три карточки, боты — пять (3 + 2), а не четыре в ряд */
+@media (min-width:760px){.prices--2{max-width:780px;margin-inline:auto}.prices--2>li{flex-basis:calc((100% - 14px)/2)}}
 .price{position:relative;display:flex;flex-direction:column;gap:12px;padding:24px 22px 22px;border-radius:var(--r-lg)}
-.price h3{font-size:20px;line-height:1.2;font-weight:700;letter-spacing:-.015em}
+.price h4{font-size:20px;line-height:1.2;font-weight:700;letter-spacing:-.015em}
 .price__row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 12px}
 .price__sum{display:flex;align-items:baseline;gap:8px}
+.price__sub{margin-top:-8px;font-size:14px;line-height:1.3;color:var(--ink-3)}
+.price__sum small{font-size:15px;font-weight:600;color:var(--ink-2)}
 .price__sum b{font-size:clamp(40px,2vw + 24px,50px);line-height:1;font-weight:700;letter-spacing:-.04em;color:var(--acc-ink);background:linear-gradient(180deg,#5A45E3,#7864F2);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .price__term{display:inline-flex;align-items:center;gap:7px;width:max-content;padding:5px 12px 5px 9px;border-radius:999px;background:rgba(106,85,232,.1);font-size:13px;font-weight:600;color:var(--acc-ink)}
 .price__sum--ask b{font-size:28px;letter-spacing:-.02em}
@@ -319,4 +332,149 @@ form.is-done .field,form.is-done .legal,form.is-done button[type="submit"]{displ
   .ftr__top{grid-template-columns:1fr}
   .ftr__btns .btn{flex:1}
 }
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+
+/* ---------- условия, калькулятор, вопросы (31.10.2026) ---------- */
+.terms{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:16px}
+.terms li{display:inline-flex;align-items:center;gap:8px;padding:9px 16px 9px 12px;border-radius:999px;background:rgba(255,255,255,.72);border:1px solid #fff;box-shadow:0 8px 22px -16px rgba(60,45,150,.4);font-size:14.5px;line-height:1.35;color:var(--ink-2)}
+.terms .ico{width:17px;height:17px;stroke-width:2.4;color:var(--acc-ink)}
+.calc{margin-top:clamp(28px,4vw,44px);padding:clamp(20px,3vw,32px);border-radius:var(--r-xl)}
+.calc__head h3{font-size:clamp(22px,1vw + 18px,28px);line-height:1.15;letter-spacing:-.02em;font-weight:700}
+.calc__head p{margin-top:6px;max-width:42rem;font-size:15.5px;color:var(--ink-2)}
+.calc__grid{display:grid;gap:24px;margin-top:22px;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);align-items:start}
+.opt{min-width:0;margin:0 0 20px;padding:0;border:0}
+.opt:last-child{margin-bottom:0}
+.opt legend{padding:0;margin-bottom:9px;font-size:12px;font-weight:650;letter-spacing:.14em;text-transform:uppercase;color:var(--acc-ink)}
+.opt__row{display:flex;flex-wrap:wrap;gap:8px}
+.chip{position:relative;display:block}
+.chip__in{position:absolute;width:1px;height:1px;margin:0;opacity:0}
+.chip__b{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:999px;background:rgba(255,255,255,.85);border:1px solid rgba(40,30,110,.18);font-size:15px;font-weight:550;line-height:1.2;color:var(--ink);cursor:pointer;transition:background-color .2s,color .2s,border-color .2s,box-shadow .2s,transform .2s var(--ease)}
+.chip__b b{flex:none;white-space:nowrap;font-weight:700;color:var(--acc-ink);font-variant-numeric:tabular-nums}
+.chip__in:checked+.chip__b{color:#fff;border-color:transparent;background:linear-gradient(180deg,#1D1C2E,#0D0D16);box-shadow:0 1px 0 rgba(255,255,255,.14) inset,0 8px 22px -10px rgba(16,16,26,.55)}
+.chip__in:checked+.chip__b b{color:#fff}
+.chip__in:focus-visible+.chip__b{outline:2px solid var(--acc);outline-offset:3px}
+.chip__b:active{transform:scale(.97)}
+@media (hover:hover){.chip__in:not(:checked)+.chip__b:hover{background:#fff;border-color:rgba(106,85,232,.55)}}
+.calc__sum{position:sticky;top:96px;padding:20px;border-radius:var(--r-lg);background:rgba(255,255,255,.82);border:1px solid #fff;box-shadow:var(--shadow-1)}
+.calc__sum h4{font-size:18px;line-height:1.2;font-weight:700}
+.calc__lines{display:grid;gap:8px;margin-top:12px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.calc__lines:empty{display:none}
+.calc__lines li{display:flex;align-items:baseline;justify-content:space-between;gap:12px;font-size:15px;line-height:1.35;color:var(--ink-2)}
+.calc__lines b{flex:none;font-weight:650;font-variant-numeric:tabular-nums;color:var(--ink)}
+.calc__lines .is-disc b{color:#0A675F}
+.calc__lines .is-rush b{color:#8A5A00}
+.calc__empty{margin-top:10px;font-size:15px;line-height:1.45;color:var(--ink-3)}
+.calc__total{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-top:12px}
+.calc__total span{font-size:16px;font-weight:600}
+.calc__total b{font-size:34px;line-height:1;letter-spacing:-.03em;font-weight:700;font-variant-numeric:tabular-nums;color:var(--acc-ink)}
+.calc__cap{display:block;margin:8px 0 16px;font-size:13.5px;color:var(--ink-3)}
+.calc__sum .btn[aria-disabled="true"]{opacity:.45;pointer-events:none}
+.calc__sum .btn{padding:0 18px;white-space:normal;text-align:center;line-height:1.2}
+
+.faq{display:grid;gap:clamp(24px,4vw,56px);grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);align-items:start}
+.faq .sec__head{margin-bottom:0}
+.faq__list{display:grid;gap:10px}
+.faq__i{border-radius:var(--r-lg);overflow:hidden}
+.faq__i summary{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:60px;padding:14px 20px;font-size:17px;font-weight:600;line-height:1.35;cursor:pointer;list-style:none;transition:color .2s}
+.faq__i summary::-webkit-details-marker{display:none}
+.faq__i summary:focus-visible{outline-offset:-3px}
+.faq__i summary::after{content:"";flex:none;width:24px;height:24px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235340D4' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") center/20px no-repeat;transition:transform .3s var(--ease)}
+.faq__i[open] summary::after{transform:rotate(180deg)}
+.faq__a{padding:0 20px 18px}
+.faq__a p{font-size:16px;line-height:1.55;color:var(--ink-2)}
+@media (hover:hover){.faq__i summary:hover{color:var(--acc-ink)}}
+@media (max-width:1023px){.calc__grid{grid-template-columns:1fr}.calc__sum{position:static}.faq{grid-template-columns:1fr}}
+@media (max-width:759px){.terms{flex-direction:column;align-items:stretch;gap:8px}.terms li{border-radius:16px}.svc{gap:34px}.opt__row{gap:6px}.chip__b{padding:0 14px}.faq__i summary{padding:12px 16px;font-size:16px}.faq__a{padding:0 16px 16px}}
+
+/* карточки лежат на ровном фоне: размытие «за стеклом» там ничего не меняет, а на телефоне оно дорогое — убрано (прокрутка легче); размытие осталось у шапки, меню, нижней полоски и подписи на картинке */
+.price.glass,.why li.glass,.faq__i.glass,.ex a.glass,.calc.glass,.other.glass,.order.glass,.reel.glass,.ftr__in.glass,.tabs.glass{-webkit-backdrop-filter:none;backdrop-filter:none}
+
+/* ---------- движение (31.10.2026; возвращено и дополнено — прежние анимации сайта-портфолио, облегчённые) ----------
+   Включается только классом html.motion: его ставит маленький скрипт в <head>, если в системе НЕ выключены анимации (prefers-reduced-motion).
+   Появление блоков при прокрутке — html.rv + атрибут data-r + js/motion.js. Двигаются только transform/opacity/translate. Бесконечные движения — только мышь и не слабые устройства (html.lite). */
+:root{--dur-2:.28s;--dur-3:.6s;--ease-io:cubic-bezier(.45,0,.25,1)}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes in-rise{from{opacity:0;translate:0 44px}}
+@keyframes in-pop{from{opacity:0;scale:.86}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes float-b{from{translate:0 7px}to{translate:0 -9px}}
+@keyframes au-a{to{transform:translate3d(30%,22%,0) scale(1.2)}}
+@keyframes au-b{to{transform:translate3d(-34%,30%,0) scale(.85)}}
+@keyframes au-c{to{transform:translate3d(-22%,-34%,0) scale(1.25)}}
+@keyframes par-art{to{translate:0 56px}}
+@keyframes ripple{to{transform:scale(1);opacity:0}}
+/* главный экран: заголовок стоит на месте (его читают первым), остальное собирается по очереди */
+html.motion .hero__sub{animation:rise var(--dur-3) var(--ease) .08s both}
+html.motion .hero__cta{animation:rise var(--dur-3) var(--ease) .18s both}
+html.motion .hero__art::before{animation:fade 1.4s var(--ease) .2s both}
+html.motion .phone{animation:in-rise 1s var(--ease) .12s both}
+html.motion .hero__cap{animation:in-pop .8s var(--ease) .55s both}
+/* аврора за главным экраном: три мягких пятна, движутся только при мыши и не на слабых устройствах, стоят, пока экран прокручен ниже */
+.hero{isolation:isolate}
+.aurora{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none;display:none}
+.aurora i{position:absolute;width:56%;aspect-ratio:1;border-radius:50%}
+.aurora i:nth-child(1){left:-8%;top:-18%;background:radial-gradient(closest-side,rgba(106,85,232,.26),rgba(106,85,232,0))}
+.aurora i:nth-child(2){right:-10%;top:-12%;background:radial-gradient(closest-side,rgba(96,160,240,.22),rgba(96,160,240,0))}
+.aurora i:nth-child(3){left:30%;bottom:-34%;width:48%;background:radial-gradient(closest-side,rgba(190,150,255,.22),rgba(190,150,255,0))}
+@media (hover:hover) and (pointer:fine){
+  html.motion:not(.lite) .hero__cap{animation:in-pop .8s var(--ease) .55s both,float-b 7s var(--ease-io) 1.4s infinite alternate both}
+  html.motion:not(.lite) .aurora{display:block;animation:fade 1.6s var(--ease) both}
+  html.motion:not(.lite) .aurora i{will-change:transform;animation:au-a 26s var(--ease-io) infinite alternate}
+  html.motion:not(.lite) .aurora i:nth-child(2){animation-name:au-b;animation-duration:32s}
+  html.motion:not(.lite) .aurora i:nth-child(3){animation-name:au-c;animation-duration:38s}
+  html.aurora-off .aurora i{animation-play-state:paused}
+}
+/* лёгкая глубина при прокрутке: телефон в первом экране чуть «отстаёт» (где браузер умеет анимацию по прокрутке — html.sv) */
+@media (min-width:760px){html.sv:not(.lite) .hero__art{animation:par-art linear both;animation-timeline:view();animation-range:exit 0% exit 100%}}
+/* появление блоков при прокрутке, способ 1 (html.sv — браузер умеет scroll-driven animations): привязано к прокрутке и считается самим браузером, без скрипта и без работы главного потока — самый лёгкий вариант для телефона.
+   Блок проявляется, пока въезжает в экран; после этого анимации на нём нет (наведение работает как обычно) */
+@keyframes sv-in{from{opacity:0;transform:translateY(22px)}}
+@keyframes sv-line{from{transform:scaleY(0)}}
+@keyframes sv-pop{from{transform:scale(.6)}}
+html.sv :is(.sec__head,.tabs,.grp__head,.price,.grp__note,.note,.terms,.calc,.other,.promo,.why li,.ex li,.reel,.steps li,.order,.faq__i,.ftr__in){animation:sv-in linear backwards;animation-timeline:view();animation-range:entry 0% entry 55%}
+html.sv.lite :is(.sec__head,.tabs,.grp__head,.price,.grp__note,.note,.terms,.calc,.other,.promo,.why li,.ex li,.reel,.steps li,.order,.faq__i,.ftr__in){animation-name:sv-fade}
+@keyframes sv-fade{from{opacity:0}}
+html.sv .steps li:not(:last-child)::before{transform-origin:50% 0;animation:sv-line linear backwards;animation-timeline:view();animation-range:entry 10% entry 100%}
+html.sv .steps li i{animation:sv-pop linear backwards;animation-timeline:view();animation-range:entry 0% entry 50%}
+/* появление блоков при прокрутке, способ 2 (запасной, где браузер не умеет способ 1; html.rv + атрибут data-r + js/motion.js): что ещё не показано — прозрачное и чуть ниже; потом переходы снимаются (is-done), чтобы не мешать наведению */
+html.rv [data-r]:not(.is-in){opacity:0;transform:translateY(22px)}
+html.rv [data-r].is-in:not(.is-done){transition:opacity var(--dur-3) var(--ease) var(--d,0ms),transform var(--dur-3) var(--ease) var(--d,0ms)}
+html.lite.rv [data-r]:not(.is-in){transform:none}
+html.lite.rv [data-r].is-in:not(.is-done){transition-duration:.3s,.3s;transition-delay:0s,0s}
+html.rv .steps li[data-r]::before{transform-origin:50% 0;transform:scaleY(0)}
+html.rv .steps li.is-in::before{transform:none;transition:transform .9s var(--ease) calc(var(--d,0ms) + .3s)}
+html.rv .steps li[data-r] i{transform:scale(.6)}
+html.rv .steps li.is-in i{transform:none;transition:transform .55s var(--ease) var(--d,0ms)}
+/* переключение вкладок: панель плавно сменяется целиком (один элемент — дёшево) */
+@keyframes swap{from{opacity:0;transform:translateY(12px)}}
+html.motion .is-swap{animation:swap .38s var(--ease)}
+html.motion .faq__i[open] .faq__a{animation:rise .35s var(--ease)}
+html.motion .status{animation:rise .4s var(--ease)}
+/* наведение на карточки (мышь): лёгкий подъём; у «Рекомендуем» сохраняется фиолетовая рамка */
+@media (hover:hover){
+  .price,.why li{transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
+  .price:hover,.why li:hover{transform:translateY(-4px);box-shadow:0 1px 0 rgba(255,255,255,.95) inset,0 30px 50px -26px rgba(60,45,150,.5)}
+  .price--top:hover{box-shadow:0 0 0 1px rgba(106,85,232,.55),0 1px 0 rgba(255,255,255,.95) inset,0 40px 70px -30px rgba(90,69,227,.7)}
+}
+/* подсветка карточки за курсором в цвете бренда (js/motion.js двигает --sx и --sy) */
+@media (hover:hover) and (pointer:fine){
+  .price,.why li{position:relative;isolation:isolate}
+  :is(.price,.why li)::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;background:radial-gradient(300px circle at var(--sx,50%) var(--sy,50%),rgba(106,85,232,.15),transparent 70%);opacity:0;transition:opacity var(--dur-2) var(--ease)}
+  :is(.price,.why li):hover::before{opacity:1}
+}
+/* «волна» при нажатии на кнопку (создаёт js/motion.js) */
+.fx{position:absolute;inset:0;border-radius:inherit;overflow:hidden;pointer-events:none}
+.fx i{position:absolute;border-radius:50%;background:currentColor;opacity:.2;transform:scale(0);animation:ripple .65s var(--ease) forwards}
+
+
+/* ---------- курсор (только мышь): обычная стрелка с обводкой, над ссылками и кнопками — квадрат со стрелкой, при нажатии картинка резко меньше.
+   Это картинки-курсоры: рисует их сама система, без скриптов и задержки; на телефоне и планшете их нет. Не включаются в режимах повышенной контрастности.
+   Картинки — SVG (стрелка и квадрат со стрелкой, четыре состояния), сделаны скриптом студии ---------- */
+@media (hover:hover) and (pointer:fine) and (forced-colors:none) and (prefers-contrast:no-preference){
+  html{--cur:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' id='i' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath transform='translate(2 2) scale(1.0) translate(-2 -2) translate(2 2)' d='M2 2V24L7.5 19L11 27L14.2 25.6L10.6 17.6H18.4Z' fill='%236A55E8' stroke='%236A55E8' stroke-width='4' stroke-linejoin='bevel'/%3E%3Cpath transform='translate(2 2) scale(1.0) translate(-2 -2)' d='M2 2V24L7.5 19L11 27L14.2 25.6L10.6 17.6H18.4Z' fill='%23fff' stroke='%23fff' stroke-width='4' stroke-linejoin='bevel'/%3E%3Cpath transform='translate(2 2) scale(1.0) translate(-2 -2)' d='M2 2V24L7.5 19L11 27L14.2 25.6L10.6 17.6H18.4Z' fill='%2314141c'/%3E%3C/svg%3E") 2 2, auto;--cur-down:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' id='d' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath transform='translate(2 2) scale(0.82) translate(-2 -2) translate(1 1)' d='M2 2V24L7.5 19L11 27L14.2 25.6L10.6 17.6H18.4Z' fill='%236A55E8' stroke='%236A55E8' stroke-width='4' stroke-linejoin='bevel'/%3E%3Cpath transform='translate(2 2) scale(0.82) translate(-2 -2)' d='M2 2V24L7.5 19L11 27L14.2 25.6L10.6 17.6H18.4Z' fill='%23fff' stroke='%23fff' stroke-width='4' stroke-linejoin='bevel'/%3E%3Cpath transform='translate(2 2) scale(0.82) translate(-2 -2)' d='M2 2V24L7.5 19L11 27L14.2 25.6L10.6 17.6H18.4Z' fill='%2314141c'/%3E%3C/svg%3E") 2 2, auto;--cur-go:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' id='g' width='32' height='32' viewBox='0 0 32 32'%3E%3Crect transform='translate(15 15) scale(1.0) translate(-15 -15)' x='4' y='4' width='26' height='26' fill='%236A55E8'/%3E%3Crect transform='translate(15 15) scale(1.0) translate(-15 -15)' x='2' y='2' width='26' height='26' fill='%23fff'/%3E%3Crect transform='translate(15 15) scale(1.0) translate(-15 -15)' x='4' y='4' width='22' height='22' fill='%2314141c'/%3E%3Cpath transform='translate(15 15) scale(1.0) translate(-15 -15)' d='M9 15.5H21M16 10.5L21 15.5L16 20.5' fill='none' stroke='%23fff' stroke-width='2'/%3E%3C/svg%3E") 15 15, pointer;--cur-go-down:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' id='gd' width='32' height='32' viewBox='0 0 32 32'%3E%3Crect transform='translate(15 15) scale(0.82) translate(-15 -15)' x='3' y='3' width='26' height='26' fill='%236A55E8'/%3E%3Crect transform='translate(15 15) scale(0.82) translate(-15 -15)' x='2' y='2' width='26' height='26' fill='%23fff'/%3E%3Crect transform='translate(15 15) scale(0.82) translate(-15 -15)' x='4' y='4' width='22' height='22' fill='%2314141c'/%3E%3Cpath transform='translate(15 15) scale(0.82) translate(-15 -15)' d='M9 15.5H21M16 10.5L21 15.5L16 20.5' fill='none' stroke='%23fff' stroke-width='2'/%3E%3C/svg%3E") 15 15, pointer;cursor:var(--cur)}
+  html:active{cursor:var(--cur-down)}
+  html :is(a,button:not(:disabled),summary,label,[role=button],[data-case],.tier input,.chip input){cursor:var(--cur-go)}
+  html :is(a,button:not(:disabled),summary,label,[role=button],[data-case],.tier input,.chip input):active{cursor:var(--cur-go-down)}
+}
+
+/* у кого в системе выключены анимации — страница полностью неподвижна */
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
