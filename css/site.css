@@ -361,9 +361,10 @@ form.is-done .field,form.is-done .legal,form.is-done button[type="submit"]{displ
 .calc__lines .is-disc b{color:#0A675F}
 .calc__lines .is-rush b{color:#8A5A00}
 .calc__empty{margin-top:10px;font-size:15px;line-height:1.45;color:var(--ink-3)}
-.calc__total{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-top:12px}
-.calc__total span{font-size:16px;font-weight:600}
-.calc__total b{font-size:34px;line-height:1;letter-spacing:-.03em;font-weight:700;font-variant-numeric:tabular-nums;color:var(--acc-ink)}
+.calc__total{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:4px 12px;margin-top:12px}
+.calc__total>span{font-size:16px;font-weight:600}
+.calc__total b{font-size:34px;line-height:1;letter-spacing:-.03em;font-weight:700;font-variant-numeric:tabular-nums;color:var(--acc-ink);text-align:right}
+.calc__total b small{margin-right:6px;font-size:13.5px;line-height:1.2;letter-spacing:0;font-weight:600;color:var(--ink-3)} /* «ориентировочно, от» перед суммой: все цены на странице ориентировочные, у продвижения в сумму идёт нижняя цена */
 .calc__cap{display:block;margin:8px 0 16px;font-size:13.5px;color:var(--ink-3)}
 .calc__sum .btn[aria-disabled="true"]{opacity:.45;pointer-events:none}
 .calc__sum .btn{padding:0 18px;white-space:normal;text-align:center;line-height:1.2}

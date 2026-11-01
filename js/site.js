@@ -48,15 +48,15 @@
      Цены берутся из data-price у вариантов (их пишет gen-services.py из той же таблицы, что и карточки). Проценты применяются по очереди, сумма — в целых долларах */
   const calc = $('#calc');
   if (calc) {
-    const form = $('#calc-form'), lines = $('#calc-lines'), empty = $('#calc-empty'), totalRow = $('#calc-total'), sumEl = $('#calc-sum'), live = $('#calc-live'), send = $('#calc-send'), rush = $('#calc-rush');
+    const form = $('#calc-form'), lines = $('#calc-lines'), empty = $('#calc-empty'), totalRow = $('#calc-total'), sumEl = $('#calc-num'), live = $('#calc-live'), send = $('#calc-send'), rush = $('#calc-rush');
     const usd = (n) => '$' + n, row = (cls, name, val) => { const li = document.createElement('li'), b = document.createElement('b'); if (cls) li.className = cls; li.append(name, b); b.textContent = val; return li; };
     let shown = 0, raf = 0, tid = 0;
     const count = (to) => { // число в «Итого» плавно догоняет новое значение; запасной таймер ставит точное число, даже если вкладка скрыта и кадры не рисуются
       cancelAnimationFrame(raf); clearTimeout(tid); const from = shown; shown = to;
-      if (calmMotion || from === to) { sumEl.textContent = 'от ' + usd(to); return; }
+      if (calmMotion || from === to) { sumEl.textContent = usd(to); return; }
       const t0 = performance.now();
-      const step = (t) => { const k = Math.min(1, (t - t0) / 320); sumEl.textContent = 'от ' + usd(Math.round(from + (to - from) * (1 - Math.pow(1 - k, 3)))); if (k < 1) raf = requestAnimationFrame(step); };
-      raf = requestAnimationFrame(step); tid = setTimeout(() => { cancelAnimationFrame(raf); sumEl.textContent = 'от ' + usd(to); }, 420);
+      const step = (t) => { const k = Math.min(1, (t - t0) / 320); sumEl.textContent = usd(Math.round(from + (to - from) * (1 - Math.pow(1 - k, 3)))); if (k < 1) raf = requestAnimationFrame(step); };
+      raf = requestAnimationFrame(step); tid = setTimeout(() => { cancelAnimationFrame(raf); sumEl.textContent = usd(to); }, 420);
     };
     const update = () => {
       const sel = $$('input[data-price]:checked', form);
@@ -67,10 +67,10 @@
         ...(disc ? [row('is-disc', 'Скидка за связку −10%', '−' + usd(disc))] : []), ...(extra ? [row('is-rush', 'Срочно (2–3 дня) +30%', '+' + usd(extra))] : []));
       empty.hidden = sel.length > 0; totalRow.hidden = !sel.length;
       count(total);
-      live.textContent = sel.length ? 'Итого от ' + total + ' долларов' + (disc ? ', скидка за связку десять процентов' : '') : 'Ничего не выбрано';
+      live.textContent = sel.length ? 'Итого ориентировочно, от ' + total + ' долларов' + (disc ? ', скидка за связку десять процентов' : '') : 'Ничего не выбрано';
       if (sel.length) {
         const msg = ['Здравствуйте! Хочу заказать:', ...sel.map((i) => '• ' + i.dataset.name + ' — ' + (i.dataset.from ? 'от ' : '') + usd(i.dataset.price)),
-          ...(disc ? ['Скидка за связку −10%: −' + usd(disc)] : []), ...(extra ? ['Срочно (2–3 дня) +30%: +' + usd(extra)] : []), 'Итого: от ' + usd(total), 'Цена ориентировочная.'].join('\n');
+          ...(disc ? ['Скидка за связку −10%: −' + usd(disc)] : []), ...(extra ? ['Срочно (2–3 дня) +30%: +' + usd(extra)] : []), 'Итого: ориентировочно, от ' + usd(total), 'Цена ориентировочная.'].join('\n');
         send.href = 'https://wa.me/' + wa + '?text=' + encodeURIComponent(msg); send.removeAttribute('aria-disabled');
       } else { send.removeAttribute('href'); send.setAttribute('aria-disabled', 'true'); }
     };
