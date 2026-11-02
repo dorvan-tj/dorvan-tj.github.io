@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="ru" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script>(function(d,n,m){d.classList.remove('no-js');d.classList.add('js');var c=n.connection||{},s=0;try{s=sessionStorage.getItem('wow-static')}catch(e){}if(m('(prefers-reduced-motion: reduce)').matches||n.deviceMemory<=2||c.saveData===true||/^(slow-)?2g$/.test(c.effectiveType||'')||(n.hardwareConcurrency<=2&&m('(pointer:coarse)').matches)||s||/[?&]static\b/.test(location.search))d.classList.add('is-static')})(document.documentElement,navigator,matchMedia)</script>
+<title>Как мы делаем сайт: от идеи до заявок в WhatsApp — Dorvan</title>
+<meta name="description" content="Четыре шага: идея, дизайн, заявки сразу в WhatsApp и готовый сайт за 1–3 дня. Листайте и смотрите, как это выглядит.">
+<link rel="canonical" href="https://dorvan.pro/wow/">
+<meta name="theme-color" content="#07060F">
+<meta name="color-scheme" content="dark">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Dorvan">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:url" content="https://dorvan.pro/wow/">
+<meta property="og:title" content="Как мы делаем сайт: от идеи до заявок в WhatsApp">
+<meta property="og:description" content="Четыре шага: идея, дизайн, заявки сразу в WhatsApp и готовый сайт за 1–3 дня.">
+<meta property="og:image" content="https://dorvan.pro/assets/wow/og-wow.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Dorvan: готовый сайт на ноутбуке и телефоне, заявки приходят в WhatsApp">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/golos-cyr.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/golos-lat.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+/* заставка и цвет фона — здесь, а не в wow.css: тёмный экран с логотипом должен быть с самого первого кадра, не белый */
+html{background:#07060F}
+.boot{position:fixed;inset:0;z-index:100;display:grid;place-content:center;justify-items:center;gap:18px;background:radial-gradient(60% 50% at 50% 42%,#1A1238 0,#07060F 70%);color:#fff;transition:opacity .6s ease,visibility .6s}
+.boot.is-out{opacity:0;visibility:hidden}
+.boot__mark{width:72px;height:auto;animation:bp 1.6s ease-in-out infinite}
+.boot__name{font:650 22px/1 "Golos Text","Golos Fallback",system-ui,sans-serif;letter-spacing:-.01em}
+.boot__bar{display:block;width:min(180px,48vw);height:2px;border-radius:2px;background:rgba(255,255,255,.14);overflow:hidden}
+.boot__bar span{display:block;height:100%;background:#8B5CF6;transform:scaleX(var(--load,0));transform-origin:left;transition:transform .25s}
+@keyframes bp{50%{opacity:.5}}
+.no-js .boot,.is-static .boot{display:none}
+@media (prefers-reduced-motion:reduce){.boot__mark{animation:none}}
+</style>
+<link rel="stylesheet" href="wow.css">
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-mark" viewBox="0 0 1140 1000"><path fill="currentColor" d="M81.5 9.9A6 6 0 0 1 86 0L640 0A500 500 0 0 1 640 1000L161 1000A6 6 0 0 1 156.5 990.1L341.6 774.1A6 6 0 0 1 346.2 772L640 772A272 272 0 0 0 640 228L271.2 228A6 6 0 0 1 266.6 225.9ZM348.8 365.1A6 6 0 0 1 353.3 363L607 363A6 6 0 0 1 611.5 372.9L75.8 997.9A6 6 0 0 1 71.2 1000L6 1000A6 6 0 0 1 0 994L0 774.2A6 6 0 0 1 1.4 770.3Z"/></symbol>
+  <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></symbol>
+  <symbol id="i-arrow-ur" viewBox="0 0 24 24"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></symbol>
+</svg>
+
+<div class="boot" id="boot" role="status" aria-label="Страница загружается">
+  <svg class="boot__mark" viewBox="0 0 1140 1000" aria-hidden="true"><use href="#i-mark"/></svg>
+  <b class="boot__name">Dorvan</b>
+  <span class="boot__bar" aria-hidden="true"><span></span></span>
+</div>
+
+<a class="skip" href="#examples">К примерам работ</a>
+
+<!-- ===== шапка: логотип + WhatsApp, всегда на виду ===== -->
+<header class="hdr">
+  <div class="hdr__in">
+    <a class="brand" href="../" aria-label="Dorvan — на главную">
+      <svg class="brand__mark" viewBox="0 0 1140 1000" aria-hidden="true"><use href="#i-mark"/></svg>
+      <b>Dorvan</b>
+    </a>
+    <a class="btn btn--acc" href="https://wa.me/992119921803?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%9F%D0%BE%D1%81%D0%BC%D0%BE%D1%82%D1%80%D0%B5%D0%BB%28%D0%B0%29%20%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D1%83%20dorvan.pro%2Fwow%2C%20%D1%85%D0%BE%D1%87%D1%83%20%D0%BE%D0%B1%D1%81%D1%83%D0%B4%D0%B8%D1%82%D1%8C%20%D1%81%D0%B0%D0%B9%D1%82" target="_blank" rel="noopener"><span class="wa" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg></span><span><span class="long">Написать в </span>WhatsApp</span></a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ===== сцена «прокрутка = видео»: 4 шага ===== -->
+  <section class="reel" aria-labelledby="h-wow">
+    <div class="track" id="track">
+      <div class="stage" id="stage">
+        <h1 class="h1 sr" id="h-wow">Как мы делаем сайт: четыре шага</h1>
+        <canvas id="cv" width="16" height="9" role="img" aria-label="Анимация: телефон превращается в готовый сайт на телефоне и ноутбуке"></canvas>
+        <div class="scrim" aria-hidden="true"></div>
+
+        <ol class="steps">
+          <li class="step is-on">
+            <figure class="step__fig"><img src="../assets/wow/s1.webp" width="960" height="541" loading="lazy" alt="Телефон на тёмной сцене, на экране фиолетовая вспышка: идея"></figure>
+            <div class="step__t">
+              <span class="step__n">01</span>
+              <h2 class="step__h">Идея</h2>
+              <p class="step__p">Продумываем, что нажмёт ваш клиент</p>
+            </div>
+          </li>
+          <li class="step">
+            <figure class="step__fig"><img src="../assets/wow/s2.webp" width="960" height="541" loading="lazy" alt="Стеклянные блоки будущего сайта парят в воздухе перед телефоном"></figure>
+            <div class="step__t">
+              <span class="step__n">02</span>
+              <h2 class="step__h">Дизайн</h2>
+              <p class="step__p">Красиво на телефоне и компьютере</p>
+            </div>
+          </li>
+          <li class="step">
+            <figure class="step__fig"><img src="../assets/wow/s3.webp" width="960" height="541" loading="lazy" alt="Готовый сайт на телефоне и зелёное сообщение WhatsApp над ним"></figure>
+            <div class="step__t">
+              <span class="step__n">03</span>
+              <h2 class="step__h">Заявки сразу в WhatsApp</h2>
+              <p class="step__p">Клиент пишет вам за пару секунд</p>
+            </div>
+          </li>
+          <li class="step">
+            <figure class="step__fig"><img src="../assets/wow/s4.webp" width="960" height="541" loading="lazy" alt="Готовый сайт на ноутбуке и телефоне, между ними световая лента"></figure>
+            <div class="step__t">
+              <span class="step__n">04</span>
+              <h2 class="step__h">Готово за 1–3 дня</h2>
+              <p class="step__p">И вы уже в интернете</p>
+            </div>
+          </li>
+        </ol>
+
+        <div class="rail" aria-hidden="true">
+          <span class="rail__line"><span class="rail__fill"></span></span>
+          <span class="rail__i is-on">01</span><span class="rail__i">02</span><span class="rail__i">03</span><span class="rail__i">04</span>
+        </div>
+        <div class="hint" aria-hidden="true"><span>Листайте вниз</span><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div>
+        <i class="load" aria-hidden="true"></i>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== после видео: три примера и кнопки ===== -->
+  <section class="ex" id="examples" aria-labelledby="h-ex">
+    <div class="wrap">
+      <span class="label">Примеры</span>
+      <h2 class="h2" id="h-ex">Откройте и посмотрите вживую</h2>
+      <p class="lead">Melty Bakery — настоящий сайт. Остальные — концепты: названия и данные в них вымышлены.</p>
+      <ul class="cards">
+        <li><a class="card" href="https://melty-bakery.shop/" target="_blank" rel="noopener">
+          <span class="card__img"><img src="../assets/img/ex-melty.webp" width="480" height="640" loading="lazy" alt="Сайт кондитерской Melty Bakery: нежные десерты ручной работы"></span>
+          <span class="card__body"><span><i class="tag tag--real">Настоящий сайт</i><b>Melty Bakery</b><small>сайт кондитерской</small></span><svg class="ico" aria-hidden="true"><use href="#i-arrow-ur"/></svg></span>
+        </a></li>
+        <li><a class="card" href="../demos/350-salon/" target="_blank" rel="noopener">
+          <span class="card__img"><img src="../assets/img/ex-iris.webp" width="480" height="640" loading="lazy" alt="Концепт сайта салона красоты Iris с онлайн-записью"></span>
+          <span class="card__body"><span><i class="tag">Концепт</i><b>Iris</b><small>салон красоты, онлайн-запись</small></span><svg class="ico" aria-hidden="true"><use href="#i-arrow-ur"/></svg></span>
+        </a></li>
+        <li><a class="card" href="../demos/200-mebel/" target="_blank" rel="noopener">
+          <span class="card__img"><img src="../assets/img/ex-nesta.webp" width="480" height="640" loading="lazy" alt="Концепт сайта мебельного магазина Nesta с 3D-конструктором дивана"></span>
+          <span class="card__body"><span><i class="tag">Концепт</i><b>Nesta</b><small>мебель, 3D-конструктор дивана</small></span><svg class="ico" aria-hidden="true"><use href="#i-arrow-ur"/></svg></span>
+        </a></li>
+      </ul>
+      <div class="cta">
+        <a class="btn btn--ghost btn--lg" href="../#services">Услуги</a>
+        <a class="btn btn--acc btn--lg" href="https://wa.me/992119921803?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%9F%D0%BE%D1%81%D0%BC%D0%BE%D1%82%D1%80%D0%B5%D0%BB%28%D0%B0%29%20%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D1%83%20dorvan.pro%2Fwow%2C%20%D1%85%D0%BE%D1%87%D1%83%20%D0%BE%D0%B1%D1%81%D1%83%D0%B4%D0%B8%D1%82%D1%8C%20%D1%81%D0%B0%D0%B9%D1%82" target="_blank" rel="noopener"><span class="wa" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg></span>Написать в WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="ftr">
+  <div class="wrap ftr__in">
+    <a class="brand" href="../" aria-label="Dorvan — на главную"><svg class="brand__mark" viewBox="0 0 1140 1000" aria-hidden="true"><use href="#i-mark"/></svg><b>Dorvan</b></a>
+    <a href="../">На главную</a>
+  </div>
+</footer>
+
+<script src="engine.js" defer></script>
+<script src="wow.js" defer></script>
+</body>
+</html>

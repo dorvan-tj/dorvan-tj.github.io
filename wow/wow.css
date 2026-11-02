@@ -1,0 +1,160 @@
+/* Dorvan — страница /wow «прокрутка = видео» (02.11.2026). Тёмная страница на шрифте и цветах сайта: Golos Text, акцент фиолетовый #8B5CF6, фон не чисто чёрный (#07060F). Без сборки.
+   Заставка (.boot) и цвет фона страницы лежат в самом index.html, чтобы тёмный экран был с первого кадра. */
+
+@font-face{font-family:"Golos Text";font-style:normal;font-weight:400 700;font-display:swap;src:url(../assets/fonts/golos-lat.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Golos Text";font-style:normal;font-weight:400 700;font-display:swap;src:url(../assets/fonts/golos-cyr.woff2) format("woff2");unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:"Golos Text";font-style:normal;font-weight:400 700;font-display:swap;src:url(../assets/fonts/golos-cyr-ext.woff2) format("woff2");unicode-range:U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F}
+/* пока Golos грузится: Arial с метриками Golos — строки не сдвигаются при подмене шрифта */
+@font-face{font-family:"Golos Fallback";font-weight:400 500;src:local("Arial"),local("ArialMT");size-adjust:106.78%;ascent-override:91.78%;descent-override:20.60%;line-gap-override:0%}
+@font-face{font-family:"Golos Fallback";font-weight:550 700;src:local("Arial Bold"),local("Arial-BoldMT");size-adjust:100.83%;ascent-override:97.19%;descent-override:21.82%;line-gap-override:0%}
+
+:root{
+  --bg:#07060F;
+  --ink:#F4F2FF; --ink-2:#CFCAEA; --ink-3:#A9A3CC;
+  --acc:#8B5CF6; --acc-soft:#B3A6FF;
+  --btn-a:#8153F0; --btn-b:#6D3BE0;               /* заливка кнопок: белый текст на ней 4,7:1 и выше (на чистом #8B5CF6 было бы 4,2:1) */
+  --line:rgba(255,255,255,.14);
+  --font:"Golos Text","Golos Fallback",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --ease:cubic-bezier(.22,.9,.3,1);
+  --gut:clamp(16px,4vw,32px);
+  --hdr:60px;
+  --vh:100vh;                                      /* высота «сцены»: самая большая высота окна, чтобы адресная строка телефона не дёргала холст */
+  --tb:0px;                                        /* высота панели браузера на телефоне (разница между большим и малым окном): подсказка и текст держатся выше неё */
+}
+@supports (height:100lvh){:root{--vh:100lvh}}
+@supports (height:100svh){:root{--tb:calc(100lvh - 100svh)}}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;color-scheme:dark}
+body{margin:0;min-height:100vh;font:400 16px/1.6 var(--font);color:var(--ink);background:var(--bg);overflow-x:clip;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+img,svg,canvas{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,p,ul,ol,figure{margin:0;padding:0}
+ul,ol{list-style:none}
+p{text-wrap:pretty}
+:focus-visible{outline:2px solid var(--acc-soft);outline-offset:3px;border-radius:10px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:fixed;left:16px;top:-60px;z-index:200;padding:10px 16px;border-radius:12px;background:#fff;color:#10101A;font-weight:600;transition:top .16s var(--ease)}
+.skip:focus{top:12px}
+.ico{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.wrap{width:min(1200px,calc(100% - 2*var(--gut)));margin-inline:auto}
+
+/* ---------- кнопки (как на главной: «таблетки», значок WhatsApp — силуэт цвета текста) ---------- */
+.btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 24px;border-radius:999px;font-weight:600;font-size:15px;line-height:1;white-space:nowrap;transition:transform .2s var(--ease),box-shadow .25s var(--ease),background-color .2s,border-color .2s}
+.btn:active{transform:scale(.98)}
+.btn--acc{color:#fff;background:linear-gradient(180deg,var(--btn-a),var(--btn-b));box-shadow:0 1px 0 rgba(255,255,255,.28) inset,0 10px 28px -10px rgba(139,92,246,.8)}
+.btn--ghost{color:var(--ink);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.24);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+.btn--lg{min-height:58px;padding:0 32px;font-size:16px}
+@media (hover:hover){
+  .btn--acc:hover{transform:translateY(-2px);box-shadow:0 1px 0 rgba(255,255,255,.28) inset,0 18px 40px -8px rgba(139,92,246,.95)}
+  .btn--ghost:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.4)}
+}
+.wa{display:block;flex:none;width:22px;height:22px}
+.wa svg{width:100%;height:100%}
+.btn .wa{margin-left:-4px}
+.btn--lg .wa{width:26px;height:26px;margin-left:-6px}
+
+/* ---------- шапка: знак и слово Dorvan + кнопка WhatsApp, всегда на виду ---------- */
+.hdr{position:fixed;top:0;left:0;right:0;z-index:60;padding:10px max(var(--gut),env(safe-area-inset-right)) 0 max(var(--gut),env(safe-area-inset-left));pointer-events:none}
+.hdr__in{pointer-events:auto;width:min(1200px,100%);height:var(--hdr);margin-inline:auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 8px 0 20px;border-radius:999px;
+  background:rgba(18,15,38,.58);border:1px solid var(--line);box-shadow:0 1px 0 rgba(255,255,255,.08) inset,0 14px 34px -16px rgba(0,0,0,.7);
+  -webkit-backdrop-filter:blur(20px) saturate(1.4);backdrop-filter:blur(20px) saturate(1.4)}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.hdr__in{background:rgba(18,15,38,.92)}}
+.brand{display:flex;align-items:center;gap:10px;min-height:44px}
+.brand__mark{width:32px;height:28px;color:#fff}
+.brand b{font-size:17px;font-weight:650;letter-spacing:-.01em}
+.hdr .btn{min-height:44px;padding:0 20px}
+
+/* ---------- сцена: холст с кадрами, поверх него шаги и счётчик ---------- */
+.track{position:relative;height:calc(var(--vh)*6)}         /* длина прокрутки: 5 экранов на видео + экран, пока сцена «отклеивается» */
+.stage{position:sticky;top:0;height:var(--vh);overflow:hidden;background:var(--bg)}
+.stage canvas{position:absolute;inset:0;width:100%;height:100%}
+.scrim{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(7,6,15,.6) 0,rgba(7,6,15,0) 18%)}
+.steps{position:absolute;z-index:3;inset:0;pointer-events:none}
+.step{position:absolute;left:max(var(--gut),calc((100% - 1200px)/2));top:calc(var(--hdr) + 10px + clamp(18px,5vh,56px));width:min(46rem,calc(100% - 2*var(--gut) - 64px));
+  opacity:0;transform:translate3d(0,30px,0);transition:opacity .22s ease-out,transform .7s var(--ease)}   /* уходящий шаг гаснет быстро, новый появляется чуть позже: тексты соседних шагов не накладываются */
+.step::before{content:"";position:absolute;z-index:-1;inset:-56px -90px -56px -70px;pointer-events:none;background:radial-gradient(closest-side,rgba(7,6,15,.84),rgba(7,6,15,.5) 58%,rgba(7,6,15,0))}
+.step.is-on{opacity:1;transform:none;transition:opacity .45s ease-out .16s,transform .8s var(--ease) .16s}
+.step.is-past{transform:translate3d(0,-30px,0)}
+.step__n{display:inline-flex;align-items:center;gap:12px;font-size:14px;font-weight:650;letter-spacing:.2em;color:var(--acc-soft)}
+.step__n::after{content:"";width:46px;height:2px;border-radius:2px;background:linear-gradient(90deg,var(--acc),rgba(139,92,246,0))}
+.step__h{margin-top:12px;font-size:clamp(36px,min(5vw + 6px,7.4vh),68px);line-height:1.03;letter-spacing:-.04em;font-weight:700;text-wrap:balance;text-shadow:0 2px 28px rgba(7,6,15,.85),0 0 2px rgba(7,6,15,.5)}
+.step__p{margin-top:14px;max-width:32rem;font-size:clamp(17px,.9vw + 11px,23px);line-height:1.35;font-weight:500;color:#EAE6FF;text-shadow:0 1px 14px rgba(7,6,15,.95),0 0 3px rgba(7,6,15,.8)}
+.step__fig{display:none}
+
+/* счётчик шагов сбоку: четыре номера, текущий светится, линия заполняется по ходу прокрутки */
+.rail{position:absolute;z-index:4;right:max(14px,calc(var(--gut) - 6px));top:50%;transform:translateY(-50%);display:grid;gap:clamp(20px,3.6vh,34px);justify-items:end;pointer-events:none}
+.rail__line{position:absolute;right:3px;top:7px;bottom:7px;width:1px;background:rgba(255,255,255,.2)}
+.rail__fill{position:absolute;inset:0;background:var(--acc);box-shadow:0 0 12px rgba(139,92,246,.9);transform:scaleY(0);transform-origin:top;will-change:transform}
+.rail__i{position:relative;display:flex;align-items:center;gap:10px;font-size:14px;font-weight:650;line-height:1;letter-spacing:.08em;font-variant-numeric:tabular-nums;color:rgba(244,242,255,.55);transition:color .3s,transform .4s var(--ease)}
+.rail__i::after{content:"";width:7px;height:7px;border-radius:50%;background:#2A2547;box-shadow:0 0 0 1px rgba(255,255,255,.35) inset;transition:background-color .3s,box-shadow .3s,transform .4s var(--ease)}
+.rail__i.is-on{color:#fff;transform:translateX(-2px)}
+.rail__i.is-on::after{background:var(--acc);box-shadow:0 0 0 4px rgba(139,92,246,.3),0 0 16px rgba(139,92,246,.95);transform:scale(1.3)}
+
+.hint{position:absolute;z-index:3;left:50%;bottom:calc(var(--tb) + 24px);transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:4px;font-size:12px;font-weight:650;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2);pointer-events:none;transition:opacity .4s}
+.hint svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;animation:hint 1.7s var(--ease) infinite}
+.is-scrolled .hint{opacity:0;visibility:hidden;transition:opacity .4s,visibility 0s .4s}
+.is-scrolled .hint svg{animation:none}                    /* подсказка ушла — её анимация больше не крутится на каждом кадре прокрутки */
+@keyframes hint{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+.load{position:absolute;z-index:3;left:0;right:0;bottom:0;height:2px;background:var(--acc);transform:scaleX(0);transform-origin:left;transition:transform .3s,opacity .6s .3s;pointer-events:none}
+.load.is-done{opacity:0}
+
+/* телефон: кадры вертикальные, текст внизу, счётчик у края */
+@media (max-aspect-ratio:62/100){
+  .scrim{background:linear-gradient(180deg,rgba(7,6,15,.62) 0,rgba(7,6,15,0) 16%),linear-gradient(0deg,rgba(7,6,15,.94) 0,rgba(7,6,15,.74) 26%,rgba(7,6,15,0) 54%)}
+  .step{left:var(--gut);top:auto;bottom:calc(var(--tb) + 84px);width:calc(100% - 2*var(--gut))}   /* счётчик у края стоит на середине высоты, текст — внизу: не пересекаются */
+  .step::before{inset:-30px -40px -30px -40px}
+  .step__h{font-size:clamp(34px,10.4vw,48px)}
+  .step__p{font-size:clamp(15.5px,4.2vw,19px)}                  /* пояснение — одна строка и на узком телефоне */
+}
+@media (max-width:759px){
+  .hdr .btn{padding:0 16px}.long{display:none}.rail__i{font-size:12px}
+  .hdr__in{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(18,15,38,.84)}   /* на телефоне без размытия под шапкой: холст перерисовывается на каждом кадре прокрутки, размытие стоило бы слабым телефонам плавности */
+}
+
+/* ---------- примеры и кнопки после видео ---------- */
+.ex{position:relative;scroll-margin-top:var(--hdr);padding-block:clamp(56px,8vw,112px);background:radial-gradient(900px 520px at 85% 240px,rgba(139,92,246,.15),rgba(139,92,246,0) 70%),radial-gradient(800px 480px at 0 60%,rgba(80,60,200,.1),rgba(80,60,200,0) 70%),var(--bg)}
+.label{display:block;font-size:12px;font-weight:650;letter-spacing:.16em;text-transform:uppercase;color:var(--acc-soft)}
+.h2{margin-top:10px;font-size:clamp(28px,2.4vw + 14px,44px);line-height:1.08;letter-spacing:-.03em;font-weight:700;text-wrap:balance}
+.lead{margin-top:14px;max-width:40rem;font-size:clamp(16px,.4vw + 15px,18px);color:var(--ink-2)}
+.cards{display:grid;gap:14px;margin-top:clamp(24px,3.4vw,40px)}
+.card{display:grid;grid-template-columns:104px 1fr;height:100%;border-radius:22px;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.1),rgba(255,255,255,.04));border:1px solid var(--line);box-shadow:0 1px 0 rgba(255,255,255,.1) inset,0 24px 60px -34px rgba(0,0,0,.9);transition:transform .35s var(--ease),box-shadow .35s var(--ease),border-color .35s}
+.card__img{position:relative;display:block;aspect-ratio:3/4;overflow:hidden;background:#1A1630}
+.card__img img{width:100%;height:100%;object-fit:cover;object-position:top}
+.card__body{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 16px}
+.card__body b{display:block;font-size:18px;line-height:1.25}
+.card__body small{display:block;margin-top:3px;font-size:14px;line-height:1.35;color:var(--ink-3)}
+.card__body .ico{color:var(--acc-soft)}
+.tag{display:inline-block;margin-bottom:8px;padding:3px 10px;border-radius:999px;background:rgba(139,92,246,.24);color:#DDD4FF;font-style:normal;font-size:12.5px;font-weight:650;line-height:1.5}
+.tag--real{background:rgba(52,211,153,.2);color:#9AF0CF}
+@media (hover:hover){.card:hover{transform:translateY(-6px);border-color:rgba(139,92,246,.65);box-shadow:0 1px 0 rgba(255,255,255,.12) inset,0 30px 70px -30px rgba(139,92,246,.6)}.card:hover .card__img img{transform:scale(1.04)}}
+.card__img img{transition:transform .6s var(--ease)}
+@media (min-width:640px){
+  .cards{grid-template-columns:repeat(3,1fr);gap:18px}
+  .card{display:block}
+  .card__body{align-items:flex-start;padding:16px 18px 18px}
+}
+.cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:clamp(30px,4vw,48px)}
+@media (max-width:639px){.cta .btn{width:100%}}
+
+.ftr{padding:0 0 clamp(28px,4vw,48px);background:var(--bg)}
+.ftr__in{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 24px;padding-top:24px;border-top:1px solid var(--line);font-size:14px;color:var(--ink-3)}
+.ftr a:not(.brand){display:inline-flex;align-items:center;min-height:44px;font-weight:550;text-decoration:underline;text-underline-offset:3px}
+
+/* ---------- без движения (системная настройка, слабый телефон, ?static, выключенный JS): четыре шага — обычными карточками с картинками ---------- */
+:is(.is-static,.no-js) .track{height:auto}
+:is(.is-static,.no-js) .stage{position:static;height:auto;overflow:visible;padding:calc(var(--hdr) + 40px) 0 clamp(40px,6vw,80px);background:radial-gradient(900px 520px at 80% 0,rgba(139,92,246,.2),rgba(139,92,246,0) 70%),var(--bg)}
+:is(.is-static,.no-js) :is(.stage canvas,.scrim,.rail,.hint,.load){display:none}
+:is(.is-static,.no-js) .h1{position:static;width:auto;height:auto;margin:0 auto clamp(20px,3vw,32px);overflow:visible;clip:auto;white-space:normal;width:min(1100px,calc(100% - 2*var(--gut)));font-size:clamp(30px,2.6vw + 14px,48px);line-height:1.08;letter-spacing:-.035em;font-weight:700;text-wrap:balance}
+:is(.is-static,.no-js) .steps{position:static;display:grid;gap:clamp(14px,2.4vw,24px);width:min(1100px,calc(100% - 2*var(--gut)));margin-inline:auto;pointer-events:auto}
+:is(.is-static,.no-js) .step{position:static;width:auto;opacity:1;transform:none;will-change:auto;transition:none;display:grid;align-content:start;gap:18px;padding:12px 12px 26px;border-radius:26px;background:linear-gradient(180deg,rgba(255,255,255,.1),rgba(255,255,255,.04));border:1px solid var(--line);box-shadow:0 24px 60px -36px rgba(0,0,0,.9)}
+:is(.is-static,.no-js) .step::before{display:none}
+:is(.is-static,.no-js) .step__fig{display:block;border-radius:18px;overflow:hidden;background:#120F26}
+:is(.is-static,.no-js) .step__fig img{width:100%;height:auto;aspect-ratio:960/541}
+:is(.is-static,.no-js) .step__t{padding:0 10px}
+:is(.is-static,.no-js) .step__h{font-size:clamp(28px,1.4vw + 22px,40px);text-shadow:none}
+:is(.is-static,.no-js) .step__p{font-size:clamp(17px,.4vw + 15px,20px);text-shadow:none}
+@media (min-width:760px){:is(.is-static,.no-js) .steps{grid-template-columns:1fr 1fr}}
+.no-js .boot{display:none}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
