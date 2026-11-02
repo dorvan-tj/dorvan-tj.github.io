@@ -101,6 +101,7 @@ p{text-wrap:pretty}
 
 /* телефон: кадры вертикальные, текст внизу, счётчик у края */
 @media (max-aspect-ratio:62/100){
+  .stage canvas{top:max(0px,calc(var(--vh)*.4 - 45.25vw));height:90.5vw}   /* полоса видео: во всю ширину, высота 724/800 ширины, середина на 40% высоты — так же считает wow.js (sizeCanvas); задана сразу, чтобы холст не «прыгал» при запуске. Другой размер кадров телефона — поправить и здесь */
   .scrim{background:linear-gradient(180deg,rgba(7,6,15,.62) 0,rgba(7,6,15,0) 16%),linear-gradient(0deg,rgba(7,6,15,.94) 0,rgba(7,6,15,.74) 26%,rgba(7,6,15,0) 54%)}
   .step{left:var(--gut);top:auto;bottom:calc(var(--tb) + 84px);width:calc(100% - 2*var(--gut))}   /* счётчик у края стоит на середине высоты, текст — внизу: не пересекаются */
   .step::before{inset:-30px -40px -30px -40px}

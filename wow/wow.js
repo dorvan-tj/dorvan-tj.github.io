@@ -83,8 +83,8 @@
     const w = stage.clientWidth, h = stage.clientHeight, band = key === 'm';
     const s = band ? w / set.w : Math.max(w / set.w, h / set.h);   // css-пикселей на пиксель кадра (телефон — кадр во всю ширину, компьютер — «cover»)
     const k = Math.max(0.5, Math.min(devicePixelRatio || 1, CAP / s, 2));
-    const bh = band ? Math.round(w * set.h / set.w) : h;   // телефон: холст — только полоса видео во всю ширину, середина на 40% высоты экрана (между шапкой и текстом шага); выше и ниже — фон сцены, его не рисуем
-    cv.style.top = band ? Math.max(0, Math.round(0.4 * h - bh / 2)) + 'px' : '';
+    const bh = band ? w * set.h / set.w : h;   // телефон: холст — только полоса видео во всю ширину, середина на 40% высоты экрана (между шапкой и текстом шага); выше и ниже — фон сцены, его не рисуем
+    cv.style.top = band ? Math.max(0, 0.4 * h - bh / 2) + 'px' : '';   // те же числа, что в wow.css (без округления) — холст остаётся на месте
     cv.style.height = band ? bh + 'px' : '';
     eng.size(Math.round(w * k), Math.round(bh * k), band);
   }
