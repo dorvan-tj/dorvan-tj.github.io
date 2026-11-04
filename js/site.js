@@ -77,8 +77,8 @@
     form.addEventListener('change', update); form.addEventListener('submit', (e) => e.preventDefault()); update();
   }
 
-  /* шапка: подсвечиваем раздел, который сейчас на экране («Услуги» — вместе с «Почему без риска», «Как работаем» — до подвала) */
-  const links = $$('.nav a[href^="#"]'), zones = links.map((a) => $(a.getAttribute('href'))), foot = $('.ftr');
+  /* шапка: подсвечиваем раздел, который сейчас на экране («Услуги» — вместе с «Почему без риска»; с «Частых вопросов» и ниже пункта в шапке нет — ничего не подсвечено) */
+  const links = $$('.nav a[href^="#"]'), zones = links.map((a) => $(a.getAttribute('href'))), stop = $('#faq');
   if (links.length && zones.every(Boolean)) {
     let raf = 0;
     const spy = () => {
@@ -86,7 +86,7 @@
       const line = innerHeight * 0.4; // «линия чтения»: раздел считается текущим, когда его верх поднялся выше неё
       let on = -1;
       zones.forEach((z, i) => { if (z.getBoundingClientRect().top <= line) on = i; });
-      if (foot && foot.getBoundingClientRect().top <= line) on = -1;
+      if (stop && stop.getBoundingClientRect().top <= line) on = -1;
       links.forEach((a, i) => { if (i === on) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current'); });
     };
     const ask = () => { if (!raf) raf = requestAnimationFrame(spy); };
