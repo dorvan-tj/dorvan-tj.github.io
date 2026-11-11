@@ -87,8 +87,7 @@
 
   <!-- ===== 1. первый экран (участок hero, 11.11.2026): заголовок, кнопки и «стек экранов» — три настоящих экрана в телефонах веером.
        В центре Melty Bakery (реальный проект), слева концепт Iris (онлайн-запись), справа концепт Nesta (каталог). Телефоны и плашки — украшение (aria-hidden), подпись под центральным — ссылка.
-       Классы hx-*, стили css/hero.css, движение за курсором js/hero.js.
-       Скорость (замер 11.11.2026): у боковых телефонов loading="lazy" — они грузятся после первой раскладки и не мешают стилям, шрифтам и центральному телефону. ===== -->
+       Классы hx-*, стили css/hero.css, движение за курсором js/hero.js ===== -->
   <section class="hero hx" id="top" aria-labelledby="hx-title">
     <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
       <symbol id="hx-i-menu" viewBox="0 0 24 24"><rect x="5" y="3.5" width="14" height="17" rx="2.6"/><path d="M8.6 8.2h6.8M8.6 12h6.8M8.6 15.8h4"/></symbol>
@@ -113,8 +112,8 @@
       <div class="hx-stage">
         <div class="hx-fan" aria-hidden="true">
           <svg class="hx-mark" viewBox="0 0 1140 1000" data-depth="-1"><use href="#i-mark"/></svg>
-          <div class="hx-phone hx-phone--l" data-depth="1"><div class="hx-dev"><img src="assets/img/hero-a.webp" width="560" height="1213" alt="" loading="lazy" decoding="async" fetchpriority="low"></div></div>
-          <div class="hx-phone hx-phone--r" data-depth="1"><div class="hx-dev"><img src="assets/img/hero-b.webp" width="560" height="1213" alt="" loading="lazy" decoding="async" fetchpriority="low"></div></div>
+          <div class="hx-phone hx-phone--l" data-depth="1"><div class="hx-dev"><img src="assets/img/hero-a.webp" width="560" height="1213" alt="" decoding="async" fetchpriority="low"></div></div>
+          <div class="hx-phone hx-phone--r" data-depth="1"><div class="hx-dev"><img src="assets/img/hero-b.webp" width="560" height="1213" alt="" decoding="async" fetchpriority="low"></div></div>
           <div class="hx-phone hx-phone--c" data-depth="2"><div class="hx-dev"><img src="assets/img/melty-phone.webp" width="600" height="1298" alt="" fetchpriority="high"></div></div>
           <span class="hx-chip hx-chip--menu" data-depth="3"><i><svg class="hx-i"><use href="#hx-i-menu"/></svg></i>Меню</span>
           <span class="hx-chip hx-chip--book" data-depth="3"><i><svg class="hx-i"><use href="#hx-i-book"/></svg></i>Запись</span>
