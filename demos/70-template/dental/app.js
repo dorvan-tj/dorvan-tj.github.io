@@ -230,7 +230,7 @@
   if (typeof module !== 'undefined' && module.exports) module.exports = api; else root.QR = api;
 })(typeof window !== 'undefined' ? window : this);
 
-/* Шаблон $70 · скрипт страницы: меню, появление блоков, часы работы, галерея, форма (в демо ничего не отправляет), QR. */
+/* Шаблон сайта · скрипт страницы: меню, появление блоков, часы работы, галерея, форма (в демо ничего не отправляет), QR. */
 (() => {
   'use strict';
   const d = document, $ = (s, c = d) => c.querySelector(s), $$ = (s, c = d) => [...c.querySelectorAll(s)];

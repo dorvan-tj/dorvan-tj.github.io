@@ -1,5 +1,5 @@
 :root{--ff-body:'Onest',system-ui,sans-serif;--h-weight:400;--h-case:none;--h-track:.005em;--r:2px;--r-btn:0px;--panel-line:rgb(255 255 255 / .2);--hl:transparent;--map-filter:grayscale(1) contrast(1.05);--pos:58% 50%;--h1-max:76px;--scheme:light;--hero-accent:#E7D9C4;--on-hero-accent:#131313;--bg:#FAF8F5;--surface:#FFFFFF;--surface-2:#EFECE6;--ink:#131313;--ink-2:#5C5750;--line:#DDD8CF;--accent:#131313;--accent-hover:#3A3733;--on-accent:#FAF8F5;--accent-ink:#131313;--panel:#131313;--on-panel:#FAF8F5;--panel-2:#B9B3A9;--panel-accent:#E7D9C4;--shade:10 10 10;--focus:#131313;--ff-display:'Tenor Sans',Georgia,serif}
-/* База для всех демо: сброс, типографика, кнопки, иконки, плашка «Пример за $N», подсказка.
+/* База для всех демо: сброс, типографика, кнопки, иконки, плашка «Концепт · Хочу похожее решение», подсказка.
    Цвета и шрифты берутся из переменных :root — их подставляет build.mjs для каждого демо. */
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;color-scheme:var(--scheme)}
@@ -56,7 +56,7 @@ h1 em,h2 em{font-style:normal;color:var(--accent-ink);background:linear-gradient
 .concept-cta:hover{text-decoration:underline}
 .concept :focus-visible{outline-color:#fff}
 
-/* плашка внизу: «Пример за $N · Хочу такой» */
+/* плашка внизу: «Концепт · Хочу похожее решение» */
 .plate{padding:30px 0 34px;background:#0E0F12;color:#F4F4F6}
 .plate-in{display:grid;gap:18px;align-items:center}
 .plate-note{max-width:62ch;color:#B9BBC6;font-size:14.5px;line-height:1.55}
@@ -77,13 +77,17 @@ h1 em,h2 em{font-style:normal;color:var(--accent-ink);background:linear-gradient
 .toast.on{opacity:1;pointer-events:auto;translate:-50% 0}
 .toast a{display:inline-flex;align-items:center;min-height:44px;padding:0 6px;color:#FFD76A;font-weight:600;white-space:nowrap}
 .toast :focus-visible{outline-color:#fff}
+/* узкие экраны: длинный текст «Хочу похожее решение» умещается, подсказка не вытягивается вверх */
+@media (max-width:520px){.toast{flex-direction:column;align-items:flex-start}}
+@media (max-width:440px){.concept{font-size:11.5px}.concept-in{gap:8px}.concept b{letter-spacing:.06em}}
+@media (max-width:419px){.plate-btn{gap:8px;padding:10px 16px;font-size:16px}}
 
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
 
-/* Ступень $40: полноэкранный главный экран, меню-шапка, услуги и прайс, галерея с просмотром,
+/* Расширенная визитка: полноэкранный главный экран, меню-шапка, услуги и прайс, галерея с просмотром,
    часы работы, вопросы-ответы, контакты с картой, кнопка звонка всегда на экране, плавные появления. */
 :root{--hdr-h:68px;--toast-bottom:96px}
 .sec{padding:72px 0}

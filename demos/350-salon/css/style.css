@@ -150,7 +150,7 @@ em { font-family: var(--f-display); font-style: italic; font-weight: 500; color:
 .dp-btn:hover { background: #fff; }
 .dp-btn:active { transform: scale(0.97); }
 @media (max-width: 420px) { .dp-brand { display: none; } .demo-plate { gap: 8px 10px; } }
-@media (max-width: 620px) { .dp-long { display: none; } } /* плашка-модуль на узком экране: «Модуль: +$150», полная фраза — в заметке вверху страницы */
+@media (max-width: 620px) { .dp-long { display: none; } } /* плашка-модуль на узком экране: полная фраза — в заметке вверху страницы */
 
 /* ---------- Арки ---------- */
 .arch { display: block; overflow: hidden; border-radius: 50% 50% 22px 22px / 40% 40% 22px 22px; background: var(--blush); }

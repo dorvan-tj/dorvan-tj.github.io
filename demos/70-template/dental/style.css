@@ -12,7 +12,7 @@
   color-scheme:light;
 }
 
-/* Шаблон $70 · общие стили. Цвета, шрифты и скругления приходят из темы ниши (skin-*.css). */
+/* Шаблон сайта · общие стили. Цвета, шрифты и скругления приходят из темы ниши (skin-*.css). */
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:84px}
 body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.65 var(--font-body);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:clip}

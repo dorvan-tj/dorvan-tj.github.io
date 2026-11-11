@@ -1,4 +1,4 @@
-/* Ступень $40: шапка, меню, появление блоков, «открыто сейчас», галерея с просмотром, карта, подсказка. */
+/* Расширенная визитка: шапка, меню, появление блоков, «открыто сейчас», галерея с просмотром, карта, подсказка. */
 (function () {
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
@@ -114,7 +114,7 @@
     var a = e.target.closest('[data-demo]');
     if (!a) { hide(); return; }
     e.preventDefault();
-    t.innerHTML = '<span>Концепт: ' + M[a.getAttribute('data-demo')] + '.</span> <a href="' + t.getAttribute('data-want') + '" target="_blank" rel="noopener">Хочу такой&nbsp;→</a>';
+    t.innerHTML = '<span>Концепт: ' + M[a.getAttribute('data-demo')] + '.</span> <a href="' + t.getAttribute('data-want') + '" target="_blank" rel="noopener">Хочу похожее решение&nbsp;→</a>';
     t.classList.add('on');
     clearTimeout(timer); timer = setTimeout(hide, 9000);
   });
