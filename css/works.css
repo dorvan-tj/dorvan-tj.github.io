@@ -1,0 +1,159 @@
+/* Dorvan — раздел «Работы» (#examples): реальный проект, сетка концептов, лист работы (<dialog id="work-sheet">). Без сборки.
+   Разметку пишет gen-works.py, поведение — js/works.js. Классы: work__* (раздел) и work-sheet (лист).
+   Цвета только из бренда (PLAN.md 4, brand/BRAND.md). Движение — только под html.motion; html.lite — только прозрачность; prefers-reduced-motion гасит всё (site.css). */
+
+/* ---------- блок «Реальный проект»: текст слева; справа экран компьютера и телефон внахлёст, под ними видео ---------- */
+.work__real{display:grid;grid-template-columns:minmax(0,.84fr) minmax(0,1.16fr);grid-template-rows:auto auto 1fr;grid-template-areas:"head stage" "body stage" "body video";column-gap:clamp(28px,4.4vw,64px);align-items:start;padding:clamp(24px,3.6vw,48px);border-radius:var(--r-xl);-webkit-backdrop-filter:none;backdrop-filter:none}
+.work__head{grid-area:head}
+.work__real>.work__stage{grid-area:stage}
+.work__body{grid-area:body;margin-top:22px}
+.work .tag{margin:0}
+.work__tag--real{background:#CFF5EF;color:#0A675F}
+.work__title{margin-top:12px;font-size:clamp(28px,1.6vw + 18px,40px);line-height:1.08;letter-spacing:-.03em;font-weight:700;text-wrap:balance}
+.work__niche{margin-top:6px;font-size:16px;color:var(--ink-2)}
+.work__niche a{color:var(--acc-ink);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+
+/* задача и решение — два спокойных блока: рядом, если хватает места, иначе колонкой */
+.work__ts{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr))}
+.work__ts>div{padding:14px 16px 15px;border-radius:16px;background:rgba(255,255,255,.66);border:1px solid rgba(255,255,255,.95)}
+.work__ts :is(h3,h4),.work__vtxt h4{font-size:12px;line-height:1.3;font-weight:650;letter-spacing:.16em;text-transform:uppercase;color:var(--acc-ink)}
+.work__ts p{margin-top:6px;font-size:15.5px;line-height:1.5;color:var(--ink)}
+.work__feat{display:grid;gap:9px;margin-top:18px}
+.work__feat li{position:relative;padding-left:28px;font-size:15px;line-height:1.45;color:var(--ink-2)}
+.work__feat li::before{content:"";position:absolute;left:0;top:.16em;width:18px;height:18px;border-radius:50%;background:#E4DBFF url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235340D4' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m20 6-11 11-5-5'/%3E%3C/svg%3E") center/11px no-repeat}
+.work__acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.work__acts .btn{flex:1 1 auto}
+.work__acts .btn .ico{width:17px;height:17px}
+
+/* ---------- «стек экранов»: компьютер в рамке браузера, телефон внахлёст справа снизу (размеры — переменными, у листа свои) ---------- */
+.work__stage{--dw:82%;--pw:27%;--drop:19%;position:relative;padding-bottom:var(--drop)}
+.work__desk{width:var(--dw);margin:0}
+.work__win{position:relative;border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 0 0 1px rgba(40,30,110,.1),0 2px 4px rgba(30,20,90,.05),0 34px 70px -34px rgba(60,45,150,.55)}
+.work__bar{display:flex;align-items:center;gap:6px;height:30px;padding:0 10px;background:#F6F5FF;border-bottom:1px solid rgba(40,30,110,.08)}
+.work__bar i{flex:none;width:9px;height:9px;border-radius:50%;background:#D6D1ED}
+.work__bar span{min-width:0;margin:0 auto;padding:1px 12px;border-radius:999px;background:#fff;font-size:12px;line-height:18px;color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.work__win img{display:block;width:100%;height:auto;aspect-ratio:8/5;object-fit:cover;object-position:top;background:#E0DAF6}
+.work__phone{position:absolute;right:0;bottom:0;width:var(--pw);margin:0}
+.work__dev{padding:5px;border-radius:18%/8.4%;background:linear-gradient(155deg,#2C2B3D,#0B0B12 62%);box-shadow:0 0 0 1px rgba(255,255,255,.12) inset,0 30px 50px -22px rgba(40,30,110,.65)}
+.work__dev img{display:block;width:100%;height:auto;aspect-ratio:420/909;border-radius:14%/6.5%;background:#E0DAF6}
+.work__stage figcaption{margin-top:10px;font-size:13px;line-height:1.3;font-weight:600;color:var(--ink-2)}
+.work__phone figcaption{text-align:center}
+
+/* видео: ролик о сайте (preload="none"; постер грузится ленивой картинкой самого плеера) */
+.work__video{grid-area:video;display:flex;align-items:center;gap:clamp(16px,2.4vw,28px);margin-top:clamp(20px,2.4vw,28px)}
+.work__video video{flex:none;display:block;width:clamp(128px,10vw,144px);height:auto;aspect-ratio:9/16;border-radius:18px;background:#0D0D16;object-fit:cover;box-shadow:0 24px 44px -24px rgba(40,30,110,.6)}
+.work__vtxt p{margin-top:6px;max-width:34rem;font-size:15.5px;line-height:1.5;color:var(--ink-2)}
+.work__quote{margin:16px 0 0;padding:14px 16px;border-radius:16px;background:rgba(255,255,255,.7);border:1px solid #fff}
+.work__quote p{margin:0;font-size:16px;line-height:1.5;color:var(--ink)}
+.work__quote footer{margin-top:6px;font-size:14px;color:var(--ink-3)}
+
+/* ---------- концепты: карточки 3:4 (компьютер — четыре в ряд, планшет — три, телефон — две) ---------- */
+.work__concepts{margin-top:clamp(56px,7vw,96px)}
+.work__chead{margin-bottom:clamp(20px,2.6vw,28px)}
+.work__h3{font-size:clamp(24px,1.2vw + 18px,32px);line-height:1.12;letter-spacing:-.025em;font-weight:700}
+.work__chead p{margin-top:6px;font-size:16px;color:var(--ink-2)}
+.work__grid{display:flex;flex-wrap:wrap;justify-content:center;gap:16px}
+.work__grid>li{flex:0 0 calc((100% - 48px)/4);min-width:0}
+.work__card{position:relative;isolation:isolate;display:flex;flex-direction:column;height:100%;padding:8px;border-radius:var(--r-lg);-webkit-backdrop-filter:none;backdrop-filter:none}
+.work__card:focus-visible{border-radius:var(--r-lg)}
+.work__thumb{position:relative;display:block;aspect-ratio:3/4;border-radius:15px;overflow:hidden;background:#E0DAF6;box-shadow:0 0 0 1px rgba(40,30,110,.08)}
+.work__thumb img{width:100%;height:100%;object-fit:cover;object-position:top}
+.work__cap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 8px;padding:12px 8px 8px}
+.work__cap b{font-size:17px;line-height:1.25;font-weight:650;letter-spacing:-.01em}
+.work__cap small{flex-basis:100%;font-size:14px;line-height:1.35;color:var(--ink-2)}
+@media (hover:hover){.work__card:hover{box-shadow:0 1px 0 #fff inset,0 30px 50px -26px rgba(60,45,150,.55)}}
+/* подсветка за курсором: js/motion.js двигает --sx/--sy у [data-glow] */
+@media (hover:hover) and (pointer:fine){
+  .work__card::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;background:radial-gradient(260px circle at var(--sx,50%) var(--sy,40%),rgba(106,85,232,.18),rgba(106,85,232,0) 70%);opacity:0}
+  .work__card:hover::before{opacity:1}
+}
+
+/* ---------- лист работы: на телефоне выезжает снизу почти во весь экран, на компьютере — по центру, 960 px ---------- */
+.work-sheet{position:fixed;inset:auto 0 0;width:100%;max-width:none;height:auto;max-height:calc(100% - 12px);margin:0;padding:0;border:0;border-radius:26px 26px 0 0;background:#F6F5FF;color:var(--ink);overflow:hidden;box-shadow:0 -24px 70px -24px rgba(16,16,26,.5)}
+.work-sheet[open]{display:flex;flex-direction:column}
+.work-sheet::backdrop{background:rgba(16,16,26,.46)}
+.work-sheet__in{flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.work-sheet__x{position:absolute;top:10px;right:10px;z-index:3;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.94);color:var(--ink);box-shadow:0 0 0 1px rgba(40,30,110,.12),0 8px 20px -10px rgba(40,30,110,.55)}
+.work-sheet__x svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round}
+.work-sheet__x:focus-visible{border-radius:50%}
+@media (hover:hover){.work-sheet__x:hover{background:#fff}}
+.work__show{padding:60px 16px 14px;background:radial-gradient(110% 80% at 25% 15%,#F8F5FF 0,rgba(248,245,255,0) 60%),radial-gradient(90% 80% at 85% 95%,#E4E9FA 0,rgba(228,233,250,0) 65%),#E0DAF6}
+.work__show .work__stage{--dw:76%;--pw:33%;--drop:30%}
+.work__info{padding:22px 16px 24px}
+.work__meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;font-size:14px;color:var(--ink-2)}
+.work__info .work__title{margin-top:10px;font-size:clamp(28px,1.2vw + 20px,36px)}
+.work__info .work__ts{margin-top:18px}
+.work__note{margin-top:16px;font-size:13.5px;line-height:1.45;color:var(--ink-3)}
+.work__info .work__acts{margin-top:20px}
+
+/* ---------- раскладка по ширине ---------- */
+/* планшет: лист по центру, экраны сверху, текст под ними; компьютер (от 1024): экраны слева, текст справа */
+@media (min-width:760px){
+  .work-sheet{inset:0;margin:auto;width:min(720px,calc(100% - 48px));max-height:min(880px,calc(100% - 48px));border-radius:30px;box-shadow:0 40px 100px -30px rgba(16,16,26,.6)}
+  .work__show{padding:44px 40px 20px}
+  .work__show .work__stage{--dw:80%;--pw:27%;--drop:18%}
+  .work__info{padding:26px 40px 36px}
+}
+@media (min-width:1024px){
+  .work-sheet{width:min(960px,calc(100% - 48px))}
+  .work-sheet__in{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr)}
+  .work__show{display:flex;align-items:center;padding:40px 30px}
+  .work__show .work__stage{--dw:86%;--pw:29%;--drop:20%;flex:1}
+  .work__info{padding:56px 32px 32px 30px}
+}
+@media (max-width:1023px){
+  .work__real{grid-template-columns:1fr;grid-template-rows:none;grid-template-areas:"head" "stage" "body" "video"}
+  .work__real>.work__stage{margin-top:24px;max-width:680px}
+  .work__video{margin-top:clamp(28px,3.6vw,40px);padding-top:clamp(24px,3vw,32px);border-top:1px solid var(--line)}
+  .work__grid>li{flex-basis:calc((100% - 32px)/3)}
+}
+@media (max-width:759px){
+  .work__real{padding:22px 16px 24px}
+  .work__real>.work__stage{--dw:76%;--pw:33%;--drop:30%}
+  .work__grid{gap:12px}
+  .work__grid>li{flex-basis:calc((100% - 12px)/2)}
+  .work__card{padding:6px}
+  .work__thumb{border-radius:13px}
+  /* узкая карточка: метка над названием у всех одинаково (длинное «Сайт-видео» иначе переносит метку на свою строку) */
+  .work__cap{display:grid;justify-items:start;gap:4px;padding:10px 6px 6px}
+  .work__cap .tag{order:-1}
+  .work__cap b{font-size:16px}
+  .work__cap small{font-size:13.5px}
+  .work__show{padding-top:22px}
+  .work__video{align-items:flex-start}
+}
+@media (max-width:420px){.work__acts .btn{flex-basis:100%}}
+
+/* ---------- движение ---------- */
+html.motion .work__card{transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
+html.motion .work__thumb img{transition:transform .6s var(--ease)}
+html.motion .work__card::before{transition:opacity .28s var(--ease)}
+html.motion .work__card:active{transform:scale(.985)}
+@media (hover:hover){
+  html.motion:not(.lite) .work__card:hover{transform:translateY(-4px)}
+  html.motion:not(.lite) .work__card:hover .work__thumb img{transform:scale(1.035)}
+}
+/* лист без перехода View Transitions (браузер не умеет): подъём и проявление; на слабых — только прозрачность */
+html.motion .work-sheet{transition:opacity .32s var(--ease),transform .42s var(--ease),overlay .42s allow-discrete,display .42s allow-discrete}
+html.motion .work-sheet::backdrop{transition:opacity .32s var(--ease),overlay .42s allow-discrete,display .42s allow-discrete}
+html.motion .work-sheet:not([open]){opacity:0;transform:translateY(48px)}
+html.motion .work-sheet:not([open])::backdrop{opacity:0}
+@starting-style{
+  html.motion .work-sheet[open]{opacity:0;transform:translateY(48px)}
+  html.motion .work-sheet[open]::backdrop{opacity:0}
+}
+@media (min-width:760px){
+  html.motion .work-sheet:not([open]){transform:translateY(24px) scale(.98)}
+  @starting-style{html.motion .work-sheet[open]{transform:translateY(24px) scale(.98)}}
+}
+html.motion.lite .work-sheet,html.motion.lite .work-sheet:not([open]){transform:none}
+@starting-style{html.motion.lite .work-sheet[open]{transform:none}}
+/* во время перехода View Transitions лист не двигается сам: его раскрывает переход */
+html.motion .work-sheet.is-vt,html.motion .work-sheet.is-vt::backdrop{transition:none}
+/* телефон в листе поднимается чуть позже экрана компьютера («стек экранов») */
+@keyframes work-rise{from{opacity:0;transform:translateY(26px)}}
+html.motion:not(.lite) .work-sheet[open] .work__phone{animation:work-rise .6s var(--ease) .16s both}
+/* переход карточка → лист: картинка карточки раскрывается в экран компьютера в листе (js/works.js даёт имя work-hero) */
+::view-transition-group(work-hero){animation-duration:.56s;animation-timing-function:cubic-bezier(.22,.9,.3,1)}
+::view-transition-old(work-hero),::view-transition-new(work-hero){height:100%;object-fit:cover;object-position:top}
+::view-transition-old(root),::view-transition-new(root){animation-duration:.36s}

@@ -1,0 +1,108 @@
+/* Dorvan — анкета (#order): форма заявки, фишки, панель «Заявка отправлена». Цвета, шрифт, кнопки, .field, .err, .chip — из css/site.css.
+   Движение — только под html.motion (на слабых телефонах html.lite — только прозрачность), только transform и opacity. */
+
+.ord__grid{display:grid;gap:clamp(28px,4.5vw,64px);grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)}
+.ord__head{position:sticky;top:calc(var(--hdr) + 44px);margin-bottom:0} /* на компьютере заголовок и WhatsApp остаются рядом, пока заполняют длинную анкету */
+.ord__wa{margin-top:clamp(20px,2.4vw,28px)}
+.ord__card{position:relative;align-self:start;padding:clamp(20px,3vw,36px);border-radius:var(--r-xl);container-type:inline-size}
+.ord__card.glass{-webkit-backdrop-filter:none;backdrop-filter:none} /* карточка лежит на ровном фоне: размытие там ничего не меняет, а на телефоне дорогое */
+@media (max-width:959px){.ord__grid{grid-template-columns:minmax(0,1fr)}.ord__head{position:static}}
+
+/* поля */
+.ord__form{display:grid;gap:24px}
+.ord__form .field{margin-top:0}
+.ord__card .field label,.ord__lg{display:block;margin-bottom:8px;padding:0;font-size:15px;font-weight:600;line-height:1.35;color:var(--ink)}
+.ord__set{min-width:0;margin:0;padding:0;border:0}
+.ord__req{color:var(--acc-ink);font-weight:700}
+.ord__opt{font-size:14px;font-weight:500;color:var(--ink-3)}
+.ord__sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.ord__note{font-size:13.5px;line-height:1.4;color:var(--ink-3)}
+.ord__card textarea{display:block;width:100%;min-height:124px;padding:13px 16px;border-radius:16px;border:1px solid rgba(40,30,110,.22);background:rgba(255,255,255,.94);font:inherit;font-size:16px;line-height:1.5;color:var(--ink);resize:vertical;transition:border-color .2s,box-shadow .2s}
+.ord__card textarea:focus{outline:none;border-color:var(--acc);box-shadow:0 0 0 4px rgba(106,85,232,.2)}
+.ord__card :is(input,textarea)::placeholder{color:var(--ink-3);opacity:1}
+.ord__card .field select:has(option[value=""]:checked){color:var(--ink-3)}
+.ord__card .field :is(input,select){height:52px;font-size:16px} /* не меньше 16 px: iPhone не увеличивает страницу при вводе */
+.ord__card .err{margin-top:8px;font-size:14px;line-height:1.4}
+.ord__card .chip__in[aria-invalid="true"]+.chip__b{border-color:#D92D20}
+
+/* связь: WhatsApp / Telegram — переключатель в одной «таблетке», под ним поле номера или ника */
+.ord__seg{display:inline-flex;flex-wrap:wrap;gap:4px;padding:4px;border-radius:999px;background:rgba(236,234,244,.85);border:1px solid rgba(40,30,110,.1)}
+.ord__seg .chip__b{padding:0 20px}
+.ord__seg .chip__in:not(:checked)+.chip__b{background:transparent;border-color:transparent}
+.ord__form .ord__f{margin-top:14px}
+.ord__card .ord__f label{font-size:14px;font-weight:500;color:var(--ink-2)}
+
+/* фишки «можно несколько»: плюс, у выбранной — галочка (место под значок всегда одно и то же — строка не прыгает) */
+.ord__chips{display:flex;flex-wrap:wrap;gap:8px}
+.ord__tick .chip__b{padding-left:12px}
+.ord__tick .chip__b::before{content:"";flex:none;width:16px;height:16px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235340D4' stroke-width='2.6' stroke-linecap='round'%3E%3Cpath d='M12 5v14M5 12h14'/%3E%3C/svg%3E") center/16px no-repeat}
+.ord__tick .chip__in:checked+.chip__b::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m20 6-11 11-5-5'/%3E%3C/svg%3E")}
+
+/* «Похоже на: Pearlia ✕» и «Тариф: … ✕» — что пришло с кнопки «Хочу похожее решение» или «Заказать» */
+.ord__picked{display:flex;flex-wrap:wrap;gap:8px}
+.ord__picked.is-on{margin-bottom:14px}
+.ord__pick{display:inline-flex;align-items:center;gap:4px;max-width:100%;min-height:44px;padding:4px 4px 4px 16px;border-radius:999px;background:#E4DBFF;color:#4A33C8;font-size:14.5px;font-weight:600;line-height:1.3}
+.ord__pick>span{min-width:0;overflow-wrap:anywhere}
+.ord__pick b{font-weight:700}
+.ord__x{display:grid;place-items:center;flex:none;width:36px;height:36px;border-radius:50%;color:#4A33C8;transition:background-color .2s}
+.ord__x .ico{width:18px;height:18px;stroke-width:2.2}
+.ord__x:focus-visible{outline-offset:0}
+@media (hover:hover){.ord__x:hover{background:rgba(255,255,255,.75)}}
+
+/* обязательное сверху, дальше — по желанию */
+.ord__div{display:flex;align-items:center;gap:14px;font-size:12px;font-weight:650;letter-spacing:.16em;text-transform:uppercase;color:var(--acc-ink)}
+.ord__div::before,.ord__div::after{content:"";flex:1;height:1px;background:var(--line)}
+.ord__pair{display:grid;gap:24px}
+@container (min-width:540px){.ord__pair{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}}
+
+/* отправка */
+.ord__hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.ord__nojs{padding:12px 16px;border-radius:16px;background:#FFF7DF;color:#5A3A00;font-size:15px;line-height:1.45}
+.ord__send{margin-top:4px}
+.ord__send:disabled{cursor:progress;opacity:.75}
+.ord__status{padding:12px 16px;border-radius:16px;background:#FDE7E4;color:#8A1C12;font-size:15px;line-height:1.45}
+.ord__status a{font-weight:650;text-decoration:underline;text-underline-offset:2px}
+.ord__legal{margin-top:-10px;font-size:13.5px;line-height:1.45;color:var(--ink-3)}
+.ord__legal a{color:var(--acc-ink);text-decoration:underline;text-underline-offset:2px}
+.ord__or{display:flex;align-items:center;gap:14px;margin:-4px 0;font-size:13.5px;color:var(--ink-3)}
+.ord__or::before,.ord__or::after{content:"";flex:1;height:1px;background:var(--line)}
+
+/* заявка ушла: панель вместо формы */
+.ord__done{display:grid;justify-items:center;gap:12px;padding:clamp(16px,3vw,36px) 0 clamp(8px,2vw,20px);text-align:center}
+.ord__ok{position:relative;display:grid;place-items:center;width:76px;height:76px;border-radius:50%;background:linear-gradient(180deg,#5A45E3,#7864F2);box-shadow:0 18px 40px -16px rgba(90,69,227,.75)}
+.ord__ok::before{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid rgba(106,85,232,.55);opacity:0}
+.ord__ok svg{width:46px;height:46px;fill:none;stroke:#fff;stroke-width:5.5;stroke-linecap:round;stroke-linejoin:round}
+.ord__done-h{margin-top:10px;font-size:clamp(24px,1vw + 18px,30px);line-height:1.15;letter-spacing:-.02em;font-weight:700}
+.ord__done-h:focus{outline:none}
+.ord__done-p{max-width:30rem;font-size:16.5px;line-height:1.55;color:var(--ink-2)}
+.ord__done-btns{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:10px}
+
+/* подсветка анкеты, когда к ней привела кнопка: кольцо в цвете бренда (без движения — просто горит полторы секунды) */
+.ord__card::after{content:"";position:absolute;inset:-3px;border-radius:calc(var(--r-xl) + 3px);box-shadow:0 0 0 3px rgba(106,85,232,.6),0 24px 60px -24px rgba(106,85,232,.6);opacity:0;pointer-events:none}
+.ord__card.is-lit::after{opacity:1}
+
+@media (max-width:759px){
+  .ord__form{gap:22px}
+  .ord__seg{display:flex}
+  .ord__seg .chip{flex:1}
+  .ord__seg .chip__b{width:100%;justify-content:center;padding:0 12px}
+  .ord__done-btns{display:grid;width:100%}
+}
+
+/* движение */
+/* карточка анкеты высокая (на телефоне ~2000 px): проявление по прокрутке считаем по первым 260 px, а не по доле высоты — иначе кнопка привела бы к полупрозрачной форме */
+html.sv .ord__card[data-reveal]{animation-range:entry 0% entry 260px}
+@keyframes ord-lit{0%{opacity:0}25%{opacity:1}100%{opacity:0}}
+@keyframes ord-fade{from{opacity:0}}
+@keyframes ord-in{from{opacity:0;transform:translateY(14px)}}
+@keyframes ord-pop{from{opacity:0;transform:scale(.4)}}
+@keyframes ord-check{from{opacity:0;transform:scale(.3) rotate(-25deg)}}
+@keyframes ord-halo{from{opacity:.6;transform:scale(1)}to{opacity:0;transform:scale(1.8)}}
+html.motion .ord__card.is-lit::after{animation:ord-lit 1.8s var(--ease) both}
+html.motion .ord__done:not([hidden]),html.motion .ord__status:not([hidden]){animation:ord-fade .4s var(--ease) both}
+html.motion:not(.lite) .ord__done:not([hidden]){animation:ord-in .5s var(--ease) both}
+html.motion:not(.lite) .ord__ok{animation:ord-pop .55s var(--ease) .05s both}
+html.motion:not(.lite) .ord__ok svg{animation:ord-check .5s var(--ease) .3s both}
+html.motion:not(.lite) .ord__ok::before{animation:ord-halo .9s var(--ease) .35s both}
+html.motion:not(.lite) .ord__pick:not([hidden]){animation:ord-pop .35s var(--ease)}
+html.motion:not(.lite) .ord__tick .chip__in:checked+.chip__b::before{animation:ord-pop .3s var(--ease)}

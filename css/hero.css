@@ -1,0 +1,185 @@
+/* Dorvan — первый экран «стек экранов» и блок «Что вы получаете» (участок hero, перестройка 11.11.2026).
+   Классы: hx-* — первый экран, adv-* — преимущества. Палитра и шрифт — бренд (site.css :root).
+   Движение: только transform/opacity (и их отдельные свойства translate/scale/rotate); всё — под html.motion;
+   бесконечное «парение» — только мышь и html.motion:not(.lite); html.lite — сборка одним проявлением; без JS и при prefers-reduced-motion всё сразу на месте. */
+
+/* ---------- первый экран ---------- */
+.hx{position:relative;isolation:isolate;overflow-x:clip;display:block;min-height:0;padding:clamp(14px,3vw,28px) 0 0}
+.hx-in{display:grid;gap:clamp(22px,3vw,40px);align-items:center}
+/* размер заголовка считается от ширины колонки текста (cqi): на планшете и компьютере ровно две строки «Цифровые решения / для вашего бизнеса», на телефоне три */
+.hx-copy{position:relative;z-index:1;min-width:0;container-type:inline-size} /* текст поверх сцены: бледный знак «D» не ложится на буквы */
+.hx .hx-title{font-size:clamp(36px,11.5vw,46px);line-height:1.05;letter-spacing:-.035em;font-weight:700;color:var(--ink);text-wrap:balance}
+/* градиент бренда #5A45E3 → #7864F2, растянутый до 135 %: низ букв заканчивается на #705CEE, и на самом тёмном месте фона контраст ≥ 3:1 (крупный текст) */
+.hx-grad{color:var(--acc-ink);background:linear-gradient(180deg,#5A45E3,#7864F2 135%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+@media (forced-colors:active){.hx-grad{background:none;-webkit-text-fill-color:currentColor}}
+.hx-sub{max-width:31em;margin-top:clamp(16px,1.8vw,24px);font-size:clamp(17px,.4vw + 15.5px,20px);line-height:1.5;color:var(--ink-2)}
+.hx-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:clamp(24px,2.6vw,36px)}
+.hx-i{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.hx-note{display:flex;align-items:center;gap:10px;margin-top:16px;font-size:14px;line-height:1.4;color:var(--ink-2)}
+.hx-note i{display:grid;place-items:center;flex:none;width:22px;height:22px;border-radius:50%;background:#E4DBFF;color:var(--acc-ink)}
+.hx-note .hx-i{width:13px;height:13px;stroke-width:2.6}
+
+/* аврора (общая, site.css): левое пятно в первом экране приглушено — оно проходит за заголовком, и светлый конец градиента (#7864F2) терял контраст ниже 3:1 */
+.hx .aurora i:nth-child(1){background:radial-gradient(closest-side,rgba(106,85,232,.13),rgba(106,85,232,0))}
+/* низ авроры растворяется: без ровной границы цвета там, где кончается первый экран */
+.hx .aurora{-webkit-mask-image:linear-gradient(#000 55%,transparent);mask-image:linear-gradient(#000 55%,transparent)}
+
+/* сцена: --w — ширина центрального телефона, всё остальное считается от неё */
+.hx-stage{--w:178px;position:relative;height:368px;margin-inline:calc(-1*var(--gut))}
+.hx-fan{position:absolute;inset:0;isolation:isolate;-webkit-mask-image:linear-gradient(#000 66%,transparent 97%);mask-image:linear-gradient(#000 66%,transparent 97%)}
+/* мягкое сиреневое «пятно» под телефонами */
+.hx-fan::after{content:"";position:absolute;z-index:-1;left:50%;top:calc(var(--w)*1.3);width:calc(var(--w)*3.6);height:calc(var(--w)*1.2);margin-left:calc(var(--w)*-1.8);border-radius:50%;pointer-events:none;
+  background:radial-gradient(closest-side,rgba(106,85,232,.30),rgba(106,85,232,.11) 58%,rgba(106,85,232,0))}
+/* большой бледный знак «D» позади экранов (сиреневая дымка цвета акцента; на телефоне и планшете не выходит выше сцены) */
+.hx-mark{position:absolute;z-index:-1;left:50%;top:0;width:calc(var(--w)*3.2);max-width:none;height:auto;aspect-ratio:1140/1000;margin-left:calc(var(--w)*-1.72);color:var(--acc);opacity:.09;
+  -webkit-mask-image:linear-gradient(180deg,transparent,#000 16%,#000 45%,transparent 95%);mask-image:linear-gradient(180deg,transparent,#000 16%,#000 45%,transparent 95%)}
+
+/* телефоны: позиция и поворот — на .hx-phone (rotate), наклон за курсором — тоже на нём (transform из js/hero.js),
+   сборка и «парение» — на корпусе .hx-dev (translate и transform), расхождение при прокрутке — снова на .hx-phone (translate) */
+.hx-phone{--pw:calc(var(--w)*.84);position:absolute;z-index:1;left:50%;top:calc(var(--w)*.2);width:var(--pw);margin-left:calc(var(--pw)/-2)}
+.hx-phone--l{left:calc(50% - var(--w)*.72);rotate:-8deg}
+.hx-phone--r{left:calc(50% + var(--w)*.72);rotate:8deg}
+.hx-phone--c{--pw:var(--w);z-index:2;top:0}
+.hx-dev{position:relative;padding:calc(var(--pw)*.036);border-radius:calc(var(--pw)*.17);background:linear-gradient(155deg,#34334A,#0B0B12 62%);
+  box-shadow:0 0 0 1px rgba(255,255,255,.1) inset,0 2px 0 rgba(255,255,255,.16) inset,0 48px 80px -40px rgba(60,40,180,.62),0 26px 44px -28px rgba(16,16,26,.55)}
+.hx-dev img{width:100%;height:auto;aspect-ratio:600/1298;object-fit:cover;object-position:top;border-radius:calc(var(--pw)*.134);background:#F4F0E6}
+/* блик на стекле; боковые экраны чуть «дальше» — лёгкая сиреневая дымка */
+.hx-dev::after{content:"";position:absolute;inset:calc(var(--pw)*.036);border-radius:calc(var(--pw)*.134);pointer-events:none;background:linear-gradient(118deg,rgba(255,255,255,.2),rgba(255,255,255,0) 32%)}
+.hx-phone--l .hx-dev::after,.hx-phone--r .hx-dev::after{background:linear-gradient(118deg,rgba(255,255,255,.2),rgba(255,255,255,0) 32%),rgba(224,218,246,.16)}
+
+/* стеклянные плашки с видами решений */
+.hx-chip{position:absolute;z-index:3;display:inline-flex;align-items:center;gap:9px;height:44px;padding:0 16px 0 6px;border-radius:999px;white-space:nowrap;font-size:15px;font-weight:600;line-height:1;color:var(--ink);
+  background:linear-gradient(180deg,rgba(255,255,255,.9),rgba(255,255,255,.74));border:1px solid #fff;box-shadow:0 1px 0 #fff inset,0 16px 32px -14px rgba(60,45,150,.5);
+  -webkit-backdrop-filter:blur(12px) saturate(1.4);backdrop-filter:blur(12px) saturate(1.4)}
+.hx-chip i{display:grid;place-items:center;flex:none;width:32px;height:32px;border-radius:50%;background:#E4DBFF;color:var(--acc-ink)}
+.hx-chip--lead i{background:linear-gradient(180deg,#1D1C2E,#0D0D16);color:#fff}
+.hx-chip--menu{left:calc(50% + var(--w)*.22);top:calc(var(--w)*.2)}
+.hx-chip--book{left:calc(50% - var(--w)*1.02);top:calc(var(--w)*.74)}
+.hx-chip--cat,.hx-chip--lead{display:none}
+
+/* подпись под центральным телефоном — ссылка к работам */
+.hx-cap{position:absolute;z-index:4;left:50%;bottom:4px;translate:-50% 0;white-space:nowrap}
+.hx-cap a{display:flex;align-items:center;gap:10px;min-height:44px;padding:6px 12px 6px 18px;border-radius:999px;font-size:15px;line-height:1.2;color:var(--ink);
+  background:linear-gradient(180deg,rgba(255,255,255,.9),rgba(255,255,255,.74));border:1px solid #fff;box-shadow:0 1px 0 #fff inset,0 14px 30px -14px rgba(60,45,150,.45);
+  -webkit-backdrop-filter:blur(12px) saturate(1.4);backdrop-filter:blur(12px) saturate(1.4);transition:background-color .2s}
+.hx-cap b{font-weight:650}
+.hx-cap span{padding:4px 10px;border-radius:999px;background:#CFF5EF;color:#0A675F;font-size:12.5px;font-weight:650;line-height:1.2}
+.hx-cap .hx-i{color:var(--acc-ink)}
+.hx-cap a:focus-visible{outline-offset:3px;border-radius:999px}
+@media (hover:hover){.hx-cap a:hover{background:#fff}}
+
+/* телефон: обе кнопки во всю ширину, первая — главная */
+@media (max-width:759px){
+  .hx-cta .btn{flex:1 1 100%}
+}
+/* планшет: один столбец, сцена целиком под текстом */
+@media (min-width:760px){
+  .hx{padding-top:clamp(24px,3vw,36px)}
+  .hx-copy{max-width:620px}
+  .hx .hx-title{font-size:56px;font-size:clamp(44px,10.1cqi,76px)}
+  .hx-stage{--w:226px;height:calc(var(--w)*2.48);margin-inline:0}
+  .hx-fan{-webkit-mask-image:none;mask-image:none}
+  .hx-chip--cat,.hx-chip--lead{display:inline-flex}
+  .hx-chip--menu{left:calc(50% + var(--w)*.28);top:calc(var(--w)*.2)}
+  .hx-chip--book{left:calc(50% - var(--w)*1.3);top:calc(var(--w)*.62)}
+  .hx-chip--cat{left:calc(50% + var(--w)*.82);top:calc(var(--w)*1.2)}
+  .hx-chip--lead{left:calc(50% - var(--w)*1.12);top:calc(var(--w)*1.66)}
+  .hx-cap{bottom:0}
+}
+/* компьютер: текст слева, сцена справа и чуть заходит за край сетки */
+@media (min-width:1024px){
+  .hx{display:grid;align-items:center;min-height:min(calc(100svh - 70px),880px);padding:8px 0 40px}
+  .hx-in{grid-template-columns:minmax(0,1.06fr) minmax(0,.94fr)}
+  .hx-copy{max-width:none}
+  /* 1024 → 170 px, 1280 → 225 px, от 1440 → 248 px; на низких экранах ещё меньше, чтобы сцена помещалась по высоте */
+  .hx-stage{--w:clamp(170px,min(21.5vw - 50px,(100svh - 180px)*.41),248px);margin-right:calc(-1*var(--gut))}
+  .hx-chip--cat{left:calc(50% + var(--w)*.7)}
+  .hx-mark{top:calc(var(--w)*-.24)}
+}
+
+/* ---------- движение ---------- */
+@keyframes hx-up{from{opacity:0;transform:translateY(16px)}}
+/* заголовок начинает с прозрачности .01, а не 0: браузер считает его отрисованным с первого кадра, и «самым крупным элементом» (LCP) остаётся заголовок */
+@keyframes hx-up-t{from{opacity:.01;transform:translateY(16px)}}
+@keyframes hx-fade-t{from{opacity:.01}}
+@keyframes hx-rise{from{opacity:0;translate:0 90px}}
+@keyframes hx-pop{from{opacity:0;scale:.84}}
+@keyframes hx-fade{from{opacity:0}}
+@keyframes hx-float{from{transform:translateY(-6px)}to{transform:translateY(7px)}}
+@keyframes hx-bob{from{translate:0 -5px}to{translate:0 5px}}
+@keyframes hx-out-l{to{translate:calc(var(--w)*-.32) calc(var(--w)*.1)}}
+@keyframes hx-out-r{to{translate:calc(var(--w)*.32) calc(var(--w)*.1)}}
+@keyframes hx-dim{to{opacity:.38}}
+
+/* сборка: заголовок → подзаголовок → кнопки → строка → телефоны снизу вверх → плашки */
+html.motion .hx-title{animation:hx-up-t .7s var(--ease) both}
+html.motion .hx-sub{animation:hx-up .7s var(--ease) .08s both}
+html.motion .hx-cta{animation:hx-up .7s var(--ease) .16s both}
+html.motion .hx-note{animation:hx-up .7s var(--ease) .24s both}
+html.motion .hx-mark,html.motion .hx-fan::after{animation:hx-fade .9s var(--ease) .3s both}
+html.motion .hx-dev{animation:hx-rise .9s var(--ease) .32s both}
+html.motion .hx-phone--l .hx-dev{animation-delay:.42s}
+html.motion .hx-phone--r .hx-dev{animation-delay:.5s}
+html.motion .hx-chip{animation:hx-pop .6s var(--ease) .8s both}
+html.motion .hx-chip--book{animation-delay:.88s}
+html.motion .hx-chip--cat{animation-delay:.96s}
+html.motion .hx-chip--lead{animation-delay:1.04s}
+html.motion .hx-cap{animation:hx-pop .6s var(--ease) 1s both}
+/* слабое устройство: то же по очереди, но только проявлением, без сдвигов */
+html.motion.lite :is(.hx-sub,.hx-cta,.hx-note,.hx-dev,.hx-chip,.hx-cap){animation-name:hx-fade}
+html.motion.lite .hx-title{animation-name:hx-fade-t}
+
+/* мышь и не слабое устройство: после сборки экраны и плашки мягко «парят» (разные фазы); пока первый экран не виден — пауза (js/hero.js ставит .is-off) */
+@media (hover:hover) and (pointer:fine){
+  html.motion:not(.lite) .hx-dev{animation:hx-rise .9s var(--ease) .32s both,hx-float 7s var(--ease-io,cubic-bezier(.45,0,.25,1)) 1.25s infinite alternate both}
+  html.motion:not(.lite) .hx-phone--l .hx-dev{animation-delay:.42s,1.1s;animation-duration:.9s,8.4s}
+  html.motion:not(.lite) .hx-phone--r .hx-dev{animation-delay:.5s,1.7s;animation-duration:.9s,7.6s}
+  html.motion:not(.lite) .hx-chip{animation:hx-pop .6s var(--ease) .8s both,hx-bob 6s var(--ease-io,cubic-bezier(.45,0,.25,1)) 1.4s infinite alternate both}
+  html.motion:not(.lite) .hx-chip--book{animation-delay:.88s,1.9s;animation-duration:.6s,6.8s}
+  html.motion:not(.lite) .hx-chip--cat{animation-delay:.96s,1.6s;animation-duration:.6s,5.6s}
+  html.motion:not(.lite) .hx-chip--lead{animation-delay:1.04s,2.2s;animation-duration:.6s,7.2s}
+  html.motion:not(.lite) :is(.hx-fan,.hx-phone){will-change:transform}
+  .hx.is-off :is(.hx-dev,.hx-chip){animation-play-state:paused}
+}
+
+/* прокрутка (компьютер, где браузер умеет анимацию по прокрутке — html.sv): боковые экраны расходятся, сцена тускнеет */
+@media (min-width:1024px){
+  html.sv:not(.lite) .hx{view-timeline:--hx block}
+  html.sv:not(.lite) .hx-phone--l{animation:hx-out-l linear both;animation-timeline:--hx;animation-range:exit 0% exit 80%}
+  html.sv:not(.lite) .hx-phone--r{animation:hx-out-r linear both;animation-timeline:--hx;animation-range:exit 0% exit 80%}
+  html.sv:not(.lite) .hx-stage{animation:hx-dim linear both;animation-timeline:--hx;animation-range:exit 0% exit 80%}
+}
+
+/* ---------- что вы получаете ---------- */
+/* сверху уже есть воздух первого экрана: полный отступ секции давал пустую полосу; поправка для перехода по якорю — как у .sec в site.css */
+.adv.sec{--adv-pad:clamp(40px,5vw,72px);padding-top:var(--adv-pad);scroll-margin-top:calc(24px - var(--adv-pad))}
+.adv-list{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-top:1px solid var(--line)}
+.adv-item{display:flex;flex-direction:column;align-items:flex-start;gap:10px;min-width:0;padding:30px clamp(16px,1.8vw,26px) 6px}
+.adv-item+.adv-item{border-left:1px solid var(--line)}
+.adv-item:first-child{padding-left:0}
+.adv-ic{display:grid;place-items:center;flex:none;width:46px;height:46px;margin-bottom:8px;border-radius:15px;background:#E4DBFF;color:var(--acc-ink)}
+.adv-i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.adv-t{font-size:18px;line-height:1.3;font-weight:650;letter-spacing:-.012em;text-wrap:balance}
+.adv-d{font-size:15px;line-height:1.55;color:var(--ink-2)}
+.adv-nw{white-space:nowrap} /* число и слово при нём («190 сомони», «от 150») не разрываются переносом */
+@media (min-width:760px) and (max-width:1023px){
+  .adv-list{grid-template-columns:repeat(6,minmax(0,1fr))}
+  .adv-item{grid-column:span 2;padding-bottom:30px}
+  .adv-item:nth-child(n+4){grid-column:span 3;border-top:1px solid var(--line)}
+  .adv-item:nth-child(4){border-left:0;padding-left:0}
+}
+@media (max-width:759px){
+  .adv-list{grid-template-columns:1fr}
+  .adv-item{display:grid;grid-template-columns:44px minmax(0,1fr);column-gap:16px;row-gap:4px;padding:20px 0}
+  .adv-item+.adv-item{border-left:0;border-top:1px solid var(--line)}
+  .adv-ic{grid-row:span 2;width:44px;height:44px;margin:0;border-radius:14px}
+  .adv-t{font-size:17px}
+}
+
+/* ---------- правки по независимой проверке 11.11.2026 (только главная: hero.css подключён только к ней) ---------- */
+/* шапка плотнее обычного стекла: ссылки меню читаются и над тёмными карточками (контраст не ниже 4,5) */
+.hdr__in.glass{background:linear-gradient(180deg,rgba(255,255,255,.9),rgba(255,255,255,.84))}
+/* ссылка-логотип: область нажатия не меньше 44 px, вид прежний */
+.brand{min-width:44px;min-height:44px}
+/* без JavaScript меню на телефоне не откроется, поэтому кнопку-бургер не показываем */
+html:not(.js) .burger{display:none}

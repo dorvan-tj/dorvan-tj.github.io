@@ -1,7 +1,7 @@
 /* Dorvan — сайт студии. Без сборки. Настройки — js/config.js. */
 (() => {
   'use strict';
-  const SITE = Object.assign({ whatsapp: '992119921803', endpoint: '', clientsLeft: '', review: {} }, window.SITE);
+  const SITE = Object.assign({ whatsapp: '992119921803', clientsLeft: '', review: {} }, window.SITE);
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
   const wa = String(SITE.whatsapp || '992119921803').replace(/\D/g, '');
@@ -17,8 +17,9 @@
     matchMedia('(min-width:760px)').addEventListener('change', (e) => { if (e.matches) set(false); });
   }
 
-  /* переключатели (услуги, примеры): стрелки, Home и End — как у обычных вкладок; выбранная вкладка всегда видна в строке; без перезагрузки */
-  const calmMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* переключатели (услуги): стрелки, Home и End — как у обычных вкладок; выбранная вкладка всегда видна в строке; без перезагрузки.
+     Без скрипта видны все группы; скрипт при загрузке оставляет только группу выбранной вкладки */
+  const calmMotion = !document.documentElement.classList.contains('motion'); // нет движения: «уменьшить движение» в системе или «Спокойный режим» (скрипт в <head>)
   $$('[data-tabs]').forEach((list) => {
     const tabs = $$('[role="tab"]', list), panel = document.getElementById(tabs[0].getAttribute('aria-controls')), parts = $$('[data-g]', panel);
     const into = (t) => { // вкладка целиком в видимой части строки (на телефоне строка прокручивается вбок)
@@ -42,42 +43,43 @@
         e.preventDefault(); pick(tabs[(to + tabs.length) % tabs.length], true);
       });
     });
+    pick(tabs.find((t) => t.getAttribute('aria-selected') === 'true') || tabs[0], false, true);
   });
 
-  /* калькулятор: галочки → сумма «от $…»; две услуги и больше — скидка 10%; «срочно» +30%; кнопка отправляет готовый текст в WhatsApp.
-     Цены берутся из data-price у вариантов (их пишет gen-services.py из той же таблицы, что и карточки). Проценты применяются по очереди, сумма — в целых долларах */
+  /* калькулятор: галочки → сумма «ориентировочно, от N сомони»; две услуги и больше — скидка 10%; «срочно» +30%; кнопка отправляет готовый текст в WhatsApp.
+     Цены берутся из data-price у вариантов (их пишет gen-services.py из той же таблицы, что и карточки). Проценты применяются по очереди, сумма — в целых сомони */
   const calc = $('#calc');
   if (calc) {
     const form = $('#calc-form'), lines = $('#calc-lines'), empty = $('#calc-empty'), totalRow = $('#calc-total'), sumEl = $('#calc-num'), live = $('#calc-live'), send = $('#calc-send'), rush = $('#calc-rush');
-    const usd = (n) => '$' + n, row = (cls, name, val) => { const li = document.createElement('li'), b = document.createElement('b'); if (cls) li.className = cls; li.append(name, b); b.textContent = val; return li; };
+    const som = (n) => n + ' сомони', row = (cls, name, val) => { const li = document.createElement('li'), b = document.createElement('b'); if (cls) li.className = cls; li.append(name, b); b.textContent = val; return li; };
     let shown = 0, raf = 0, tid = 0;
     const count = (to) => { // число в «Итого» плавно догоняет новое значение; запасной таймер ставит точное число, даже если вкладка скрыта и кадры не рисуются
       cancelAnimationFrame(raf); clearTimeout(tid); const from = shown; shown = to;
-      if (calmMotion || from === to) { sumEl.textContent = usd(to); return; }
+      if (calmMotion || from === to) { sumEl.textContent = to; return; }
       const t0 = performance.now();
-      const step = (t) => { const k = Math.min(1, (t - t0) / 320); sumEl.textContent = usd(Math.round(from + (to - from) * (1 - Math.pow(1 - k, 3)))); if (k < 1) raf = requestAnimationFrame(step); };
-      raf = requestAnimationFrame(step); tid = setTimeout(() => { cancelAnimationFrame(raf); sumEl.textContent = usd(to); }, 420);
+      const step = (t) => { const k = Math.min(1, (t - t0) / 320); sumEl.textContent = Math.round(from + (to - from) * (1 - Math.pow(1 - k, 3))); if (k < 1) raf = requestAnimationFrame(step); };
+      raf = requestAnimationFrame(step); tid = setTimeout(() => { cancelAnimationFrame(raf); sumEl.textContent = to; }, 420);
     };
     const update = () => {
       const sel = $$('input[data-price]:checked', form);
       const sum = sel.reduce((n, i) => n + Number(i.dataset.price), 0);
       const disc = sel.length >= 2 ? Math.round(sum * 0.1) : 0, after = sum - disc;
       const extra = rush.checked && sel.length ? Math.round(after * 0.3) : 0, total = after + extra;
-      lines.replaceChildren(...sel.map((i) => row('', i.dataset.name, (i.dataset.from ? 'от ' : '') + usd(i.dataset.price))),
-        ...(disc ? [row('is-disc', 'Скидка за связку −10%', '−' + usd(disc))] : []), ...(extra ? [row('is-rush', 'Срочно (2–3 дня) +30%', '+' + usd(extra))] : []));
+      lines.replaceChildren(...sel.map((i) => row('', i.dataset.name, (i.dataset.from ? 'от ' : '') + som(i.dataset.price))),
+        ...(disc ? [row('is-disc', 'Скидка за связку −10%', '−' + som(disc))] : []), ...(extra ? [row('is-rush', 'Срочно (2–3 дня) +30%', '+' + som(extra))] : []));
       empty.hidden = sel.length > 0; totalRow.hidden = !sel.length;
       count(total);
-      live.textContent = sel.length ? 'Итого ориентировочно, от ' + total + ' долларов' + (disc ? ', скидка за связку десять процентов' : '') : 'Ничего не выбрано';
+      live.textContent = sel.length ? 'Итого ориентировочно, от ' + total + ' сомони' + (disc ? ', скидка за связку десять процентов' : '') : 'Ничего не выбрано';
       if (sel.length) {
-        const msg = ['Здравствуйте! Хочу заказать:', ...sel.map((i) => '• ' + i.dataset.name + ' — ' + (i.dataset.from ? 'от ' : '') + usd(i.dataset.price)),
-          ...(disc ? ['Скидка за связку −10%: −' + usd(disc)] : []), ...(extra ? ['Срочно (2–3 дня) +30%: +' + usd(extra)] : []), 'Итого: ориентировочно, от ' + usd(total), 'Цена ориентировочная.'].join('\n');
+        const msg = ['Здравствуйте! Хочу заказать:', ...sel.map((i) => '• ' + i.dataset.name + ' — ' + (i.dataset.from ? 'от ' : '') + som(i.dataset.price)),
+          ...(disc ? ['Скидка за связку −10%: −' + som(disc)] : []), ...(extra ? ['Срочно (2–3 дня) +30%: +' + som(extra)] : []), 'Итого: ориентировочно, от ' + som(total), 'Цена ориентировочная.'].join('\n');
         send.href = 'https://wa.me/' + wa + '?text=' + encodeURIComponent(msg); send.removeAttribute('aria-disabled');
       } else { send.removeAttribute('href'); send.setAttribute('aria-disabled', 'true'); }
     };
     form.addEventListener('change', update); form.addEventListener('submit', (e) => e.preventDefault()); update();
   }
 
-  /* шапка: подсвечиваем раздел, который сейчас на экране («Услуги» — вместе с «Почему без риска»; с «Частых вопросов» и ниже пункта в шапке нет — ничего не подсвечено) */
+  /* шапка: подсвечиваем раздел, который сейчас на экране (Услуги, Работы, Как работаем, Приведи друга; выше «Услуг» и с «Частых вопросов» и ниже пункта в шапке нет — ничего не подсвечено) */
   const links = $$('.nav a[href^="#"]'), zones = links.map((a) => $(a.getAttribute('href'))), stop = $('#faq');
   if (links.length && zones.every(Boolean)) {
     let raf = 0;
@@ -93,6 +95,33 @@
     addEventListener('scroll', ask, { passive: true }); addEventListener('resize', ask); spy();
   }
 
+  /* нижняя полоска (телефон) и плавающая кнопка WhatsApp (компьютер) уходят, пока на экране анкета: у анкеты свои кнопки, а эти закрывали бы поля */
+  const quick = $$('.dock,.fab'), ord = $('#order');
+  if (quick.length && ord && 'IntersectionObserver' in window) new IntersectionObserver(([e]) => quick.forEach((q) => q.classList.toggle('is-off', e.isIntersecting)), { rootMargin: '0px 0px -35% 0px' }).observe(ord);
+
+  /* нижняя полоска: пока на экране видна главная кнопка первого экрана, тёмная кнопка полоски спрятана (две одинаковые «Обсудить проект» рядом не нужны),
+     круглая WhatsApp остаётся всегда. Только с движением: в спокойном режиме и без скрипта полоска целиком. Верхние 70 px закрыты шапкой */
+  const dock = $('.dock'), lead = $('[data-order][data-order-source="главный экран"]');
+  if (dock && lead && !calmMotion && 'IntersectionObserver' in window) {
+    const solo = (on) => dock.classList.toggle('is-solo', on), r = lead.getBoundingClientRect();
+    dock.classList.add('is-init'); solo(r.bottom > 70 && r.top < innerHeight); // при загрузке — сразу нужное состояние, без анимации
+    requestAnimationFrame(() => requestAnimationFrame(() => dock.classList.remove('is-init')));
+    new IntersectionObserver(([e]) => solo(e.isIntersecting), { rootMargin: '-70px 0px 0px 0px' }).observe(lead);
+  }
+
+  /* «Спокойный режим» (кнопка в подвале): выбор запоминается в браузере (localStorage.dorvanCalm = '1'); скрипт в <head> тогда не включает движение. Хранилище недоступно — кнопка остаётся скрытой */
+  $$('[data-calm]').forEach((b) => {
+    let on;
+    try { on = localStorage.getItem('dorvanCalm') === '1'; } catch (e) { return; }
+    b.setAttribute('aria-pressed', String(on));
+    $('span', b).textContent = on ? ': вкл' : ': выкл';
+    b.hidden = false;
+    b.addEventListener('click', () => {
+      try { if (on) localStorage.removeItem('dorvanCalm'); else localStorage.setItem('dorvanCalm', '1'); } catch (e) { return; }
+      location.reload();
+    });
+  });
+
   /* акция «Первые 10»: число — только в config.js; 0 и меньше — плашка скрывается; числа нет — плашка без счётчика */
   const left = SITE.clientsLeft === '' || SITE.clientsLeft == null ? NaN : Number(SITE.clientsLeft);
   $$('[data-promo]').forEach((p) => {
@@ -107,58 +136,5 @@
     $('footer', quote).textContent = rv.by ? '— ' + rv.by : '';
     quote.hidden = false;
   }
-
-  /* заявка: проверка полей → бот студии (Worker) → карточка владельцу в Telegram; не вышло — ссылка на чат WhatsApp с готовым текстом */
-  const form = $('#lead');
-  if (!form) return;
-  const status = $('#lead-status'), btn = $('[type="submit"]', form), label = $('span', btn);
-  const MSG = { name: 'Напишите, как к вам обращаться', what: 'Напишите, что нужно, хотя бы пару слов', contact: 'Укажите номер телефона, например +992 90 000 00 00' };
-  const norm = (s) => String(s).replace(/\s+/g, ' ').trim();
-  const phoneOK = (s) => /^[+\d][\d\s()\-.]*$/.test(s) && (s.match(/\d/g) || []).length >= 7;
-  const nick = (s) => { const m = /^(?:https?:\/\/)?(?:t\.me\/|@)?([A-Za-z][A-Za-z0-9_]{4,31})$/.exec(s); return m ? '@' + m[1] : ''; };
-  const kind = (s) => {
-    s = s.toLowerCase();
-    if (/сайт|лендинг|визитк|страниц/.test(s)) return ['site', 'Сайт / лендинг'];
-    if (/(^|[^а-яё])бот|bot/.test(s)) return ['bot', 'Telegram-бот'];
-    if (/приложени/.test(s)) return ['app', 'Приложение / кабинет'];
-    if (/дизайн|логотип|баннер|карусел|оформлен/.test(s)) return ['design', 'Дизайн / соцсети'];
-    return ['other', 'Другое'];
-  };
-  const flag = (name, msg) => {
-    const el = form.elements[name], e = $('#e-' + name);
-    el.setAttribute('aria-invalid', msg ? 'true' : 'false');
-    e.textContent = msg || ''; e.hidden = !msg;
-    return !msg;
-  };
-  const say = (cls, text, href, linkText) => {
-    status.className = 'status ' + cls; status.textContent = text; status.hidden = false;
-    if (href) { const a = document.createElement('a'); a.href = href; a.target = '_blank'; a.rel = 'noopener'; a.textContent = linkText; status.append(' ', a); }
-  };
-  ['name', 'what', 'contact'].forEach((n) => form.elements[n].addEventListener('input', () => flag(n, '')));
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const v = { name: norm(form.elements.name.value), what: norm(form.elements.what.value), contact: norm(form.elements.contact.value) };
-    const contact = phoneOK(v.contact) ? v.contact : nick(v.contact);
-    const ok = [flag('name', v.name.length >= 2 ? '' : MSG.name), flag('what', v.what.length >= 3 ? '' : MSG.what), flag('contact', contact ? '' : MSG.contact)];
-    if (!ok.every(Boolean)) { form.elements[['name', 'what', 'contact'][ok.indexOf(false)]].focus(); return; }
-
-    const k = kind(v.what);
-    const chat = 'https://wa.me/' + wa + '?text=' + encodeURIComponent('Здравствуйте! Меня зовут ' + v.name + '. Мне нужно: ' + v.what + '. Связь: ' + contact);
-    btn.disabled = true; label.textContent = 'Отправляю…'; status.hidden = true;
-    try {
-      if (!SITE.endpoint) throw new Error('нет адреса бота');
-      // text/plain — «простой» запрос без предварительной проверки (CORS); бот сам разбирает JSON
-      const r = await fetch(SITE.endpoint, {
-        method: 'POST', headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
-        body: JSON.stringify({ lang: 'ru', type: k[1], typeCode: k[0], message: 'Имя: ' + v.name + '\nЧто нужно: ' + v.what, contact, hp: form.elements.hp.value, t: Math.round(performance.now()) })
-      });
-      if (!r.ok) throw new Error('HTTP ' + r.status);
-      form.classList.add('is-done');
-      say('is-ok', 'Спасибо, ' + v.name + '! Заявка отправлена — ответим в WhatsApp или по телефону.');
-    } catch (err) {
-      btn.disabled = false; label.textContent = 'Отправить заявку';
-      say('is-err', 'Не получилось отправить заявку.', chat, 'Написать в WhatsApp с готовым текстом');
-    }
-  });
+  /* анкета и её отправка боту — js/order.js */
 })();

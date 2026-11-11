@@ -1,0 +1,100 @@
+/* Dorvan — раздел «Услуги» (перестройка 11.11.2026). Подключается после site.css и перекрывает его правила .price, .ticks, .grp, .tabs, .svc.
+   Вместо прежних .prices и .terms — новые .svc__grid и .svc__terms (старые правила в site.css больше ничему не служат). Новые классы — с префиксом svc__.
+   Разметку карточек пишет gen-services.py. Двигаются только transform и opacity; проявление при прокрутке — атрибут data-reveal (система в site.css и motion.js).
+   Цвета мелкого текста — только #10101A, #4F4F66, #5E5E75, #5340D4 (контраст не ниже 4,5). Калькулятор, акция «Первые 10» и блок «что-то другое» стоят на правилах site.css, здесь только отступы. */
+
+/* ---------- вкладки: слева, под заголовком раздела ---------- */
+.svc__tabs{margin:0 0 clamp(28px,4vw,44px)}
+
+/* ---------- группа: заголовок, карточки, пометка ---------- */
+.svc{--g:clamp(14px,1.6vw,20px);--rg:30px} /* --g — промежуток между карточками в ряду, --rg — между рядами: метка «Рекомендуем» торчит над карточкой на 13 px, ей нужен запас */
+.grp__head{position:static;width:auto;height:auto;margin:0 0 clamp(22px,3vw,32px);overflow:visible;clip:auto;white-space:normal}
+.grp__head h3{font-size:clamp(24px,1vw + 20px,30px);line-height:1.15;letter-spacing:-.025em;font-weight:700}
+.grp__head p{margin-top:8px;max-width:40rem;font-size:clamp(16px,.3vw + 15px,17px);line-height:1.5;color:var(--ink-2)}
+.grp__note{max-width:46rem;margin:clamp(22px,3vw,30px) 0 0;text-align:left;font-size:14.5px;line-height:1.55;color:var(--ink-3)}
+
+/* ряды карточек: на телефоне одна колонка, от 640 px две, на компьютере три или четыре; неполный ряд стоит по центру */
+.svc__grid{--per:1;display:flex;flex-wrap:wrap;justify-content:center;gap:var(--rg) var(--g)}
+.svc__grid>li{flex:0 0 calc((100% - (var(--per) - 1) * var(--g)) / var(--per));min-width:0}
+@media (min-width:640px){.svc__grid{--per:2}}
+@media (min-width:1024px){.svc__grid--3{--per:3}}
+@media (min-width:1180px){.svc__grid--4{--per:4}}
+
+/* ---------- карточка тарифа ---------- */
+.price{position:relative;isolation:isolate;display:flex;flex-direction:column;gap:0;padding:clamp(26px,2vw,30px) clamp(20px,1.8vw,26px) clamp(22px,1.8vw,26px);border-radius:24px}
+.price h4,.svc__bundle h4{margin:0;font-size:clamp(20px,.4vw + 18px,22px);line-height:1.2;font-weight:700;letter-spacing:-.02em} /* h4 нет в сбросе site.css: без margin:0 браузер добавляет свои поля */
+.price__sum{display:flex;flex:0 0 auto;align-items:baseline;gap:6px;margin-top:16px;white-space:nowrap}
+.price__sum small{font-size:15px;font-weight:600;color:var(--ink-2)}
+.price__sum b{font-size:clamp(40px,1.4vw + 31px,48px);line-height:1;font-weight:700;letter-spacing:-.04em;color:var(--acc-ink);background:linear-gradient(180deg,#5A45E3,#7864F2);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.price__term{display:flex;align-items:center;gap:7px;width:auto;margin:10px 0 0;padding:0;border-radius:0;background:none;font-size:14px;line-height:1.3;font-weight:600;color:var(--ink-3)}
+.price__term .ico{width:16px;height:16px}
+.ticks{flex:1 1 auto;display:grid;align-content:start;gap:11px;margin-top:22px;padding-top:22px;border-top:1px solid var(--line)}
+.ticks li{position:relative;padding-left:28px;font-size:15px;line-height:1.45;color:var(--ink-2)}
+.ticks li::before{content:"";position:absolute;left:0;top:.18em;width:18px;height:18px;border-radius:50%;background:#E4DBFF url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235340D4' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m20 6-11 11-5-5'/%3E%3C/svg%3E") center/11px no-repeat}
+.svc__who{display:flex;align-items:flex-start;gap:10px;margin-top:22px;font-size:14px;line-height:1.5;color:var(--ink-2)}
+.svc__who .ico{width:17px;height:17px;margin-top:2px;color:var(--acc-ink)}
+.svc__who b{font-weight:650;color:var(--ink)}
+.price__btns{display:grid;gap:8px;margin-top:24px;padding:0}
+.price__btns .btn{width:100%;min-height:50px;padding:0 18px;font-size:15px;line-height:1.2;white-space:normal;text-align:center}
+.price .btn--glass{background:rgba(255,255,255,.88);border:1.5px solid rgba(40,30,110,.2);box-shadow:none}
+
+/* выделенный тариф (⭐ в SERVICES.md): сиреневая рамка, лёгкий оттенок, метка на верхнем крае */
+.price--top{background:linear-gradient(180deg,rgba(255,255,255,.97),rgba(238,233,255,.92));border-color:rgba(106,85,232,.5);box-shadow:0 0 0 1px rgba(106,85,232,.4),0 1px 0 rgba(255,255,255,.95) inset,0 36px 70px -34px rgba(90,69,227,.6)}
+.price__badge{position:absolute;top:-13px;left:clamp(20px,1.8vw,26px);display:inline-flex;align-items:center;gap:6px;padding:5px 13px 5px 10px;border-radius:999px;background:linear-gradient(180deg,#5A45E3,#4A33C8);color:#fff;font-size:12.5px;font-weight:650;letter-spacing:.01em;box-shadow:0 8px 18px -8px rgba(74,51,200,.7)}
+.price__badge .ico{width:13px;height:13px}
+
+/* наведение (мышь): карточка чуть поднимается, тень проявляется прозрачностью, стрелка в кнопке сдвигается */
+.price::after{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;box-shadow:0 30px 50px -26px rgba(60,45,150,.5);opacity:0}
+@media (hover:hover){
+  .price:hover{transform:translateY(-4px)}
+  .price--top:hover{box-shadow:0 0 0 1px rgba(106,85,232,.4),0 1px 0 rgba(255,255,255,.95) inset,0 36px 70px -34px rgba(90,69,227,.6)}
+  .price:not(.price--top):hover{box-shadow:0 1px 0 rgba(255,255,255,.95) inset,var(--shadow-1)}
+  .price:hover::after{opacity:1}
+  .price .btn--glass:hover{background:#fff;border-color:var(--acc)}
+  .price__btns .btn:hover .ico{transform:translateX(3px)}
+}
+
+/* ---------- «Своя связка»: не тариф, а подсказка про скидку 10% от двух услуг ---------- */
+.svc__bundle{position:relative;isolation:isolate;display:flex;flex-direction:column;padding:clamp(26px,2vw,30px) clamp(20px,1.8vw,26px) clamp(22px,1.8vw,26px);border-radius:24px;background:linear-gradient(180deg,rgba(228,219,255,.7),rgba(255,255,255,.5))}
+.svc__bundle-t{flex:1 1 auto;margin-top:22px;padding-top:22px;border-top:1px solid var(--line);font-size:15px;line-height:1.5;color:var(--ink-2)}
+.svc__bundle .price__btns{margin-top:24px}
+
+/* ---------- условия коротко: одна тихая полоска ---------- */
+.svc__terms{display:grid;gap:12px;margin-top:clamp(44px,6vw,72px);padding:16px 26px 20px;border-radius:28px;background:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.9)}
+.svc__terms-h{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:4px 16px}
+.svc__terms-t{font-size:12px;font-weight:650;letter-spacing:.16em;text-transform:uppercase;color:var(--acc-ink)}
+.svc__terms-l{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px 24px}
+.svc__terms-l li{display:flex;align-items:flex-start;gap:8px;font-size:14.5px;line-height:1.4;color:var(--ink-2)}
+.svc__terms-l .ico{flex:none;width:16px;height:16px;margin-top:2px;stroke-width:2.4;color:var(--acc-ink)}
+.svc__terms-more{display:inline-flex;align-items:center;flex:none;gap:6px;padding:6px 0;font-size:14.5px;font-weight:650;color:var(--acc-ink)}
+.svc__terms-more .ico{width:16px;height:16px;stroke-width:2.2}
+@media (hover:hover){.svc__terms-more:hover .ico{transform:translateX(3px)}}
+.svc__terms-more:hover{text-decoration:underline;text-underline-offset:3px}
+.svc__note{max-width:46rem;margin:14px 0 0;font-size:13.5px;line-height:1.5;color:var(--ink-3)}
+
+/* переходы — только transform и opacity и только при включённом движении (html.motion); в спокойной версии и без скрипта всё стоит */
+html.motion .price{transition:transform .35s var(--ease)}
+html.motion .price::after{transition:opacity .35s var(--ease)}
+html.motion .price__btns .btn .ico,html.motion .svc__terms-more .ico{transition:transform .25s var(--ease)}
+
+/* ---------- калькулятор, «что-то другое», «Первые 10» ---------- */
+.calc{margin-top:clamp(40px,6vw,72px)}
+.other{margin-top:clamp(20px,2.4vw,28px)}
+.promo{margin-top:clamp(16px,2vw,22px)}
+
+/* в калькуляторе «Не нужен» — выбор по умолчанию: тихий, тёмными остаются только настоящие услуги */
+.calc .chip__in[value=""]:checked+.chip__b{color:var(--acc-ink);border-color:rgba(106,85,232,.35);background:#E4DBFF;box-shadow:none}
+
+/* ---------- телефон ---------- */
+@media (max-width:759px){
+  .svc__terms{padding:12px 18px 18px;border-radius:22px}
+  .svc__terms-more{min-height:44px;padding:0}
+}
+
+/* режим высокой контрастности: цена с градиентом рисуется обычным цветом текста */
+@media (forced-colors:active){.price__sum b{background:none;-webkit-text-fill-color:currentColor}}
+
+/* ---------- без JavaScript: показаны все группы подряд, переключатель и калькулятор не нужны (html.js ставит скрипт в <head>) ---------- */
+html:not(.js) .svc__tabs,html:not(.js) .calc,html:not(.js) .svc__bundle .btn{display:none}
+html:not(.js) .grp[hidden]{display:block!important}
+html:not(.js) .promo [data-count]{display:none}
